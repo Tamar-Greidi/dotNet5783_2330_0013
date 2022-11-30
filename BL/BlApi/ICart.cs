@@ -3,6 +3,9 @@ using BO;
 
 namespace BlApi;
 
+/// <summary>
+/// interface of Cart
+/// </summary>
 public interface ICart
 { 
     public Cart Add(Cart cart, int productID);

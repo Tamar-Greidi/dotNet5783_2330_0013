@@ -15,39 +15,39 @@ public class DalOrderItem : IOrderItem
         }
         catch (Exception)
         {
-            if (Config.IndexOrderItem < _arrOrderItem.Count)
+            if (_arrOrderItem.Count() < _arrOrderItem.Count)
             {
-                _arrOrderItem[Config.IndexOrderItem++] = orderItem;
+                _arrOrderItem.Add(orderItem);
             }
             else
             {
-                throw new Exception("the array is full.");
+                throw new ArrayIsFull();
             }
             return orderItem.ID;
         }
-        throw new Exception("ID is already exsist.");
+        throw new ObjectAlreadyExists();
     }
 
     public OrderItem Get(int orderItemID)
     {
-        for (int i = 0; i < Config.IndexOrderItem; i++)
+        for (int i = 0; i < _arrOrderItem.Count(); i++)
         {
             if (_arrOrderItem[i].ID == orderItemID)
             {
                 return _arrOrderItem[i];
             }
         }
-        throw new Exception("ID isnt exsist");
+        throw new ObjectNotFound();
     }
 
     public IEnumerable<OrderItem> GetAll()
     {
-        if (Config.IndexOrderItem == 0)
+        if (_arrOrderItem.Count() == 0)
         {
-            throw new Exception("the orderItems dont exist yet");
+            throw new ObjectNotFound();
         }
         List<OrderItem> _showOrderItems = new List<OrderItem>();
-        for (int i = 0; i < Config.IndexOrderItem; i++)
+        for (int i = 0; i < _arrOrderItem.Count(); i++)
         {
             DO.OrderItem tempOrderItem = new();
             tempOrderItem.ID = _arrOrderItem[i].ID;
@@ -67,7 +67,7 @@ public class DalOrderItem : IOrderItem
             throw new ObjectNotFound();
         }
         List<OrderItem> _productsByOrder = new List<OrderItem>();
-        for (int i = 0, j = 0; i < Config.IndexOrderItem; i++)
+        for (int i = 0, j = 0; i < _arrOrderItem.Count(); i++)
         {
             if (_arrOrderItem[i].OrderID == orderID)
             {
@@ -87,7 +87,7 @@ public class DalOrderItem : IOrderItem
         }
         catch (Exception)
         {
-            throw new Exception("Order is not found");
+            throw new ObjectNotFound();
         }
         try
         {
@@ -95,29 +95,29 @@ public class DalOrderItem : IOrderItem
         }
         catch (Exception)
         {
-            throw new Exception("Product is not found");
+            throw new ObjectNotFound();
         }
-        for (int i = 0; i < Config.IndexOrderItem; i++)
+        for (int i = 0; i < _arrOrderItem.Count(); i++)
             if (_arrOrderItem[i].OrderID == orderID && _arrOrderItem[i].ProductID == productID)
                 return _arrOrderItem[i];
-        throw new Exception("Product is not found");
+        throw new ObjectNotFound();
     }
 
     public int Update(OrderItem orderItem)
     {
-        for (int i = 0; i < Config.IndexOrderItem; i++)
+        for (int i = 0; i < _arrOrderItem.Count(); i++)
         {
             if (_arrOrderItem[i].ID == orderItem.ID)
             {
                 _arrOrderItem[i] = orderItem;
             }
         }
-        throw new Exception("orderItem is not exsist");
+        throw new ObjectNotFound();
     }
 
     public void Delete(int orderItemID)
     {
-        for (int i = 0; i < Config.IndexOrderItem; i++)
+        for (int i = 0; i < _arrOrderItem.Count(); i++)
         {
             if (_arrOrderItem[i].ID == orderItemID)
             {
@@ -125,6 +125,6 @@ public class DalOrderItem : IOrderItem
                 return;
             }
         }
-        throw new Exception("orderItem is not exsist");
+        throw new ObjectNotFound();
     }
 }

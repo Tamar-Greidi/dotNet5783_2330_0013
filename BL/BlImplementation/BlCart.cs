@@ -4,6 +4,7 @@ namespace BlImplementation;
 internal class BlCart : BlApi.ICart
 {
     private static DalApi.IDal Dal = new Dal.DalList();
+
     public BO.Cart Add(BO.Cart cart, int productID)
     {
         try

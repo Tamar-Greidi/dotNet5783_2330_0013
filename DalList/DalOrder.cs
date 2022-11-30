@@ -15,22 +15,22 @@ public class DalOrder: IOrder
         catch (Exception)
         {
 
-            if (Config.IndexOrder < _arrOrder.Count)
+            if (_arrOrder.Count() < _arrOrder.Count)
             {
-                _arrOrder[Config.IndexOrder++] = order;
+                _arrOrder.Add(order);
             }
             else
             {
-                throw new Exception("the array is full.");
+                throw new ArrayIsFull();
             }
             return order.ID;
         }
-        throw new Exception("ID is already exsist.");
+        throw new ObjectAlreadyExists();
     }
 
     public Order Get(int orderID)
     {
-        for (int i = 0; i < Config.IndexOrder; i++)
+        for (int i = 0; i < _arrOrder.Count(); i++)
 
         {
             if (_arrOrder[i].ID == orderID)
@@ -38,17 +38,17 @@ public class DalOrder: IOrder
                 return _arrOrder[i];
             }
         }
-        throw new Exception("order id is not exsist");
+        throw new ObjectNotFound();
     }
 
     public IEnumerable<Order> GetAll()
     {
-        if (Config.IndexOrder == 0)
+        if (_arrOrder.Count() == 0)
         {
-            throw new Exception("the orders dont exist yet");
+            throw new ObjectNotFound();
         }
         List<Order> _OrdersShow = new List<Order>();
-        for (int i = 0; i < Config.IndexOrder; i++)
+        for (int i = 0; i < _arrOrder.Count(); i++)
         {
             DO.Order tempOrder = new();
             tempOrder.ID = _arrOrder[i].ID;
@@ -60,19 +60,19 @@ public class DalOrder: IOrder
 
     public int Update(Order order)
     {
-        for (int i = 0; i < Config.IndexOrder; i++)
+        for (int i = 0; i < _arrOrder.Count(); i++)
         {
             if (_arrOrder[i].ID == order.ID)
             {
                 _arrOrder[i] = order;
             }
         }
-        throw new Exception("order is not exsist");
+        throw new ObjectNotFound();
     }
 
     public void Delete(int orderIndex)
     {
-        for (int i = 0; i < Config.IndexOrder; i++)
+        for (int i = 0; i < _arrOrder.Count(); i++)
         {
             if (_arrOrder[i].ID == orderIndex)
             {
@@ -80,6 +80,6 @@ public class DalOrder: IOrder
                 return;
             }
         }
-        throw new Exception("order is not exsist");
+        throw new ObjectNotFound();
     }
 }

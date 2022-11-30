@@ -73,6 +73,12 @@ internal class BlProduct : BlApi.IProduct
             throw new BO.InvalidData();
     }
 
+    ///Product details request.
+    public BO.Product GetProductDetails(int productID, BO.Cart cart)
+    {
+        throw new NotImplementedException();
+    }
+
     ///Adding a product.
     public void Add(BO.Product product)
     {
@@ -137,10 +143,5 @@ internal class BlProduct : BlApi.IProduct
         {
             throw new BO.DalException(ex);
         }
-    }
-
-    public BO.Product GetProductDetails(int productID, BO.Cart cart)
-    {
-        throw new NotImplementedException();
     }
 }

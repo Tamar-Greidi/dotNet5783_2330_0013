@@ -24,7 +24,7 @@ internal static class DataSource
         ///Config
     internal static class Config
     {
-        public static int IndexOrderItem = 0, IndexProduct = 0, IndexOrder = 0;
+        //public static int IndexOrderItem = 0, IndexProduct = 0, IndexOrder = 0;
         public static int ProductID = 1000, OrderID = 1000, OrderItemID = 1000;
     }
 
@@ -129,38 +129,5 @@ internal static class DataSource
                 addOrderItem(orderItem);
 			} 
         }
-
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    DO.OrderItem orderItem = new()
-        //    {
-        //        ID = Config.OrderItemID++,
-        //        ProductID = (int)_randomNumber.NextInt64(1, 20),
-        //        OrderID = _arrOrder[i].OrderID,
-        //        Amount = (int)_randomNumber.NextInt64(1, 10)
-        //    };
-        //    orderItem.Price = orderItem.Amount * new DalProduct().Read(orderItem.ProductID).Price;
-        //   addOrderItem(orderItem);
-        //}
-
-        //int[] orderProductHelperArr = { (int)_randomNumber.NextInt64(1, 3), 0 };
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    if (orderProductHelperArr[0] == orderProductHelperArr[1])
-        //    {
-        //        orderProductHelperArr[0] = (int)_randomNumber.NextInt64(1, 3);
-        //        orderProductHelperArr[1] = 0;
-        //    }
-        //    DO.OrderProduct op = new()
-        //    {
-        //        OrderProductId = Config.IdOP,
-        //        OrderId = orderProductHelperArr[0],
-        //        ProductId = (i + 2) % 10,
-        //        Amount = (int)_randomNumber.NextInt64(1, 10)
-        //    };
-        //    op.Price = op.Amount * new DalProduct().Read(op.ProductId).Price;
-        //    orderProductHelperArr[1]++;
-        //    _addOrderProduct(op);
-        //}
     }
 }
