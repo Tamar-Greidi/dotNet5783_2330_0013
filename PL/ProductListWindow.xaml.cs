@@ -20,18 +20,22 @@ namespace PL
     /// </summary>
     public partial class ProductListWindow : Window
     {
-
         BlApi.IBl bl = new Bl();
+
         public ProductListWindow()
         {
             InitializeComponent();
             ProductListview.ItemsSource = bl.Product.GetProducts();
+            ProductSelector.ItemsSource = Enum.GetValues(typeof(BO.Product));
         }
-        
 
         private void CartListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ProductSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
     }
 }

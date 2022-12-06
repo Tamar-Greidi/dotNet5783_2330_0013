@@ -18,8 +18,8 @@ VerticalAlignment="Stretch" Width="auto">
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <Label Grid.Column="0"/>
-            <ComboBox Name="ProductSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Label Content="Category:" Grid.Column="0" />
+            <ComboBox Name="ProductSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ProductSelector_SelectionChanged"/>
         </Grid>
         <ListView Name="ProductListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="CartListview_SelectionChanged">
             <ListView.View>
