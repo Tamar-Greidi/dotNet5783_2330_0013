@@ -12,7 +12,6 @@ internal class BlCart : BlApi.ICart
             DO.Product AddProduct = Dal.Product.Get(productID);
             foreach (var item in cart.Items)
             {
-
                 if (AddProduct.InStock >= 1 && item.ProductID == productID)
                 {
                     item.Amount++;

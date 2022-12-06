@@ -78,6 +78,32 @@ public class DalOrderItem : IOrderItem
         }
         return _productsByOrder;
     }
+    public IEnumerable<OrderItem> GetProductsByOrder(Func<int, bool>? func)
+    {
+
+        //List<string> result = new List<string>();
+        //return result.Where(orderID
+
+        try
+        {
+            new DalOrder().Get(orderID);
+        }
+        catch (Exception)
+        {
+            throw new ObjectNotFound();
+        }
+        List<OrderItem> _productsByOrder = new List<OrderItem>();
+        for (int i = 0, j = 0; i < _arrOrderItem.Count(); i++)
+        {
+            if (_arrOrderItem[i].OrderID == orderID)
+            {
+                DO.OrderItem tempOrderItem = new();
+                tempOrderItem.ID = _arrOrderItem[i].ID;
+                _productsByOrder.Add(tempOrderItem);
+            }
+        }
+        return _productsByOrder;
+    }
 
     public OrderItem GetProductsByOrderAndProduct(int orderID, int productID)
     {
