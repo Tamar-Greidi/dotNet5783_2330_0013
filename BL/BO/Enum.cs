@@ -1,6 +1,6 @@
 namespace BO;
 
-public enum paymentOptions
+public enum paymentOptions 
 {
     CreditCard,
     Cash,

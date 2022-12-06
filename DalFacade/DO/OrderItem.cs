@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    public struct OrderItem  /// struct of orderItem
+    public struct OrderItem  // Data Object/OrderItem:
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
