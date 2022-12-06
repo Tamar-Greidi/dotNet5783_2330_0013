@@ -1,5 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
+﻿using BlImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,20 +19,18 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    ///private BO.Cart cart = new BO.Cart();
 
     public partial class MainWindow : Window
     {
+        BlApi.IBl bl = new BlImplementation.Bl();
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void MainButton_Click(object sender, RoutedEventArgs e)
-        {
-            CartWindow cw = new CartWindow();
-            cw.Show();
-
-        }
+        private void ShowCartsButton_Click(object sender, RoutedEventArgs e) => new CartListWindow().Show();
+        private void ShowOrdersButton_Click(object sender, RoutedEventArgs e) => new OrderListWindow().Show();
+        private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductListWindow().Show();
     }
 }

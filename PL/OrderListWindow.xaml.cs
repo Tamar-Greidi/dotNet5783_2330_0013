@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,17 @@ namespace PL
     /// </summary>
     public partial class OrderListWindow : Window
     {
+        BlApi.IBl bl = new Bl();
+
         public OrderListWindow()
         {
             InitializeComponent();
+            OrderListview.ItemsSource= bl.Order.Get();
+        }
+
+        private void OrderListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -56,7 +56,7 @@ public class Main
                 Console.WriteLine("enter product price");
                 createProduct.Price = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter product catagory");
-                createProduct.Catagory = (catagories)int.Parse(Console.ReadLine());
+                createProduct.Category = (categories)int.Parse(Console.ReadLine());
                 Console.WriteLine("enter product inStock");
                 int recivedInStock= int.Parse(Console.ReadLine());
                 while (recivedInStock < 0)                        //health check
@@ -92,7 +92,7 @@ public class Main
                 Console.WriteLine("enter product price");
                 updateProduct.Price = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter product catagory");
-                updateProduct.Catagory = (catagories)int.Parse(Console.ReadLine());
+                updateProduct.Category = (categories)int.Parse(Console.ReadLine());
                 Console.WriteLine("enter product inStock");
                 updateProduct.InStock = int.Parse(Console.ReadLine());
                 int returnUpdateID = new DalProduct().Update(updateProduct);

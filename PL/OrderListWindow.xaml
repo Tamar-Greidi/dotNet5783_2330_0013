@@ -6,7 +6,27 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="OrderListWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <Label Grid.Column="0"/>
+            <ComboBox Name="OrderSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Grid>
+        <ListView Name="OrderListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrderListview_SelectionChanged" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

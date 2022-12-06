@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,18 @@ namespace PL
     /// <summary>
     /// Interaction logic for CartListWindow.xaml
     /// </summary>
+
     public partial class CartListWindow : Window
     {
+        BlApi.IBl bl = new Bl();
+
         public CartListWindow()
         {
             InitializeComponent();
+        }
+        private void CartListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }

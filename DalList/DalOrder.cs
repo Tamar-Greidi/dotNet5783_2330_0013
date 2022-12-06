@@ -43,7 +43,12 @@ public class DalOrder: IOrder ///class of DalOrder.
 
     public IEnumerable<Order> GetAll()
     {
-        if (_arrOrder.Count() == 0)
+        try
+        {
+            if (_arrOrder.Count() == 0)
+                throw new ObjectNotFound();
+        }
+        catch(Exception)
         {
             throw new ObjectNotFound();
         }

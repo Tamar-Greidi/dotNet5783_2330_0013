@@ -42,24 +42,26 @@ public class DalProduct: IProduct
 
     public IEnumerable<Product> GetAll()
     {
-        if (_arrProduct.Count() == 0)
-            try
+        //try
+        //{
+            //if (_arrProduct.Count() == 0)
+            //    throw new ObjectNotFound();
+            List<Product> _ProductsShow = new();
+          List<DO.Product> save = _arrProduct;
+            for (int i = 0; i < _arrProduct.Count; i++)
             {
-                throw new ObjectNotFound();
+                //DO.Product tempProduct = new();
+                //tempProduct.ID = _arrProduct[i].ID;
+                //tempProduct.Name = _arrProduct[i].Name;
+                //_ProductsShow.Add(tempProduct);
+                _ProductsShow.Add(_arrProduct[i]);
             }
-            catch(Exception)
-            {
-                throw new ObjectNotFound();
-            }
-        List<Product> _ProductsShow = new List<Product>();
-        for (int i = 0; i < _arrProduct.Count(); i++)
-        {
-            DO.Product tempProduct = new();
-            tempProduct.ID = _arrProduct[i].ID;
-            tempProduct.Name = _arrProduct[i].Name;
-            _ProductsShow.Add(tempProduct);
-        }
-        return _ProductsShow;
+            return _ProductsShow;
+        //}
+        //catch (Exception ex)
+        //{
+        //    throw new ObjectNotFound();
+        //}
     }
 
     public int Update(Product product)

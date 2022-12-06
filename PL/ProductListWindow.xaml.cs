@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,18 @@ namespace PL
     /// </summary>
     public partial class ProductListWindow : Window
     {
+
+        BlApi.IBl bl = new Bl();
         public ProductListWindow()
         {
             InitializeComponent();
+            ProductListview.ItemsSource = bl.Product.GetProducts();
+        }
+        
+
+        private void CartListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

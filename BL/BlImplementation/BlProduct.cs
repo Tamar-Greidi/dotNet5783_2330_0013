@@ -9,20 +9,27 @@ internal class BlProduct : BlApi.IProduct
     ///Requesting a list of products from the data layer (for director screen).
     public IEnumerable<BO.ProductForList> GetProducts()
     {
-        IEnumerable<DO.Product> DListOfProducts = Dal.Product.GetAll();
-        List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
-        foreach (DO.Product Product in DListOfProducts) //Building on the database a logical entity type product list
-        {
-            BO.ProductForList productForList = new BO.ProductForList()
+        //try
+        //{
+            IEnumerable<DO.Product> DListOfProducts = Dal.Product.GetAll();
+            List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
+            foreach (DO.Product Product in DListOfProducts) //Building on the database a logical entity type product list
             {
-                ID = Product.ID,
-                Name = Product.Name,
-                Price = Product.Price,
-                Category = (BO.categories)Product.Category
-            };
-            BProductList.Add(productForList);
-        }
-        return BProductList;
+                BO.ProductForList productForList = new BO.ProductForList()
+                {
+                    ID = Product.ID,
+                    Name = Product.Name,
+                    Price = Product.Price,
+                    Category = (BO.categories)Product.Category
+                };
+                BProductList.Add(productForList);
+            }
+            return BProductList;
+        //}
+        //catch (Exception ex)
+        //{
+        //    throw ex;
+        //}
     }
 
     ///Request a list of products from the data layer (for customer screen).
