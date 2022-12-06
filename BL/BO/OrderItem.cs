@@ -2,7 +2,7 @@ namespace BO;
 public class OrderItem   // Business Object/OrderItem:
 {
     public int ID { get; set; }
-    public string? Name { get; set; }
+    public string Name { get; set; }
     public int ProductID { get; set; }
     //public string ProductName { get; set; }
     public double Price { get; set; }

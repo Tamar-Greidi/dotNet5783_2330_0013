@@ -24,5 +24,12 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void MainButton_Click(object sender, RoutedEventArgs e)
+        {
+            CartWindow cw = new CartWindow();
+            cw.Show();
+
+        }
     }
 }
