@@ -10,7 +10,7 @@ namespace DalApi
     {
         public int Add(T value);
         public T Get(int value);
-        public IEnumerable<T> GetAll();
+        public IEnumerable<T?> GetAll();
         public int Update(T value);
         public void Delete(int value);
     }

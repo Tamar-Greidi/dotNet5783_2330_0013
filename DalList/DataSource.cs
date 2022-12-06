@@ -33,9 +33,9 @@ internal static class DataSource
     //internal static DO.Order[] _arrOrder { get; set; } = new DO.Order[orderQuantity];
     //internal static DO.OrderItem[] _arrOrderItem { get; set; } = new DO.OrderItem[orderItemQuantity];
     
-    internal static List<DO.Product> _arrProduct = new List<DO.Product>();
-    internal static List<DO.Order> _arrOrder = new List<DO.Order>();
-    internal static List<DO.OrderItem> _arrOrderItem = new List<DO.OrderItem>();
+    internal static List<DO.Product?> _arrProduct = new List<DO.Product?>();
+    internal static List<DO.Order?> _arrOrder = new List<DO.Order?>();
+    internal static List<DO.OrderItem?> _arrOrderItem = new List<DO.OrderItem?>();
 
     private static void addProduct(DO.Product product)
     {
