@@ -1,6 +1,8 @@
 ﻿namespace DalApi
-{
-    public class ObjectNotFound : Exception
+{  
+   /* Throwing an error message for exceptions*/
+    
+    public class ObjectNotFound : Exception          
     {
         public override string Message => "Object not found";
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DalApi
 {
-    public interface ICrud<T>
+    public interface ICrud<T>  ///interface of Crud functions.
     {
         public int Add(T value);
         public T Get(int value);

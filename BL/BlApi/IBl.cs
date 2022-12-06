@@ -1,7 +1,7 @@
 using System.Security.Principal;
 namespace BlApi;
 
-public interface IBl
+public interface IBl    ///  interface of Bl .
 {
     public IProduct Product { get; }
     public ICart Cart { get; }
