@@ -3,7 +3,7 @@ using System;
 
 namespace DO;
 
-public struct Order
+public struct Order     ///struct of order.
 {
     public int ID { get; set; }
     public string CustomerName { get; set; }

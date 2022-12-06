@@ -8,7 +8,7 @@ using DalApi;
 
 namespace Dal;
 
-sealed public class DalList : IDal
+sealed public class DalList : IDal  ///class of DalList.
 {
     public IProduct Product => new DalProduct();
     public IOrder Order => new DalOrder();

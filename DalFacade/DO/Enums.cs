@@ -1,6 +1,6 @@
 namespace DO;
 
-public enum paymentOptions
+public enum paymentOptions  ///enum for payment options.
 {
     CreditCard,
     Cash,
@@ -8,11 +8,11 @@ public enum paymentOptions
     Bit
 };
 
-public enum categories
+public enum categories   ///enum for categories.
 {
-    AAA,
-    BBB,
-    CCC,
-    DDD,
-    EEE
+    watchs,
+    cameras,
+    camputers,
+    ipads
+    
 };
