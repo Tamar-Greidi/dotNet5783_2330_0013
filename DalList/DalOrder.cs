@@ -49,12 +49,12 @@ public class DalOrder: IOrder
     {
         try
         {
-            if (_arrOrder.Count() == 0)
+            if (_arrOrder.Count == 0)
                 throw new ObjectNotFound();
         }
-        catch(Exception)
+        catch(ObjectNotFound ex)
         {
-            throw new ObjectNotFound();
+            throw ex;
         }
         List<Order> _OrdersShow = new List<Order>();
         for (int i = 0; i < _arrOrder.Count(); i++)

@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="640" Width="800">
     <Grid>
-        <Button Name="Cart" Content="Cart" HorizontalAlignment="Left" Margin="554,159,0,0" VerticalAlignment="Top" Click="ShowCartsButton_Click" Height="98" Width="94"/>
-        <Button Name="Order" Content="Order" HorizontalAlignment="Left" Margin="256,159,0,0" VerticalAlignment="Top" Click="ShowOrdersButton_Click" Height="169" Width="179"/>
-        <Button Name="Product" Content="Product" HorizontalAlignment="Left" Margin="169,169,0,0" VerticalAlignment="Top" Click="ShowProductsButton_Click" RenderTransformOrigin="0.534,-0.246" Height="48" Width="59"/>
-
+        <Button Name="Cart" Content="Cart" HorizontalAlignment="Left" Margin="550,170,0,0" VerticalAlignment="Top" Click="ShowCartsButton_Click" Height="45" Width="90"/>
+        <Button Name="Order" Content="Order" HorizontalAlignment="Left" Margin="350,170,0,0" VerticalAlignment="Top" Click="ShowOrdersButton_Click" Height="45" Width="90"/>
+        <Button Name="Product" Content="Product" HorizontalAlignment="Left" Margin="150,170,0,0" VerticalAlignment="Top" Click="ShowProductsButton_Click" Height="45" Width="90"/>
     </Grid>
 </Window>
