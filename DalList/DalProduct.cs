@@ -5,6 +5,10 @@ using DalApi;
 
 namespace Dal;
 
+/// <summary>
+/// DalProduct class.
+/// </summary>
+
 public class DalProduct: IProduct
 {
     public int Add(Product product)

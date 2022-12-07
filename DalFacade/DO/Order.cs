@@ -1,9 +1,10 @@
-using System;
-
 
 namespace DO;
 
-public struct Order     //  Data Object/Order:
+/// <summary>
+/// Data Object/Order
+/// </summary>
+public struct Order
 {
     public int ID { get; set; }
     public string CustomerName { get; set; }
@@ -17,8 +18,6 @@ public struct Order     //  Data Object/Order:
     Order ID={ID}: {CustomerName},{CustomerEmail},{CustomerAddress} 
         	Order Date: {OrderDate}
         	Ship Date: {ShipDate}
-        	Delivery Date: {DeliveryDate}
-
-        	
+        	Delivery Date: {DeliveryDate}        	
     ";
 }

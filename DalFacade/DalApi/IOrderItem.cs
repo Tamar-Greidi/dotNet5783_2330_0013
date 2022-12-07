@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using DO;
 namespace DalApi;
 
-public interface IOrderItem : ICrud<OrderItem>   /// interface of orderItem (Inherited from crud).
+/// <summary>
+/// OrderItem's interface (Inherited from crud).
+/// </summary>
+
+public interface IOrderItem : ICrud<OrderItem>
 {
     public IEnumerable<OrderItem> GetProductsByOrder(int orderID);
-
     public OrderItem GetProductsByOrderAndProduct(int orderID, int productID);
 }

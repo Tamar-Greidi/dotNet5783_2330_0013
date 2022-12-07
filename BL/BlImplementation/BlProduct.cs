@@ -3,6 +3,9 @@ using DalApi;
 
 namespace BlImplementation;
 
+/// <summary>
+/// Implementation of the Product class.
+/// </summary>
 internal class BlProduct : BlApi.IProduct
 {
     IDal Dal = new Dal.DalList();
@@ -127,7 +130,7 @@ internal class BlProduct : BlApi.IProduct
         }
     }
 
-    ///Product data update.
+    ///Product update.
     public void Update(BO.Product product)
     {
         if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)

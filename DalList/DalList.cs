@@ -1,14 +1,12 @@
-﻿using System.Security.Principal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DalApi;
+﻿using DalApi;
 
 namespace Dal;
 
-sealed public class DalList : IDal  ///class of DalList.
+/// <summary>
+/// DalList class.
+/// </summary>
+
+sealed public class DalList : IDal
 {
     public IProduct Product => new DalProduct();
     public IOrder Order => new DalOrder();

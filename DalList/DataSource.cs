@@ -1,8 +1,9 @@
-using System;
-//using DO;
-using System.IO;
-
 namespace Dal;
+
+/// <summary>
+/// DataSource class.
+/// </summary>
+
 internal static class DataSource
 {
     static readonly Random _randomNumber = new();
@@ -28,11 +29,7 @@ internal static class DataSource
         public static int ProductID = 1000, OrderID = 1000, OrderItemID = 1000;
     }
 
-       ///Defining arrays.
-    //internal static DO.Product[] _arrProduct { get; set; } = new DO.Product[productQuantity];
-    //internal static DO.Order[] _arrOrder { get; set; } = new DO.Order[orderQuantity];
-    //internal static DO.OrderItem[] _arrOrderItem { get; set; } = new DO.OrderItem[orderItemQuantity];
-    
+       ///Defining arrays.    
     internal static List<DO.Product> _arrProduct = new();
     internal static List<DO.Order> _arrOrder = new();
     internal static List<DO.OrderItem> _arrOrderItem = new();

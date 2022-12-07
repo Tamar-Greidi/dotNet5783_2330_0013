@@ -28,7 +28,6 @@ namespace BO
     {
         public override string Message => "Order already shipped";
     }
-
     public class OrderAlreadyDelivered : Exception
     {
         public override string Message => "Order already delivered";

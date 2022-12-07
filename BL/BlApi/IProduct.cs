@@ -1,7 +1,10 @@
 using BO;
 namespace BlApi;
 
-public interface IProduct    ///interface of Product.
+/// <summary>
+/// Product's interface.
+/// </summary>
+public interface IProduct
 {
     public IEnumerable<ProductForList?> GetProducts();
     public IEnumerable<ProductItem> GetCatalog();

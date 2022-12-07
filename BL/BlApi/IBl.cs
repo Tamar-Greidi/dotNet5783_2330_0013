@@ -1,7 +1,10 @@
 using System.Security.Principal;
 namespace BlApi;
 
-public interface IBl    ///  interface of Bl .
+/// <summary>
+/// BL's interface.
+/// </summary>
+public interface IBl    
 {
     public IProduct Product { get; }
     public ICart Cart { get; }

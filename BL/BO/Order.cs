@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace BO;
 
-public class Order  //  Business Object/Order:
+/// <summary>
+/// Business Object/Order
+/// </summary>
+public class Order
 {
     public int ID { get; set; }
     public string CustomerName { get; set; }

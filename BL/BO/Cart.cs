@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace BO;
 
-public class Cart  // Business Object/Cart:
+/// <summary>
+/// Business Object/Cart
+/// </summary>
+public class Cart
 {
     public string CustomerName { get; set; }
     public string CustomerEmail { get; set; }

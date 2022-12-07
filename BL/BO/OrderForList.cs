@@ -1,6 +1,9 @@
 namespace BO;
 
-public class OrderForList // Business Object/OrderForList:
+/// <summary>
+/// Business Object/OrderForList
+/// </summary>
+public class OrderForList
 {
     public int ID { get; set; }
     public string CustomerName { get; set; }

@@ -2,7 +2,7 @@
 using DO;
 namespace Dal;
 
-public class Main
+public class Program
 {
     private static IDal dalList = new DalList();
     public void main()

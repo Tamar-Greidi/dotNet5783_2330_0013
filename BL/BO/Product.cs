@@ -1,7 +1,12 @@
 ﻿using DO;
 using System;
 namespace BO;
-public class Product // Business Object/Product:
+
+/// <summary>
+/// Business Object/Product
+/// </summary>
+
+public class Product
 {
     public int ID { get; set; }
     public string Name { get; set; }

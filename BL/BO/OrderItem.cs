@@ -1,5 +1,10 @@
 namespace BO;
-public class OrderItem   // Business Object/OrderItem:
+
+/// <summary>
+/// Business Object/OrderItem
+/// </summary>
+
+public class OrderItem
 {
     public int ID { get; set; }
     public string Name { get; set; }

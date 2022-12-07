@@ -1,7 +1,11 @@
 using System;
 namespace DO;
 
-public struct Product  // Data Object/Product:
+/// <summary>
+/// Data Object/Product
+/// </summary>
+
+public struct Product
 {
     public int ID { get; set; }
     public string Name { get; set; }

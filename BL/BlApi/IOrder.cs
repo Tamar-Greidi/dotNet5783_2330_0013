@@ -3,7 +3,10 @@ using BO;
 
 namespace BlApi;
 
-public interface IOrder      ///interface of Order
+/// <summary>
+/// Order's interface.
+/// </summary>
+public interface IOrder
 {
     public IEnumerable<OrderForList?> Get();
     public Order GetDetails(int orderID);

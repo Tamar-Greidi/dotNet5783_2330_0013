@@ -4,6 +4,9 @@ using DalApi;
 
 namespace BlImplementation;
 
+/// <summary>
+/// Implementation of the Order class.
+/// </summary>
 internal class BlOrder : BlApi.IOrder
 {
     DalApi.IDal Dal = new Dal.DalList();

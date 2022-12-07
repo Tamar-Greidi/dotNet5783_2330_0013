@@ -1,6 +1,9 @@
 
 namespace BlImplementation;
 
+/// <summary>
+/// Implementation of the Cart class.
+/// </summary>
 internal class BlCart : BlApi.ICart
 {
     private static DalApi.IDal Dal = new Dal.DalList();

@@ -1,5 +1,10 @@
 namespace BO;
-public class OrderTracking  // Business Object/OrderTracking:
+
+/// <summary>
+/// Business Object/OrderTracking
+/// </summary>
+
+public class OrderTracking
 {
     public int ID { get; set; }
     public OrderStatus Status { get; set; }

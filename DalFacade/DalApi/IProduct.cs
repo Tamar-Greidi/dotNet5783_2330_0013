@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 using DO;
 namespace DalApi;
 
-public interface IProduct : ICrud<Product>  /// interface of Product (Inherited from crud).
+/// <summary>
+/// Product's interface (Inherited from crud).
+/// </summary>
+
+public interface IProduct : ICrud<Product>
 {
 
 }

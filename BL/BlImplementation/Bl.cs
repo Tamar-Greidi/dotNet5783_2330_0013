@@ -6,7 +6,11 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlImplementation   //implementation of the interface IBl
+/// <summary>
+/// Implementing the interface IBl.
+/// </summary>
+
+namespace BlImplementation
 {
     sealed public class Bl : IBl
     {

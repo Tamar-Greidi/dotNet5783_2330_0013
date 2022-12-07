@@ -7,7 +7,10 @@ using DO;
 
 namespace DalApi;
 
-public interface IOrder : ICrud<Order>    /// interface of order (Inherited from crud).
+/// <summary>
+/// Order's interface (Inherited from crud).
+/// </summary>
+public interface IOrder : ICrud<Order>
 {
 
 }
