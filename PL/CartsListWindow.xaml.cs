@@ -16,21 +16,14 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for OrderListWindow.xaml
+    /// Interaction logic for CartsListWindow.xaml
     /// </summary>
-    public partial class OrderListWindow : Window
+    public partial class CartsListWindow : Window
     {
         BlApi.IBl bl = new Bl();
-
-        public OrderListWindow()
+        public CartsListWindow()
         {
             InitializeComponent();
-            OrderListview.ItemsSource= bl.Order.Get();
-        }
-
-        private void OrderListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

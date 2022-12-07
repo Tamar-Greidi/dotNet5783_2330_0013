@@ -16,20 +16,35 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for CartListWindow.xaml
+    /// Interaction logic for ProductsListWindow.xaml
     /// </summary>
-
-    public partial class CartListWindow : Window
+    public partial class ProductsListWindow : Window
     {
         BlApi.IBl bl = new Bl();
 
-        public CartListWindow()
+        public ProductListWindow()
         {
             InitializeComponent();
+            try
+            {
+                ProductListview.ItemsSource = bl.Product.GetProducts();
+            }
+            catch (Exception)
+            {
+
+            }
+            ProductSelector.ItemsSource = Enum.GetValues(typeof(BO.Product));
         }
+
         private void CartListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
+
+        private void ProductSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        ///private void AddNewProduct_Click(object sender, RoutedEventArgs e) => 
     }
 }

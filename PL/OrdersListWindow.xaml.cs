@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,13 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for ProductWindow.xaml
+    /// Interaction logic for OrdersListWindow.xaml
     /// </summary>
-    public partial class ProductWindow : Window
+    public partial class OrdersListWindow : Window
     {
-        public ProductWindow()
+        BlApi.IBl bl = new Bl();
+
+        public OrdersListWindow()
         {
             InitializeComponent();
         }
