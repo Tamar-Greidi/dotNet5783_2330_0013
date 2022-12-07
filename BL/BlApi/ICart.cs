@@ -6,7 +6,7 @@ namespace BlApi;
 /// <summary>
 /// Cart's interface.
 /// </summary>
-public interface ICart
+public interface ICart 
 { 
     public Cart Add(Cart cart, int productID);
     public Cart UpdateProductAmount(Cart cart, int productID, int amount);
