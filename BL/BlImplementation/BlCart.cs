@@ -7,7 +7,13 @@ namespace BlImplementation;
 internal class BlCart : BlApi.ICart
 {
     private static DalApi.IDal Dal = new Dal.DalList();
-
+    /// <summary>
+    /// Add product to cart.
+    /// </summary>
+    /// <param name="cart"></param>
+    /// <param name="productID"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.OutOfStock"></exception>
     public BO.Cart Add(BO.Cart cart, int productID)
     {
         try
@@ -44,7 +50,14 @@ internal class BlCart : BlApi.ICart
         }
         return cart;
     }
-
+    /// <summary>
+    /// Product amount update.
+    /// </summary>
+    /// <param name="cart"></param>
+    /// <param name="productID"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.OutOfStock"></exception>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int productID, int amount)
     {
         foreach (var item in cart.Items)

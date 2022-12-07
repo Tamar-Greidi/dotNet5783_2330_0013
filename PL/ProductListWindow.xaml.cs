@@ -18,6 +18,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for ProductListWindow.xaml
     /// </summary>
+    
     public partial class ProductListWindow : Window
     {
         BlApi.IBl bl = new Bl();
@@ -25,7 +26,14 @@ namespace PL
         public ProductListWindow()
         {
             InitializeComponent();
-            ProductListview.ItemsSource = bl.Product.GetProducts();
+            try
+            {
+                ProductListview.ItemsSource = bl.Product.GetProducts();
+            }
+            catch(Exception)
+            {
+
+            }
             ProductSelector.ItemsSource = Enum.GetValues(typeof(BO.Product));
         }
 
