@@ -23,10 +23,10 @@ public class Program
                 "\n Press b to present " + choosenOption + " by ID" +
                 "\n Press c to present all " + choosenOption + "s" +
                 "\n Press d to update " + choosenOption +
-                "\n Press e to delete " + choosenOption + " by ID" +
-                ///choosenOption == "orderItem" ? "" +
-                "\n Press f to present " + choosenOption + " by oderID and productID" +
-                "\n Press g to present all " + choosenOption + "s in a specific order by orderID");
+                "\n Press e to delete " + choosenOption + " by ID");
+            Console.WriteLine(choosenOption == "orderItem" ? " Press f to present " + choosenOption + " by order ID and product ID" +
+                "\n Press g to present all " + choosenOption + "s in a specific order by order ID" : "");
+                
             char choosenMethod = char.Parse(Console.ReadLine());
             switch (choose)
             {
@@ -258,14 +258,16 @@ public class Program
             case 'a':
                 //add orderItem
                 OrderItem createOrderItem = new OrderItem();
+                Console.WriteLine("enter orderItem ID");
+                createOrderItem.ID = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter order ID");
                 createOrderItem.OrderID = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter product ID");
                 createOrderItem.ProductID = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter orderItem amount");
                 createOrderItem.Amount = int.Parse(Console.ReadLine());
-                Console.WriteLine("enter orderItem Price");
-                createOrderItem.Price = double.Parse(Console.ReadLine());
+                //Console.WriteLine("enter orderItem Price");
+                //createOrderItem.Price = double.Parse(Console.ReadLine());
                 try
                 {
                     dalList.OrderItem.Add(createOrderItem);
@@ -310,15 +312,17 @@ public class Program
             case 'd':
                 //update orderOrderItem
                 OrderItem updateOrderItem = new OrderItem();
+                Console.WriteLine("enter orderItem ID");
+                updateOrderItem.ID = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter product ID");
                 updateOrderItem.ProductID = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter order ID");
                 updateOrderItem.OrderID = int.Parse(Console.ReadLine());
-                Console.WriteLine("enter orderItem price");
-                updateOrderItem.Price = int.Parse(Console.ReadLine());
+                //Console.WriteLine("enter orderItem price");
+                //updateOrderItem.Price = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter orderItem amount");
                 updateOrderItem.Amount = int.Parse(Console.ReadLine());
-                Console.WriteLine("enter orderOrderItem inStock");
+                //Console.WriteLine("enter orderOrderItem inStock");
                 try
                 {
                     int returnUpdateID = new DalOrderItem().Update(updateOrderItem);

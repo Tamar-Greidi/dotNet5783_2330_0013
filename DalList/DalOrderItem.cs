@@ -15,15 +15,35 @@ public class DalOrderItem : IOrderItem
     {
         try
         {
-            if (Get(orderItem.ID).ID == orderItem.ID)
-                throw new ObjectAlreadyExists();
+            for (int i = 0; i < _arrOrderItem.Count(); i++)
+            {
+                if (_arrOrderItem[i].ID == orderItem.ID)
+                {
+                    throw new ObjectAlreadyExists();
+                }
+            }
         }
         catch (ObjectAlreadyExists ex)
         {
             throw ex;
         }
-        _arrOrderItem.Add(orderItem);
-        return orderItem.ID;
+        foreach (Product item in _arrProduct)
+        {
+            if(item.ID == orderItem.ProductID)
+            {
+                orderItem.Price = item.Price;
+                _arrOrderItem.Add(orderItem);
+                return orderItem.ID;
+            }
+        }
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch(Exception ex)
+        {
+            throw ex;
+        }
     }
 
     public OrderItem Get(int orderItemID)
@@ -91,8 +111,9 @@ public class DalOrderItem : IOrderItem
     {
         for (int i = 0; i < _arrOrderItem.Count; i++)
         {
-            if (_arrOrderItem[i].ID == orderItem.ID)
+            if (_arrOrderItem[i].ID == orderItem.ID && _arrOrderItem[i].ProductID == orderItem.ProductID && _arrOrderItem[i].OrderID == orderItem.OrderID)
             {
+                orderItem.Price = _arrOrderItem[i].Price;
                 _arrOrderItem[i] = orderItem;
                 return _arrOrderItem[i].ID;
             }
