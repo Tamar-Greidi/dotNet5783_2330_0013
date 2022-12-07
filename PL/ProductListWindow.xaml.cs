@@ -45,5 +45,8 @@ namespace PL
         private void ProductSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
+
+        ///private void AddNewProduct_Click(object sender, RoutedEventArgs e) => 
+
     }
 }
