@@ -1,5 +1,4 @@
 using DO;
-using System;
 using static Dal.DataSource;
 using DalApi;
 
@@ -15,69 +14,61 @@ public class DalProduct: IProduct
     {
         try
         {
-            Get(product.ID);
+            if (Get(product.ID).ID == product.ID)
+                throw new ObjectAlreadyExists();
         }
-        catch (Exception)
+        catch (ObjectAlreadyExists ex)
         {
-            if (_arrProduct.Count() < _arrProduct.Count)
-            {
-                _arrProduct.Add(product);
-            }
-            else
-            {
-                throw new ArrayIsFull();
-            }
-            return product.ID;
+            throw ex;
         }
-        throw new ObjectAlreadyExists();
+        _arrProduct.Add(product);
+        return product.ID;
     }
 
     public Product Get(int productID)
     {
         for (int i = 0; i < _arrProduct.Count(); i++)
-        {
             if (_arrProduct[i].ID == productID)
-            {
                 return _arrProduct[i];
-            }
+        try
+        {
+            throw new ObjectNotFound();
         }
-        throw new ObjectNotFound();
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 
     public IEnumerable<Product> GetAll()
     {
-        try
+        List<Product> _ProductsShow = new();
+        foreach (Product product in _arrProduct)
         {
-            if (_arrProduct.Count() == 0)
-                throw new ObjectNotFound();
-            List<Product> _ProductsShow = new();
-            List<DO.Product> save = _arrProduct;
-            for (int i = 0; i < _arrProduct.Count; i++)
-            {
-                //DO.Product tempProduct = new();
-                //tempProduct.ID = _arrProduct[i].ID;
-                //tempProduct.Name = _arrProduct[i].Name;
-                //_ProductsShow.Add(tempProduct);
-                _ProductsShow.Add(_arrProduct[i]);
-            }
-            return _ProductsShow;
+            _ProductsShow.Add(product);
         }
-        catch (Exception)
-        {
-            throw new ObjectNotFound();
-        }
+        return _ProductsShow;
     }
 
     public int Update(Product product)
     {
-        for (int i = 0; i < _arrProduct.Count(); i++)
+
+        for (int i = 0; i < _arrProduct.Count; i++)
         {
             if (_arrProduct[i].ID == product.ID)
             {
                 _arrProduct[i] = product;
+                return _arrProduct[i].ID;
             }
         }
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch(ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 
     public void Delete(int productIndex)
@@ -90,6 +81,13 @@ public class DalProduct: IProduct
                 return;
             }
         }
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 }

@@ -30,9 +30,9 @@ internal static class DataSource
     }
 
        ///Defining arrays.    
-    internal static List<DO.Product> _arrProduct = new();
-    internal static List<DO.Order> _arrOrder = new();
-    internal static List<DO.OrderItem> _arrOrderItem = new();
+    internal static List<DO.Product> _arrProduct = new List<DO.Product> { };
+    internal static List<DO.Order> _arrOrder = new List<DO.Order> { };
+    internal static List<DO.OrderItem> _arrOrderItem = new List<DO.OrderItem> { };
 
     private static void addProduct(DO.Product product)
     {
@@ -89,42 +89,42 @@ internal static class DataSource
             addProduct(product);
         }
         
-        for (int i = 0; i < 20; i++)
-        {
+   //     for (int i = 0; i < 20; i++)
+   //     {
 
 
-            randomItem = (int)_randomNumber.NextInt64(0, 19);
-            DO.Order order = new()
-            {
-                ID = Config.OrderID++,
-                CustomerName = _arrCustomers[randomItem % 20].Item1, 
+   //         randomItem = (int)_randomNumber.NextInt64(0, 19);
+   //         DO.Order order = new()
+   //         {
+   //             ID = Config.OrderID++,
+   //             CustomerName = _arrCustomers[randomItem % 20].Item1, 
 
-                CustomerEmail = _arrCustomers[randomItem % 20].Item2,
-                CustomerAddress = _arrCustomers[randomItem % 20].Item3,
-                OrderDate = DateTime.Now
-            };
-            TimeSpan time = new((int)_randomNumber.NextInt64(1, 3), 0, 0, 0);
-            order.ShipDate = (randomItem % 20) % 5 != 0 ? order.OrderDate.Add(time) : DateTime.MinValue;
-            time = new TimeSpan((int)_randomNumber.NextInt64(3, 7), 0, 0, 0);
-            order.DeliveryDate = (randomItem % 20) % 3 != 0 || (randomItem % 20) % 4 != 0 ? order.ShipDate.Add(time) : DateTime.MinValue;
-            addOrder(order);
-        }
+   //             CustomerEmail = _arrCustomers[randomItem % 20].Item2,
+   //             CustomerAddress = _arrCustomers[randomItem % 20].Item3,
+   //             OrderDate = DateTime.Now
+   //         };
+   //         TimeSpan time = new((int)_randomNumber.NextInt64(1, 3), 0, 0, 0);
+   //         order.ShipDate = (randomItem % 20) % 5 != 0 ? order.OrderDate.Add(time) : DateTime.MinValue;
+   //         time = new TimeSpan((int)_randomNumber.NextInt64(3, 7), 0, 0, 0);
+   //         order.DeliveryDate = (randomItem % 20) % 3 != 0 || (randomItem % 20) % 4 != 0 ? order.ShipDate.Add(time) : DateTime.MinValue;
+   //         addOrder(order);
+   //     }
 
-        for (int i = 0; i < 20; i++)
-        {
-            randomItem = (int)_randomNumber.NextInt64(0, 3);
-            for (int j = 0; j < randomItem; j++)
-			{
-                DO.OrderItem orderItem = new()
-                {
-                    ID = Config.OrderItemID++,
-                    ProductID = (int)_randomNumber.NextInt64(1, 20),
-                    OrderID = _arrOrder[i].ID,
-                    Amount = (int)_randomNumber.NextInt64(1, 10)
-                };
-                orderItem.Price = orderItem.Amount * new DalProduct().Get(orderItem.ProductID).Price;
-                addOrderItem(orderItem);
-			} 
-        }
+   //     for (int i = 0; i < 20; i++)
+   //     {
+   //         randomItem = (int)_randomNumber.NextInt64(0, 3);
+   //         for (int j = 0; j < randomItem; j++)
+			//{
+   //             DO.OrderItem orderItem = new()
+   //             {
+   //                 ID = Config.OrderItemID++,
+   //                 ProductID = (int)_randomNumber.NextInt64(1, 20),
+   //                 OrderID = _arrOrder[i].ID,
+   //                 Amount = (int)_randomNumber.NextInt64(1, 10)
+   //             };
+   //             orderItem.Price = orderItem.Amount * new DalProduct().Get(orderItem.ProductID).Price;
+   //             addOrderItem(orderItem);
+			//} 
+   //     }
     }
 }

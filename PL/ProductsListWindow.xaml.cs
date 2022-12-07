@@ -22,18 +22,18 @@ namespace PL
     {
         BlApi.IBl bl = new Bl();
 
-        public ProductListWindow()
+        public ProductsListWindow()
         {
             InitializeComponent();
-            try
-            {
-                ProductListview.ItemsSource = bl.Product.GetProducts();
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+                ProductsListview.ItemsSource = bl.Product.GetProducts();
+            //}
+            //catch (Exception)
+            //{
 
-            }
-            ProductSelector.ItemsSource = Enum.GetValues(typeof(BO.Product));
+            //}
+            ProductsSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
         }
 
         private void CartListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,6 +43,21 @@ namespace PL
 
         private void ProductSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+        }
+
+        private void ProductsListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ProductsSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void AddNewProduct_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         ///private void AddNewProduct_Click(object sender, RoutedEventArgs e) => 

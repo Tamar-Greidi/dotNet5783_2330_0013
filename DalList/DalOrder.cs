@@ -14,69 +14,69 @@ public class DalOrder: IOrder
     {
         try
         {
-            Get(order.ID);
+            for (int i = 0; i < _arrOrder.Count(); i++)
+            {
+                if (_arrOrder[i].ID == order.ID)
+                {
+                    throw new ObjectAlreadyExists();
+                }
+            }
         }
-        catch (Exception)
+        catch (ObjectAlreadyExists ex)
         {
-
-            if (_arrOrder.Count() < _arrOrder.Count)
-            {
-                _arrOrder.Add(order);
-            }
-            else
-            {
-                throw new ArrayIsFull();
-            }
-            return order.ID;
+            throw ex;
         }
-        throw new ObjectAlreadyExists();
+        _arrOrder.Add(order);
+        return order.ID;
     }
 
     public Order Get(int orderID)
     {
         for (int i = 0; i < _arrOrder.Count(); i++)
-
         {
             if (_arrOrder[i].ID == orderID)
             {
                 return _arrOrder[i];
             }
         }
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 
     public IEnumerable<Order> GetAll()
     {
-        try
+        List<Order> _OrdersShow = new();
+        foreach (Order order in _arrOrder)
         {
-            if (_arrOrder.Count == 0)
-                throw new ObjectNotFound();
-        }
-        catch(ObjectNotFound ex)
-        {
-            throw ex;
-        }
-        List<Order> _OrdersShow = new List<Order>();
-        for (int i = 0; i < _arrOrder.Count(); i++)
-        {
-            DO.Order tempOrder = new();
-            tempOrder.ID = _arrOrder[i].ID;
-            tempOrder.CustomerName = _arrOrder[i].CustomerName;
-            _OrdersShow.Add(tempOrder);
+            _OrdersShow.Add(order);
         }
         return _OrdersShow;
     }
 
     public int Update(Order order)
     {
-        for (int i = 0; i < _arrOrder.Count(); i++)
+        for (int i = 0; i < _arrOrder.Count; i++)
         {
             if (_arrOrder[i].ID == order.ID)
             {
                 _arrOrder[i] = order;
+                return _arrOrder[i].ID;
             }
         }
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 
     public void Delete(int orderIndex)
@@ -89,6 +89,13 @@ public class DalOrder: IOrder
                 return;
             }
         }
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 }

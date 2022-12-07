@@ -29,8 +29,8 @@ namespace PL
             InitializeComponent();
         }
 
-        private void ShowCartsButton_Click(object sender, RoutedEventArgs e) => new CartListWindow().Show();
-        private void ShowOrdersButton_Click(object sender, RoutedEventArgs e) => new OrderListWindow().Show();
-        private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductListWindow().Show();
+        private void ShowCartsButton_Click(object sender, RoutedEventArgs e) => new CartsListWindow().Show();
+        private void ShowOrdersButton_Click(object sender, RoutedEventArgs e) => new OrdersListWindow().Show();
+        private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow().Show();
     }
 }

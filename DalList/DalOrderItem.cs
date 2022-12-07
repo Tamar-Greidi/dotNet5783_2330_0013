@@ -15,120 +15,115 @@ public class DalOrderItem : IOrderItem
     {
         try
         {
-            Get(orderItem.ID);
+            if (Get(orderItem.ID).ID == orderItem.ID)
+                throw new ObjectAlreadyExists();
         }
-        catch (Exception)
+        catch (ObjectAlreadyExists ex)
         {
-            if (_arrOrderItem.Count() < _arrOrderItem.Count)
-            {
-                _arrOrderItem.Add(orderItem);
-            }
-            else
-            {
-                throw new ArrayIsFull();
-            }
-            return orderItem.ID;
+            throw ex;
         }
-        throw new ObjectAlreadyExists();
+        _arrOrderItem.Add(orderItem);
+        return orderItem.ID;
     }
 
     public OrderItem Get(int orderItemID)
     {
         for (int i = 0; i < _arrOrderItem.Count(); i++)
-        {
             if (_arrOrderItem[i].ID == orderItemID)
-            {
                 return _arrOrderItem[i];
-            }
+        try
+        {
+            throw new ObjectNotFound();
         }
-        throw new ObjectNotFound();
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 
     public IEnumerable<OrderItem> GetAll()
     {
-        if (_arrOrderItem.Count() == 0)
+        List<OrderItem> _showOrderItems = new();
+        foreach (OrderItem orderItem in _arrOrderItem)
         {
-            throw new ObjectNotFound();
-        }
-        List<OrderItem> _showOrderItems = new List<OrderItem>();
-        for (int i = 0; i < _arrOrderItem.Count(); i++)
-        {
-            DO.OrderItem tempOrderItem = new();
-            tempOrderItem.ID = _arrOrderItem[i].ID;
-            _showOrderItems.Add(tempOrderItem);
+            _showOrderItems.Add(orderItem);
         }
         return _showOrderItems;
     }
 
     public IEnumerable<OrderItem> GetProductsByOrder(int orderID)
     {
-        try
-        {
-            new DalOrder().Get(orderID);
-        }
-        catch (Exception)
-        {
-            throw new ObjectNotFound();
-        }
         List<OrderItem> _productsByOrder = new List<OrderItem>();
-        for (int i = 0, j = 0; i < _arrOrderItem.Count(); i++)
+        for (int i = 0; i < _arrOrderItem.Count(); i++)
         {
             if (_arrOrderItem[i].OrderID == orderID)
             {
-                DO.OrderItem tempOrderItem = new();
-                tempOrderItem.ID = _arrOrderItem[i].ID;
-                _productsByOrder.Add(tempOrderItem);
+                _productsByOrder.Add(_arrOrderItem[i]);
+                return _productsByOrder;
             }
         }
-        return _productsByOrder;
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
     public OrderItem GetProductsByOrderAndProduct(int orderID, int productID)
     {
-        try
-        {
-            new DalOrder().Get(orderID);
-        }
-        catch (Exception)
-        {
-            throw new ObjectNotFound();
-        }
-        try
-        {
-            new DalProduct().Get(productID);
-        }
-        catch (Exception)
-        {
-            throw new ObjectNotFound();
-        }
         for (int i = 0; i < _arrOrderItem.Count(); i++)
             if (_arrOrderItem[i].OrderID == orderID && _arrOrderItem[i].ProductID == productID)
                 return _arrOrderItem[i];
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
     public int Update(OrderItem orderItem)
     {
-        for (int i = 0; i < _arrOrderItem.Count(); i++)
+        for (int i = 0; i < _arrOrderItem.Count; i++)
         {
             if (_arrOrderItem[i].ID == orderItem.ID)
             {
                 _arrOrderItem[i] = orderItem;
+                return _arrOrderItem[i].ID;
             }
         }
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 
     public void Delete(int orderItemID)
     {
-        for (int i = 0; i < _arrOrderItem.Count(); i++)
+        foreach (OrderItem item in _arrOrderItem)
         {
-            if (_arrOrderItem[i].ID == orderItemID)
+            if(item.ID == orderItemID)
             {
-                Delete(_arrOrderItem[i].ID);
+                _arrOrderItem.RemoveAt(item.ID);
                 return;
             }
         }
-        throw new ObjectNotFound();
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch(ObjectNotFound ex)
+        {
+            throw ex;
+        }
     }
 }

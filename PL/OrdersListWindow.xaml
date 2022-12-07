@@ -21,7 +21,7 @@ VerticalAlignment="Stretch" Width="auto">
             <Label Grid.Column="0"/>
             <ComboBox Name="OrdersSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
-        <ListView Name="OrdersListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrderListview_SelectionChanged" >
+        <ListView Name="OrdersListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrdersListview_SelectionChanged" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

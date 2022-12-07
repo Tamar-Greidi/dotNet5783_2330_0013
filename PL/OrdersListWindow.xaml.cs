@@ -26,5 +26,10 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void OrdersListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

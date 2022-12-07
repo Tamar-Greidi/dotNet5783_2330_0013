@@ -25,5 +25,15 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void CartsSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CartsListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
