@@ -24,8 +24,8 @@ public class Program
                 "\n Press c to present all " + choosenOption + "s" +
                 "\n Press d to update " + choosenOption +
                 "\n Press e to delete " + choosenOption + " by ID");
-            Console.WriteLine(choosenOption == "orderItem" ? " Press f to present " + choosenOption + " by order ID and product ID" +
-                "\n Press g to present all " + choosenOption + "s in a specific order by order ID" : "");
+            Console.WriteLine(choosenOption == "orderItem" ? " Press f to present all " + choosenOption + "s in a specific order by order ID" +
+                "\n Press g to present " + choosenOption + " by order ID and product ID" : "");
                 
             char choosenMethod = char.Parse(Console.ReadLine());
             switch (choose)
@@ -349,17 +349,37 @@ public class Program
 
             case 'f':
                 // present all orderItems in a specific order by orderID
-                Console.WriteLine("enter orderItem ID");
+                Console.WriteLine("enter order ID:");
                 givenID = int.Parse(Console.ReadLine());
-                new DalOrderItem().GetProductsByOrder(givenID);
+                try
+                {
+                    IEnumerable<OrderItem> orderItems = dalList.OrderItem.GetProductsByOrder(givenID);
+                    foreach (OrderItem orderItem in orderItems)
+                    {
+                        Console.WriteLine(orderItem.ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception: " + ex.Message);
+                }
                 break;
                 
             case 'g':
                 //present orderItem by oderID and productID
-                Console.WriteLine("enter order ID");
-                int givenOrderID = int.Parse(Console.ReadLine());
-                int givenProductID = int.Parse(Console.ReadLine());
-                new DalOrderItem().GetProductsByOrderAndProduct(givenOrderID, givenProductID);
+                Console.WriteLine("enter order ID:");
+                int orderID = int.Parse(Console.ReadLine());
+                Console.WriteLine("enter order ID:");
+                int productID = int.Parse(Console.ReadLine());
+                try
+                {
+                    OrderItem orderItem = dalList.OrderItem.GetProductsByOrderAndProduct(orderID, productID);
+                    Console.WriteLine(orderItem.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception: " + ex.Message);
+                }
                 break;
 
             default:

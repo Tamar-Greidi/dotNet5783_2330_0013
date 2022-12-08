@@ -73,15 +73,17 @@ public class DalOrderItem : IOrderItem
 
     public IEnumerable<OrderItem> GetProductsByOrder(int orderID)
     {
-        List<OrderItem> _productsByOrder = new List<OrderItem>();
-        for (int i = 0; i < _arrOrderItem.Count(); i++)
-        {
-            if (_arrOrderItem[i].OrderID == orderID)
-            {
-                _productsByOrder.Add(_arrOrderItem[i]);
-                return _productsByOrder;
-            }
-        }
+        //List<OrderItem> _productsByOrder = new List<OrderItem>();
+        List<OrderItem> _productsByOrder = _arrOrderItem.FindAll(x => x.OrderID == orderID);
+        return _productsByOrder;
+        //for (int i = 0; i < _arrOrderItem.Count(); i++)
+        //{
+        //    if (_arrOrderItem[i].OrderID == orderID)
+        //    {
+        //        _productsByOrder.Add(_arrOrderItem[i]);
+        //        return _productsByOrder;
+        //    }
+        //}
         try
         {
             throw new ObjectNotFound();
@@ -94,9 +96,12 @@ public class DalOrderItem : IOrderItem
 
     public OrderItem GetProductsByOrderAndProduct(int orderID, int productID)
     {
-        for (int i = 0; i < _arrOrderItem.Count(); i++)
-            if (_arrOrderItem[i].OrderID == orderID && _arrOrderItem[i].ProductID == productID)
-                return _arrOrderItem[i];
+        OrderItem productsByOrderAndProduct = _arrOrderItem.Find(x => x.OrderID == orderID && x.ProductID == productID);
+        return productsByOrderAndProduct;
+
+        //for (int i = 0; i < _arrOrderItem.Count(); i++)
+        //    if (_arrOrderItem[i].OrderID == orderID && _arrOrderItem[i].ProductID == productID)
+        //        return _arrOrderItem[i];
         try
         {
             throw new ObjectNotFound();
@@ -134,7 +139,7 @@ public class DalOrderItem : IOrderItem
         {
             if(item.ID == orderItemID)
             {
-                _arrOrderItem.RemoveAt(item.ID);
+                _arrOrderItem.RemoveAll(x => x.ID == orderItemID);
                 return;
             }
         }
