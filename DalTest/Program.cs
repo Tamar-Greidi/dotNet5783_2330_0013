@@ -1,6 +1,5 @@
 ﻿using DalApi;
 using DO;
-using System;
 
 namespace Dal;
 
@@ -18,7 +17,7 @@ public class Program
         while (choose!=0)
         {
             string choosenOption = choose == 1 ? "product" : choose == 2 ? "order" : "orderItem";
-            Console.WriteLine("enter your option" +
+            Console.WriteLine("Press your option" +
                 "\n Press a to add " + choosenOption +
                 "\n Press b to present " + choosenOption + " by ID" +
                 "\n Press c to present all " + choosenOption + "s" +
@@ -40,10 +39,10 @@ public class Program
                     break;
             }
             Console.WriteLine("Press your option" +
-           "\n Press 0 to exit" +
-           "\n Press 1 to product" +
-           "\n Press 2 to order" +
-           "\n Press 3 to orderItem");
+                "\n Press 0 to exit" +
+                "\n Press 1 to product" +
+                "\n Press 2 to order" +
+                "\n Press 3 to orderItem");
             choose = int.Parse(Console.ReadLine());
         }
     }

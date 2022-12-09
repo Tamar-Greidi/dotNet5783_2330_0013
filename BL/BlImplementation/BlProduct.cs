@@ -1,5 +1,5 @@
-
-using DalApi;
+//using BO;
+//using DalApi;
 
 namespace BlImplementation;
 
@@ -8,31 +8,33 @@ namespace BlImplementation;
 /// </summary>
 internal class BlProduct : BlApi.IProduct
 {
-    IDal Dal = new Dal.DalList();
+    DalApi.IDal Dal = new Dal.DalList();
+
     ///Requesting a list of products from the data layer (for director screen).
     public IEnumerable<BO.ProductForList> GetProducts()
     {
-        //try
-        //{
-            IEnumerable<DO.Product> DListOfProducts = Dal.Product.GetAll();
-            List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
-            foreach (DO.Product Product in DListOfProducts) //Building on the database a logical entity type product list
+        IEnumerable<DO.Product> DProducts = new List<DO.Product>();
+        try
+        {
+            DProducts = Dal.Product.GetAll();
+        }
+        catch (BO.DalException ex)
+        {
+            throw ex;
+        }
+        List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
+        foreach (DO.Product Product in DProducts) //Building on the database a logical entity type product list
+        {
+            BO.ProductForList product = new BO.ProductForList()
             {
-                BO.ProductForList productForList = new BO.ProductForList()
-                {
-                    ID = Product.ID,
-                    Name = Product.Name,
-                    Price = Product.Price,
-                    Category = (BO.categories)Product.Category
-                };
-                BProductList.Add(productForList);
-            }
-            return BProductList;
-        //}
-        //catch (Exception ex)
-        //{
-        //    throw ex;
-        //}
+                ID = Product.ID,
+                Name = Product.Name,
+                Price = Product.Price,
+                Category = (BO.categories)Product.Category
+            };
+            BProductList.Add(product);
+        }
+        return BProductList;
     }
 
     ///Request a list of products from the data layer (for customer screen).
