@@ -369,11 +369,11 @@ public class Program
                 //present orderItem by oderID and productID
                 Console.WriteLine("enter order ID:");
                 int orderID = int.Parse(Console.ReadLine());
-                Console.WriteLine("enter order ID:");
+                Console.WriteLine("enter product ID:");
                 int productID = int.Parse(Console.ReadLine());
                 try
                 {
-                    OrderItem orderItem = dalList.OrderItem.GetProductsByOrderAndProduct(orderID, productID);
+                    OrderItem orderItem = dalList.OrderItem.GetProductByOrderAndProduct(orderID, productID);
                     Console.WriteLine(orderItem.ToString());
                 }
                 catch (Exception ex)

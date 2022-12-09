@@ -15,26 +15,21 @@ public class DalOrderItem : IOrderItem
     {
         try
         {
-            for (int i = 0; i < _arrOrderItem.Count(); i++)
-            {
-                if (_arrOrderItem[i].ID == orderItem.ID)
-                {
-                    throw new ObjectAlreadyExists();
-                }
-            }
+            OrderItem item = _arrOrderItem.Find(item => item.ID == orderItem.ID);
+            if (item.ID > 0)
+                throw new ObjectAlreadyExists();
         }
         catch (ObjectAlreadyExists ex)
         {
             throw ex;
         }
-        foreach (Product item in _arrProduct)
+        Order order = _arrOrder.Find(x => x.ID == orderItem.OrderID);
+        Product product = _arrProduct.Find(x => x.ID == orderItem.ProductID);
+        if (order.ID > 0 && product.ID > 0)
         {
-            if(item.ID == orderItem.ProductID)
-            {
-                orderItem.Price = item.Price;
-                _arrOrderItem.Add(orderItem);
-                return orderItem.ID;
-            }
+            orderItem.Price = product.Price;
+            _arrOrderItem.Add(orderItem);
+            return orderItem.ID;
         }
         try
         {
@@ -69,47 +64,6 @@ public class DalOrderItem : IOrderItem
             _showOrderItems.Add(orderItem);
         }
         return _showOrderItems;
-    }
-
-    public IEnumerable<OrderItem> GetProductsByOrder(int orderID)
-    {
-        //List<OrderItem> _productsByOrder = new List<OrderItem>();
-        List<OrderItem> _productsByOrder = _arrOrderItem.FindAll(x => x.OrderID == orderID);
-        return _productsByOrder;
-        //for (int i = 0; i < _arrOrderItem.Count(); i++)
-        //{
-        //    if (_arrOrderItem[i].OrderID == orderID)
-        //    {
-        //        _productsByOrder.Add(_arrOrderItem[i]);
-        //        return _productsByOrder;
-        //    }
-        //}
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-    }
-
-    public OrderItem GetProductsByOrderAndProduct(int orderID, int productID)
-    {
-        OrderItem productsByOrderAndProduct = _arrOrderItem.Find(x => x.OrderID == orderID && x.ProductID == productID);
-        return productsByOrderAndProduct;
-
-        //for (int i = 0; i < _arrOrderItem.Count(); i++)
-        //    if (_arrOrderItem[i].OrderID == orderID && _arrOrderItem[i].ProductID == productID)
-        //        return _arrOrderItem[i];
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
     }
 
     public int Update(OrderItem orderItem)
@@ -151,5 +105,61 @@ public class DalOrderItem : IOrderItem
         {
             throw ex;
         }
+    }
+
+    public IEnumerable<OrderItem> GetProductsByOrder(int orderID)
+    {
+        Order order = _arrOrder.Find(order => order.ID == orderID);
+        if (order.ID == 0)
+        {
+            try
+            {
+                throw new ObjectNotFound();
+            }
+            catch (ObjectNotFound ex)
+            {
+                throw ex;
+            }
+        }
+        List<OrderItem> _productsByOrder = _arrOrderItem.FindAll(x => x.OrderID == orderID);
+        return _productsByOrder;
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
+    }
+
+    public OrderItem GetProductByOrderAndProduct(int orderID, int productID)
+    {
+        Order order = _arrOrder.Find(order => order.ID == orderID);
+        Product product = _arrProduct.Find(product => product.ID == productID);
+        if (order.ID == 0 || product.ID == 0)
+        {
+            try
+            {
+                throw new ObjectNotFound();
+            }
+            catch (ObjectNotFound ex)
+            {
+                throw ex;
+            }
+        }
+        OrderItem productByOrderAndProduct = _arrOrderItem.Find(item => item.OrderID == orderID && item.ProductID == productID);
+        if (productByOrderAndProduct.ID == 0)
+        {
+            try
+            {
+                throw new ObjectNotFound();
+            }
+            catch (ObjectNotFound ex)
+            {
+                throw ex;
+            }
+        }
+        return productByOrderAndProduct;
     }
 }
