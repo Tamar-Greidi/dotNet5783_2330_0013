@@ -27,17 +27,19 @@ public class DalProduct: IProduct
 
     public Product Get(int productID)
     {
-        for (int i = 0; i < _arrProduct.Count(); i++)
-            if (_arrProduct[i].ID == productID)
-                return _arrProduct[i];
-        try
+        Product product = _arrProduct.Find(product => product.ID == productID);
+        if (product.ID == 0)
         {
-            throw new ObjectNotFound();
+            try
+            {
+                throw new ObjectNotFound();
+            }
+            catch (ObjectNotFound ex)
+            {
+                throw ex;
+            }
         }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        return product;
     }
 
     public IEnumerable<Product> GetAll()

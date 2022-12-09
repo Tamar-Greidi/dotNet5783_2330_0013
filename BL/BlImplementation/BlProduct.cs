@@ -13,15 +13,8 @@ internal class BlProduct : BlApi.IProduct
     ///Requesting a list of products from the data layer (for director screen).
     public IEnumerable<BO.ProductForList> GetProducts()
     {
-        IEnumerable<DO.Product> DProducts = new List<DO.Product>();
-        try
-        {
-            DProducts = Dal.Product.GetAll();
-        }
-        catch (BO.DalException ex)
-        {
-            throw ex;
-        }
+        //IEnumerable<DO.Product> DProducts = new List<DO.Product>();
+        IEnumerable<DO.Product> DProducts = Dal.Product.GetAll();
         List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
         foreach (DO.Product Product in DProducts) //Building on the database a logical entity type product list
         {
@@ -40,49 +33,46 @@ internal class BlProduct : BlApi.IProduct
     ///Request a list of products from the data layer (for customer screen).
     public IEnumerable<BO.ProductItem> GetCatalog()
     {
-        IEnumerable<DO.Product> DListOfProducts = Dal.Product.GetAll();
-        List<BO.ProductItem> BProductsItems = new List<BO.ProductItem>();
-        foreach (DO.Product Product in DListOfProducts)
+        IEnumerable<DO.Product> products = Dal.Product.GetAll();
+        List<BO.ProductItem> productsItems = new List<BO.ProductItem>();
+        foreach (DO.Product product in products)
         {
-            BO.ProductItem productItemForList = new BO.ProductItem()
+            BO.ProductItem productItem = new BO.ProductItem()
             {
-                ID = Product.ID,
-                Name = Product.Name,
-                Price = Product.Price,
-                Category = (BO.categories)Product.Category,
-                InStock = Product.InStock > 0 ? true : false,
+                ID = product.ID,
+                Name = product.Name,
+                Price = product.Price,
+                Category = (BO.categories)product.Category,
+                InStock = product.InStock > 0 ? true : false,
                 Amount = 0
             };
-            BProductsItems.Add(productItemForList);
+            productsItems.Add(productItem);
         }
-        return BProductsItems;
+        return productsItems;
+
     }
 
     ///Product details request.
     public BO.Product GetProductDetails(int productID)
     {
-        if (productID >= 0)
+        try
         {
-            try
+            DO.Product readProduct = Dal.Product.Get(productID);
+            BO.Product newProduct = new BO.Product()
             {
-                DO.Product readProduct = Dal.Product.Get(productID);
-                BO.Product newProduct = new BO.Product()
-                {
-                    ID = readProduct.ID,
-                    Name = readProduct.Name,
-                    Price = readProduct.Price,
-                    Category = (BO.categories)readProduct.Category,
-                    InStock = readProduct.InStock
-                };
-                return newProduct;
-            }
-            catch (DalApi.ObjectNotFound ex) //לא קיים כזה
-            {
-                throw new BO.DalException(ex);
-            }
+                ID = readProduct.ID,
+                Name = readProduct.Name,
+                Price = readProduct.Price,
+                Category = (BO.categories)readProduct.Category,
+                InStock = readProduct.InStock
+            };
+            return newProduct;
         }
-        else
-            throw new BO.InvalidData();
+        catch (DalApi.ObjectNotFound ex) //לא קיים כזה
+        {
+            throw new BO.DalException(ex);
+        }
+        throw new BO.InvalidData();
     }
 
     ///Product details request.
