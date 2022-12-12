@@ -33,7 +33,6 @@ namespace PL
             //{
 
             //}
-            ProductsSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
         }
 
         private void CartListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,14 +49,14 @@ namespace PL
 
         }
 
-        private void ProductsSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AddNewProduct_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void AddNewProduct_Click(object sender, RoutedEventArgs e)
+        private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
         }
 
         ///private void AddNewProduct_Click(object sender, RoutedEventArgs e) => 

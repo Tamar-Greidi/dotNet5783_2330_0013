@@ -45,14 +45,31 @@ public class DalProduct: IProduct
         return product;
     }
 
-    public IEnumerable<Product> GetAll()
+    public Product Get(int productID, Predicate<Product>? func = null)
+    {
+        Product product = _arrProduct.Find(func);
+        if (product.ID == 0)
+        {
+            try
+            {
+                throw new ObjectNotFound();
+            }
+            catch (ObjectNotFound ex)
+            {
+                throw ex;
+            }
+        }
+        return product;
+    }
+
+    public IEnumerable<Product> GetAll(Func<Product, bool> func = null)
     {
         List<Product> _ProductsShow = new();
         foreach (Product product in _arrProduct)
         {
             _ProductsShow.Add(product);
         }
-        return _ProductsShow;
+        return func == null ? _ProductsShow : _arrProduct.Where(func);
     }
 
     public int Update(Product product)

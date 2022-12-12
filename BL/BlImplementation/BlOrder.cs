@@ -22,7 +22,7 @@ internal class BlOrder : BlApi.IOrder
             IEnumerable<DO.OrderItem> orderItems = new List<DO.OrderItem>();
             try
             {
-                orderItems = Dal.OrderItem.GetProductsByOrder(order.ID);
+                orderItems = Dal.OrderItem.GetAll(item => item.OrderID == order.ID);
             }
             catch (DalApi.ObjectNotFound ex)
             {
@@ -60,7 +60,7 @@ internal class BlOrder : BlApi.IOrder
             try
             {
                 DO.Order orderByID = Dal.Order.Get(orderID);
-                IEnumerable<DO.OrderItem> orderItems = Dal.OrderItem.GetProductsByOrder(orderID);
+                IEnumerable<DO.OrderItem> orderItems = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
                 List<BO.OrderItem> returnOrderItems = new List<BO.OrderItem>();
                 double ordertotalPrice = 0;
                 foreach (var item in orderItems)
@@ -144,7 +144,7 @@ internal class BlOrder : BlApi.IOrder
                 throw ex;
             }
             order.ShipDate = DateTime.Now;
-            orderItem = Dal.OrderItem.GetProductsByOrder(orderID);
+            orderItem = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
             BoOrder.ID = orderID;
             BoOrder.CustomerName = order.CustomerName;
             BoOrder.CustomerEmail = order.CustomerEmail;
@@ -189,7 +189,7 @@ internal class BlOrder : BlApi.IOrder
                 throw new BO.OrderAlreadyDelivered();
             }
             order.DeliveryDate = DateTime.Now;
-            orderItem = (List<DO.OrderItem>)Dal.OrderItem.GetProductsByOrder(orderID);
+            orderItem = (List<DO.OrderItem>)Dal.OrderItem.GetAll(item => item.OrderID == orderID);
             BoOrder.CustomerName = order.CustomerName;
             BoOrder.CustomerEmail = order.CustomerEmail;
             BoOrder.ID = orderID;

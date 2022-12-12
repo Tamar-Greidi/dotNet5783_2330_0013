@@ -15,7 +15,8 @@ public interface ICrud<T>
 {
     public int Add(T value);
     public T Get(int value);
-    public IEnumerable<T?> GetAll();
+    public T Get(int value, Predicate<T>? func);
+    public IEnumerable<T?> GetAll(Func<T?, bool> func);
     public int Update(T value);
     public void Delete(int value);
 }

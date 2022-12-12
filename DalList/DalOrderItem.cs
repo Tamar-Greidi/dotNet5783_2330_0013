@@ -59,7 +59,22 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public IEnumerable<OrderItem> GetAll()
+    public OrderItem Get(int orderItemID, Predicate<OrderItem>? func)
+    {
+        for (int i = 0; i < _arrOrderItem.Count(); i++)
+            if (_arrOrderItem[i].ID == orderItemID)
+                return _arrOrderItem[i];
+        try
+        {
+            throw new ObjectNotFound();
+        }
+        catch (ObjectNotFound ex)
+        {
+            throw ex;
+        }
+    }
+
+    public IEnumerable<OrderItem> GetAll(Func<IEnumerable<OrderItem>?, bool> func)
     {
         List<OrderItem> _showOrderItems = new();
         foreach (OrderItem orderItem in _arrOrderItem)
