@@ -1,6 +1,7 @@
 using DO;
 using static Dal.DataSource;
 using DalApi;
+using Microsoft.VisualBasic;
 
 namespace Dal;
 
@@ -12,21 +13,30 @@ public class DalOrder: IOrder
 {
     public int Add(Order order)
     {
-        try
+        
+        if (orderQuantity > _arrOrder.Count())
         {
-            for (int i = 0; i < _arrOrder.Count(); i++)
-            {
-                if (_arrOrder[i].ID == order.ID)
-                {
-                    throw new ObjectAlreadyExists();
-                }
-            }
-        }
-        catch (ObjectAlreadyExists ex)
-        {
-            throw ex;
-        }
-        _arrOrder.Add(order);
+            order.ID = Config.OrderID++;
+            _arrOrder.Add(order);
+        }   
+        else
+            throw new ArrayIsFull();
+        //try
+        //{
+
+        //    for (int i = 0; i < _arrOrder.Count(); i++)
+        //    {
+        //        if (_arrOrder[i].ID == order.ID)
+        //        {
+        //            throw new ObjectAlreadyExists();
+        //        }
+        //    }
+        //}
+        //catch (ObjectAlreadyExists ex)
+        //{
+        //    throw ex;
+        //}
+        //_arrOrder.Add(order);
         return order.ID;
     }
 

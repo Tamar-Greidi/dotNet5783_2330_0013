@@ -1,6 +1,7 @@
+//using Dal;
+//using DalApi;
 
-using Dal;
-using DalApi;
+using BO;
 
 namespace BlImplementation;
 
@@ -42,7 +43,7 @@ internal class BlOrder : BlApi.IOrder
                 throw new BO.InvalidData();
             BO.OrderForList newOrder = new BO.OrderForList
             {
-                ID = 0,
+                ID = order.ID,
                 CustomerName = order.CustomerName,
                 AmountOfItems = orderItems.Count(),
                 Status = (BO.OrderStatus)status,
@@ -133,8 +134,15 @@ internal class BlOrder : BlApi.IOrder
             DO.Order order = new();
             BO.Order BoOrder = new();
             order = Dal.Order.Get(orderID);
-            if (order.ShipDate.CompareTo(DateTime.Now) < 0)
-                throw new BO.OrderAlreadyShipped();
+            try
+            {
+                if (order.ShipDate.CompareTo(DateTime.Now) < 0)
+                    throw new BO.OrderAlreadyShipped();
+            }
+            catch (OrderAlreadyShipped ex)
+            {
+                throw ex;
+            }
             order.ShipDate = DateTime.Now;
             orderItem = Dal.OrderItem.GetProductsByOrder(orderID);
             BoOrder.ID = orderID;

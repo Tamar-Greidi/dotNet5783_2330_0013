@@ -17,11 +17,14 @@ public class DalProduct: IProduct
             if (Get(product.ID).ID == product.ID)
                 throw new ObjectAlreadyExists();
         }
+        catch (ObjectNotFound)
+        {
+            _arrProduct.Add(product);
+        }
         catch (ObjectAlreadyExists ex)
         {
             throw ex;
         }
-        _arrProduct.Add(product);
         return product.ID;
     }
 

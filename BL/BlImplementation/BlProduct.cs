@@ -1,6 +1,8 @@
 //using BO;
 //using DalApi;
 
+//using BO;
+
 namespace BlImplementation;
 
 /// <summary>
@@ -84,9 +86,16 @@ internal class BlProduct : BlApi.IProduct
     ///Adding a product.
     public void Add(BO.Product product)
     {
-        if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)
+        try
         {
-            throw new BO.InvalidData(); //אחד מהנתונים שגוי
+            if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)
+            {
+                throw new BO.InvalidData(); //אחד מהנתונים שגוי
+            }
+        }
+        catch (BO.InvalidData ex)
+        {
+            throw ex;
         }
         DO.Product addingProduct = new DO.Product()
         {
@@ -96,12 +105,18 @@ internal class BlProduct : BlApi.IProduct
             Category = (DO.categories)product.Category,
             InStock = product.InStock
         };
-        try { Dal.Product.Add(addingProduct); }
+        try
+        {
+            Dal.Product.Add(addingProduct);
+        }
+        catch (DalApi.ObjectAlreadyExists ex)
+        {
+            throw new BO.DalException(ex);
+        }
         catch (DalApi.ObjectNotFound ex)
         {
             throw new BO.DalException(ex);
         }
-
     }
 
     ///Product deletion.

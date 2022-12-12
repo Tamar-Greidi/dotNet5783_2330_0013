@@ -15,6 +15,8 @@ public class DalOrderItem : IOrderItem
     {
         try
         {
+            Order curOrder=new Order();
+
             OrderItem item = _arrOrderItem.Find(item => item.ID == orderItem.ID);
             if (item.ID > 0)
                 throw new ObjectAlreadyExists();
@@ -23,9 +25,10 @@ public class DalOrderItem : IOrderItem
         {
             throw ex;
         }
-        Order order = _arrOrder.Find(x => x.ID == orderItem.OrderID);
+        //Order order = _arrOrder.Find(x => x.ID == orderItem.OrderID);
+        //order.ID > 0 &&
         Product product = _arrProduct.Find(x => x.ID == orderItem.ProductID);
-        if (order.ID > 0 && product.ID > 0)
+        if (product.ID > 0)
         {
             orderItem.Price = product.Price;
             _arrOrderItem.Add(orderItem);

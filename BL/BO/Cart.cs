@@ -18,9 +18,17 @@ public class Cart
     public List<OrderItem> Items { get; set; }
     public double TotalPrice { get; set; }
 
-    public override string ToString() => $@"
-        Customer Name: {CustomerName},
-        Email: {CustomerEmail},
-        Address: {CustomerAddress} 
-    ";
-}
+    public override string ToString()
+    {
+        string toString = "\n Customer Name: " + CustomerName + "," +
+        "\n Email: " + CustomerEmail + "," +
+        "\n Address: " + CustomerAddress + "," +
+        "\n Items: ";
+        foreach (var item in Items)
+        {
+            toString += "\n item #" + (Items.IndexOf(item) + 1) + ":" + item;
+        }
+        toString += "\n Total Price: " + TotalPrice;
+        return toString;
+    }
+} 

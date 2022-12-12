@@ -13,6 +13,5 @@ public enum categories   ///enum for categories.
     watchs,
     cameras,
     camputers,
-    ipads
-    
+    ipads 
 };

@@ -10,8 +10,10 @@ public enum paymentOptions
 
 public enum categories
 {
-    watch,
-    Parve
+    watchs,
+    cameras,
+    camputers,
+    ipads
 };
 
 public enum OrderStatus

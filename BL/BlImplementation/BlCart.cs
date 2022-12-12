@@ -1,3 +1,4 @@
+///using BO;
 
 namespace BlImplementation;
 
@@ -42,11 +43,18 @@ internal class BlCart : BlApi.ICart
                 cart.Items.Add(orderItemToAdd);
             }
             else
-                throw new BO.OutOfStock();
+                try
+                {
+                    throw new BO.OutOfStock();
+                }
+                catch (BO.OutOfStock ex)
+                {
+                    throw ex;
+                }
         }
-        catch (BO.ObjectNotFound ex) //אין כזה מוצר
+        catch (DalApi.ObjectNotFound ex) //לא קיים כזה
         {
-            //throw new BO.ObjectNotFound(ex);
+            throw new BO.DalException(ex);
         }
         return cart;
     }
@@ -98,13 +106,13 @@ internal class BlCart : BlApi.ICart
         {
             try
             {
-                DO.Product TempProduct = Dal.Product.Get(item.ID);
+                DO.Product TempProduct = Dal.Product.Get(item.ProductID);
                 if (item.Amount < 0 || item.Amount > TempProduct.InStock)
                     throw new BO.InvalidData();
             }
-            catch (Exception)
+            catch (BO.InvalidData ex)
             {
-                throw new Exception();
+                throw ex;
             }
         }
         DO.Order order = new();
@@ -114,23 +122,34 @@ internal class BlCart : BlApi.ICart
         order.OrderDate = DateTime.Now;
         order.ShipDate = DateTime.MinValue;
         order.DeliveryDate = DateTime.MinValue;
-        int orderID = Dal.Order.Add(order);
-        foreach (var item in cart.Items)
+        try
         {
-            DO.OrderItem orderItem = new();
-            orderItem.ID = 0;
-            orderItem.ProductID = item.ProductID;
-            orderItem.OrderID = orderID;
-            orderItem.Price = item.Price;
-            orderItem.Amount = item.Amount;
-            try
+            int orderID = Dal.Order.Add(order);
+            foreach (var item in cart.Items)
             {
-                Dal.OrderItem.Add(orderItem);
+                DO.OrderItem orderItem = new();
+                orderItem.ID = 0;
+                orderItem.ProductID = item.ProductID;
+                orderItem.OrderID = orderID;
+                orderItem.Price = item.Price;
+                orderItem.Amount = item.Amount;
+                try
+                {
+                    Dal.OrderItem.Add(orderItem);
+                }
+                catch (DalApi.ObjectNotFound ex) //לא קיים כזה
+                {
+                    throw new BO.DalException(ex);
+                }
+                catch (BO.OutOfStock ex)
+                {
+                    throw ex;
+                }
             }
-            catch (Exception)
-            {
-                throw new Exception("לא הצליח להוסיף פריט להזמנה");
-            }
+        }
+        catch (BO.ObjectAlreadyExists ex)
+        {
+            throw ex;
         }
     }
 }
