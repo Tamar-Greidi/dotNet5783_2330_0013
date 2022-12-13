@@ -25,14 +25,7 @@ namespace PL
         public ProductsListWindow()
         {
             InitializeComponent();
-            //try
-            //{
-                ProductsListview.ItemsSource = bl.Product.GetProducts();
-            //}
-            //catch (Exception)
-            //{
-
-            //}
+            ProductsListview.ItemsSource = bl.Product.GetProducts();
         }
 
         private void CartListview_SelectionChanged(object sender, SelectionChangedEventArgs e)

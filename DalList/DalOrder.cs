@@ -21,22 +21,6 @@ public class DalOrder: IOrder
         }   
         else
             throw new ArrayIsFull();
-        //try
-        //{
-
-        //    for (int i = 0; i < _arrOrder.Count(); i++)
-        //    {
-        //        if (_arrOrder[i].ID == order.ID)
-        //        {
-        //            throw new ObjectAlreadyExists();
-        //        }
-        //    }
-        //}
-        //catch (ObjectAlreadyExists ex)
-        //{
-        //    throw ex;
-        //}
-        //_arrOrder.Add(order);
         return order.ID;
     }
 
@@ -59,7 +43,7 @@ public class DalOrder: IOrder
         }
     }
 
-    public Order Get(int orderID, Predicate<Order>? func)
+    public Order Get(int orderID, Predicate<Order>? func = null)
     {
         for (int i = 0; i < _arrOrder.Count(); i++)
         {
@@ -78,7 +62,7 @@ public class DalOrder: IOrder
         }
     }
 
-    public IEnumerable<Order> GetAll(Func<IEnumerable<Order>?, bool> func)
+    public IEnumerable<Order> GetAll(Func<IEnumerable<Order>, bool> func = null)
     {
         List<Order> _OrdersShow = new();
         foreach (Order order in _arrOrder)

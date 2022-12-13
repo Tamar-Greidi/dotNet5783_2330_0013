@@ -59,7 +59,7 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public OrderItem Get(int orderItemID, Predicate<OrderItem>? func)
+    public OrderItem Get(int orderItemID, Predicate<OrderItem>? func = null)
     {
         for (int i = 0; i < _arrOrderItem.Count(); i++)
             if (_arrOrderItem[i].ID == orderItemID)
@@ -74,7 +74,7 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public IEnumerable<OrderItem> GetAll(Func<IEnumerable<OrderItem>?, bool> func)
+    public IEnumerable<OrderItem> GetAll(Func<IEnumerable<OrderItem>, bool> func = null)
     {
         List<OrderItem> _showOrderItems = new();
         foreach (OrderItem orderItem in _arrOrderItem)
@@ -125,59 +125,59 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public IEnumerable<OrderItem> GetProductsByOrder(int orderID)
-    {
-        Order order = _arrOrder.Find(order => order.ID == orderID);
-        if (order.ID == 0)
-        {
-            try
-            {
-                throw new ObjectNotFound();
-            }
-            catch (ObjectNotFound ex)
-            {
-                throw ex;
-            }
-        }
-        List<OrderItem> _productsByOrder = _arrOrderItem.FindAll(x => x.OrderID == orderID);
-        return _productsByOrder;
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
-    }
+    //public IEnumerable<OrderItem> GetProductsByOrder(int orderID)
+    //{
+    //    Order order = _arrOrder.Find(order => order.ID == orderID);
+    //    if (order.ID == 0)
+    //    {
+    //        try
+    //        {
+    //            throw new ObjectNotFound();
+    //        }
+    //        catch (ObjectNotFound ex)
+    //        {
+    //            throw ex;
+    //        }
+    //    }
+    //    List<OrderItem> _productsByOrder = _arrOrderItem.FindAll(x => x.OrderID == orderID);
+    //    return _productsByOrder;
+    //    try
+    //    {
+    //        throw new ObjectNotFound();
+    //    }
+    //    catch (ObjectNotFound ex)
+    //    {
+    //        throw ex;
+    //    }
+    //}
 
-    public OrderItem GetProductByOrderAndProduct(int orderID, int productID)
-    {
-        Order order = _arrOrder.Find(order => order.ID == orderID);
-        Product product = _arrProduct.Find(product => product.ID == productID);
-        if (order.ID == 0 || product.ID == 0)
-        {
-            try
-            {
-                throw new ObjectNotFound();
-            }
-            catch (ObjectNotFound ex)
-            {
-                throw ex;
-            }
-        }
-        OrderItem productByOrderAndProduct = _arrOrderItem.Find(item => item.OrderID == orderID && item.ProductID == productID);
-        if (productByOrderAndProduct.ID == 0)
-        {
-            try
-            {
-                throw new ObjectNotFound();
-            }
-            catch (ObjectNotFound ex)
-            {
-                throw ex;
-            }
-        }
-        return productByOrderAndProduct;
-    }
+    ///public OrderItem GetProductByOrderAndProduct(int orderID, int productID)
+    //{
+    //    Order order = _arrOrder.Find(order => order.ID == orderID);
+    //    Product product = _arrProduct.Find(product => product.ID == productID);
+    //    if (order.ID == 0 || product.ID == 0)
+    //    {
+    //        try
+    //        {
+    //            throw new ObjectNotFound();
+    //        }
+    //        catch (ObjectNotFound ex)
+    //        {
+    //            throw ex;
+    //        }
+    //    }
+    //    OrderItem productByOrderAndProduct = _arrOrderItem.Find(item => item.OrderID == orderID && item.ProductID == productID);
+    //    if (productByOrderAndProduct.ID == 0)
+    //    {
+    //        try
+    //        {
+    //            throw new ObjectNotFound();
+    //        }
+    //        catch (ObjectNotFound ex)
+    //        {
+    //            throw ex;
+    //        }
+    //    }
+    //    return productByOrderAndProduct;
+    //}
 }
