@@ -15,12 +15,12 @@ internal static class DataSource
     }
 
     ///class for constants numbers.
-   // static public class Constants
-   // {
+    // static public class Constants
+    // {
         public const int productQuantity = 50;
         public const int orderQuantity = 100;
         public const int orderItemQuantity = 200;
-   // }
+    // }
 
     ///Config
     internal static class Config

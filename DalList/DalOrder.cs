@@ -1,7 +1,6 @@
 using DO;
 using static Dal.DataSource;
 using DalApi;
-using Microsoft.VisualBasic;
 
 namespace Dal;
 
@@ -43,7 +42,7 @@ public class DalOrder: IOrder
         }
     }
 
-    public Order Get(int orderID, Predicate<Order>? func = null)
+    public Order Get(int orderID, Predicate<Order> func)
     {
         for (int i = 0; i < _arrOrder.Count(); i++)
         {
@@ -62,7 +61,7 @@ public class DalOrder: IOrder
         }
     }
 
-    public IEnumerable<Order> GetAll(Func<IEnumerable<Order>, bool> func = null)
+    public IEnumerable<Order> GetAll(Func<Order, bool>? func = null)
     {
         List<Order> _OrdersShow = new();
         foreach (Order order in _arrOrder)
@@ -70,6 +69,7 @@ public class DalOrder: IOrder
             _OrdersShow.Add(order);
         }
         return _OrdersShow;
+        ///return func == null ? _OrdersShow : _arrOrder.Where(func);
     }
 
     public int Update(Order order)

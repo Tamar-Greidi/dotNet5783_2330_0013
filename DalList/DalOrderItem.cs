@@ -59,7 +59,7 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public OrderItem Get(int orderItemID, Predicate<OrderItem>? func = null)
+    public OrderItem Get(int orderItemID, Predicate<OrderItem> func)
     {
         for (int i = 0; i < _arrOrderItem.Count(); i++)
             if (_arrOrderItem[i].ID == orderItemID)
@@ -74,7 +74,7 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public IEnumerable<OrderItem> GetAll(Func<IEnumerable<OrderItem>, bool> func = null)
+    public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func = null)
     {
         List<OrderItem> _showOrderItems = new();
         foreach (OrderItem orderItem in _arrOrderItem)
