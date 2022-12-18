@@ -133,6 +133,7 @@ internal class BlProduct : BlApi.IProduct
         }
         throw new BO.InvalidData();
     }
+
     /// <summary>
     /// Product details request (for customer screen).
     /// </summary>
@@ -162,19 +163,6 @@ internal class BlProduct : BlApi.IProduct
             throw new BO.DalException(ex);
         }
         throw new BO.InvalidData();
-    }
-
-
-    /// <summary>
-    /// Product details request.
-    /// </summary>
-    /// <param name="productID"></param>
-    /// <param name="cart"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public BO.Product GetProductDetails(int productID, BO.Cart cart)
-    {
-        throw new NotImplementedException();
     }
 
     /// <summary>
