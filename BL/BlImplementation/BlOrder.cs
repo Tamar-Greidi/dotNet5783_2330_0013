@@ -11,6 +11,12 @@ namespace BlImplementation;
 internal class BlOrder : BlApi.IOrder
 {
     DalApi.IDal Dal = new Dal.DalList();
+    /// <summary>
+    /// Order list request.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="BO.DalException"></exception>
+    /// <exception cref="BO.InvalidData"></exception>
     public IEnumerable<BO.OrderForList> Get()
     {
         int status;
@@ -53,6 +59,14 @@ internal class BlOrder : BlApi.IOrder
         }
         return newOrders;
     }
+    /// <summary>
+    /// Order details request.
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.IncorrectDate"></exception>
+    /// <exception cref="BO.DalException"></exception>
+    /// <exception cref="BO.InvalidData"></exception>
     public BO.Order GetDetails(int orderID)
     {
         if (orderID > 0)
@@ -110,39 +124,23 @@ internal class BlOrder : BlApi.IOrder
         else
             throw new BO.InvalidData();
     }
-
+    /// <summary>
+    /// Order shipping update.
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.OrderAlreadyShipped"></exception>
+    /// <exception cref="BO.DalException"></exception>
     public BO.Order UpdateShipping(int orderID)
     {
-        //BO.Order b = new();
-        //try
-        //{
-        //    DO.Order order = Dal.Order.Get(orderID);
-        //    if (order.ShipDate == DateTime.MinValue || order.ShipDate.CompareTo(DateTime.Now) > 0)
-        //    {
-        //        order.ShipDate = DateTime.Now;
-        //    }
-        //}
-        //catch
-        //{
-        //    throw;
-        //}
-        //return b;
-
         try
         {
             IEnumerable<DO.OrderItem> orderItem = new List<DO.OrderItem>();
             DO.Order order = new();
             BO.Order BoOrder = new();
             order = Dal.Order.Get(orderID);
-            try
-            {
-                if (order.ShipDate.CompareTo(DateTime.Now) < 0)
-                    throw new BO.OrderAlreadyShipped();
-            }
-            catch (OrderAlreadyShipped ex)
-            {
-                throw ex;
-            }
+            if (order.ShipDate.CompareTo(DateTime.Now) < 0)
+                throw new BO.OrderAlreadyShipped();
             order.ShipDate = DateTime.Now;
             orderItem = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
             BoOrder.ID = orderID;
@@ -174,7 +172,13 @@ internal class BlOrder : BlApi.IOrder
             throw new BO.DalException(ex);
         }
     }
-
+    /// <summary>
+    /// Order delivery update.
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.OrderAlreadyDelivered"></exception>
+    /// <exception cref="BO.DalException"></exception>
     public BO.Order UpdateDelivery(int orderID)
     {
         try
@@ -218,9 +222,42 @@ internal class BlOrder : BlApi.IOrder
             throw new BO.DalException(ex);
         }
 }
-    //בונוס
+    /// <summary>
+    /// Order Tracking.
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.IncorrectDate"></exception>
+    /// <exception cref="BO.ObjectNotFound"></exception>
+    public OrderTracking OrderTracking(int orderID)
+    {
+        DO.Order order= Dal.Order.Get(orderID);
+        if(order.ID== orderID)
+        {
+            int status;
+            if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
+                status = 0;
+            else if (order.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.ShipDate) == 0 || DateTime.Now.CompareTo(order.ShipDate) > 0))
+                status = 1;
+            else if (order.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.DeliveryDate) == 0 || DateTime.Now.CompareTo(order.DeliveryDate) > 0))
+                status = 2;
+            else
+                throw new BO.IncorrectDate();
+            BO.OrderTracking eee = new BO.OrderTracking
+            {
+                ID = orderID,
+                Status = (BO.OrderStatus)status
+            };
+            return eee;
+        }
+        throw new BO.ObjectNotFound();
+    }
+    /// <summary>
+    /// Bonus: Update an order.
+    /// </summary>
+    /// <param name="orderID"></param>
     public void Update(int orderID)
     {
-
+        //???למה שמנהל יוכל לשנות כמות מוצר בהזמנה
     }
 }

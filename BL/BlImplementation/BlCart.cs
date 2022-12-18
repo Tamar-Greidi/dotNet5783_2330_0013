@@ -97,7 +97,15 @@ internal class BlCart : BlApi.ICart
         }
         return cart;
     }
-
+    /// <summary>
+    /// Basket confirmation for order.
+    /// </summary>
+    /// <param name="cart"></param>
+    /// <param name="CustomerName"></param>
+    /// <param name="CustomerEmail"></param>
+    /// <param name="CustomerAddress"></param>
+    /// <exception cref="BO.InvalidData"></exception>
+    /// <exception cref="BO.DalException"></exception>
     public void ConfirmationCart(BO.Cart cart, string CustomerName, string CustomerEmail, string CustomerAddress)
     {
         if (CustomerName == null || CustomerEmail == null || CustomerAddress == null)

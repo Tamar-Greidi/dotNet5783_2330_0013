@@ -10,8 +10,9 @@ public interface IOrder
 {
     public IEnumerable<OrderForList?> Get();
     public Order GetDetails(int orderID);
-    public BO.Order UpdateShipping(int orderID);
-    public BO.Order UpdateDelivery(int orderID);
+    public Order UpdateShipping(int orderID);
+    public Order UpdateDelivery(int orderID);
+    public OrderTracking OrderTracking(int orderID);
     //берес
     public void Update(int orderID);
 }
