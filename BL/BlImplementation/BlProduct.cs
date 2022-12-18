@@ -1,7 +1,8 @@
 //using BO;
 //using DalApi;
-
 //using BO;
+
+using BO;
 
 namespace BlImplementation;
 
@@ -12,10 +13,82 @@ internal class BlProduct : BlApi.IProduct
 {
     DalApi.IDal Dal = new Dal.DalList();
 
-    ///Requesting a list of products from the data layer (for director screen).
-    public IEnumerable<BO.ProductForList> GetProducts()
+    /////<summary>
+    ///// Requesting a list of products from the data layer (for director screen).
+    ///// </summary>
+    ///// <returns></returns>
+    //public IEnumerable<BO.ProductForList> GetProducts()
+    //{
+    //    IEnumerable<DO.Product> DProducts = Dal.Product.GetAll();
+    //    List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
+    //    foreach (DO.Product Product in DProducts) //Building on the database a logical entity type product list
+    //    {
+    //        BO.ProductForList product = new BO.ProductForList()
+    //        {
+    //            ID = Product.ID,
+    //            Name = Product.Name,
+    //            Price = Product.Price,
+    //            Category = (BO.categories)Product.Category
+    //        };
+    //        BProductList.Add(product);
+    //    }
+    //    return BProductList;
+    //}
+
+    ///// <summary>
+    ///// Request a list of products from the data layer (for customer screen).
+    ///// </summary>
+    ///// <returns></returns>
+    //public IEnumerable<BO.ProductItem> GetCatalog()
+    //{
+    //    IEnumerable<DO.Product> products = Dal.Product.GetAll();
+    //    List<BO.ProductItem> productsItems = new List<BO.ProductItem>();
+    //    foreach (DO.Product product in products)
+    //    {
+    //        BO.ProductItem productItem = new BO.ProductItem()
+    //        {
+    //            ID = product.ID,
+    //            Name = product.Name,
+    //            Price = product.Price,
+    //            Category = (BO.categories)product.Category,
+    //            InStock = product.InStock > 0 ? true : false,
+    //            Amount = 0
+    //        };
+    //        productsItems.Add(productItem);
+    //    }
+    //    return productsItems;
+    //}
+
+    /////<summary>
+    ///// Requesting a list of products from the data layer (for director screen).
+    ///// </summary>
+    ///// <returns></returns>
+    //public IEnumerable<BO.Product> GetProducts()
+    //{
+    //    IEnumerable<DO.Product> products = Dal.Product.GetAll();
+    //    List<BO.Product> productsItems = new List<BO.Product>();
+    //    foreach (DO.Product product in products)
+    //    {
+    //        BO.Product productItem = new BO.Product()
+    //        {
+    //            ID = product.ID,
+    //            Name = product.Name,
+    //            Price = product.Price,
+    //            Category = (BO.categories)product.Category,
+    //            InStock = product.InStock
+    //        };
+    //        productsItems.Add(productItem);
+    //    }
+    //    return productsItems;
+    //}
+
+    /// <summary>
+    /// Request a list of products from the data layer (for customer screen).
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<BO.ProductForList> GetCatalog()
     {
-        //IEnumerable<DO.Product> DProducts = new List<DO.Product>();
+
         IEnumerable<DO.Product> DProducts = Dal.Product.GetAll();
         List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
         foreach (DO.Product Product in DProducts) //Building on the database a logical entity type product list
@@ -32,29 +105,13 @@ internal class BlProduct : BlApi.IProduct
         return BProductList;
     }
 
-    ///Request a list of products from the data layer (for customer screen).
-    public IEnumerable<BO.ProductItem> GetCatalog()
-    {
-        IEnumerable<DO.Product> products = Dal.Product.GetAll();
-        List<BO.ProductItem> productsItems = new List<BO.ProductItem>();
-        foreach (DO.Product product in products)
-        {
-            BO.ProductItem productItem = new BO.ProductItem()
-            {
-                ID = product.ID,
-                Name = product.Name,
-                Price = product.Price,
-                Category = (BO.categories)product.Category,
-                InStock = product.InStock > 0 ? true : false,
-                Amount = 0
-            };
-            productsItems.Add(productItem);
-        }
-        return productsItems;
-
-    }
-
-    ///Product details request.
+    /// <summary>
+    /// Product details request.
+    /// </summary>
+    /// <param name="productID"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.DalException"></exception>
+    /// <exception cref="BO.InvalidData"></exception>
     public BO.Product GetProductDetails(int productID)
     {
         try
@@ -76,14 +133,55 @@ internal class BlProduct : BlApi.IProduct
         }
         throw new BO.InvalidData();
     }
+    /// <summary>
+    /// Product details request (for customer screen).
+    /// </summary>
+    /// <param name="productID"></param>
+    /// <param name="cart"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.DalException"></exception>
+    /// <exception cref="BO.InvalidData"></exception>
+    public BO.ProductItem GetProductDetails(int productID, Cart cart)
+    {
+        try
+        {
+            DO.Product readProduct = Dal.Product.Get(productID);
+            BO.ProductItem newProduct = new BO.ProductItem()
+            {
+                ID = readProduct.ID,
+                Name = readProduct.Name,
+                Price = readProduct.Price,
+                Category = (BO.categories)readProduct.Category,
+                //Amount = ?איך יודעים כמה
+                InStock = readProduct.InStock > 0 ? true : false
+            };
+            return newProduct;
+        }
+        catch (DalApi.ObjectNotFound ex) //לא קיים כזה
+        {
+            throw new BO.DalException(ex);
+        }
+        throw new BO.InvalidData();
+    }
 
-    ///Product details request.
+
+    /// <summary>
+    /// Product details request.
+    /// </summary>
+    /// <param name="productID"></param>
+    /// <param name="cart"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
     public BO.Product GetProductDetails(int productID, BO.Cart cart)
     {
         throw new NotImplementedException();
     }
 
-    ///Adding a product.
+    /// <summary>
+    /// Adding a product.
+    /// </summary>
+    /// <param name="product"></param>
+    /// <exception cref="BO.DalException"></exception>
     public void Add(BO.Product product)
     {
         try
@@ -119,7 +217,12 @@ internal class BlProduct : BlApi.IProduct
         }
     }
 
-    ///Product deletion.
+    /// <summary>
+    /// Product deletion.
+    /// </summary>
+    /// <param name="productID"></param>
+    /// <exception cref="BO.ObjectNotFound"></exception>
+    /// <exception cref="BO.DalException"></exception>
     public void Delete(int productID)
     {
         IEnumerable<DO.OrderItem> ItemsInOrder = Dal.OrderItem.GetAll();
@@ -137,7 +240,12 @@ internal class BlProduct : BlApi.IProduct
         }
     }
 
-    ///Product update.
+    /// <summary>
+    /// Product update.
+    /// </summary>
+    /// <param name="product"></param>
+    /// <exception cref="BO.InvalidData"></exception>
+    /// <exception cref="BO.DalException"></exception>
     public void Update(BO.Product product)
     {
         if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)
