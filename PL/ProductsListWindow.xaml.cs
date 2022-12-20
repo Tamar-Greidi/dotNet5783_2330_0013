@@ -1,4 +1,5 @@
 ﻿using BlImplementation;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,11 @@ namespace PL
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
         }
 
-        private void AddNewProduct_Click(object sender, RoutedEventArgs e) => new NewProductWindow().Show();
+        private void AddNewProduct_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductsWindow().ShowDialog();
+            ProductsListview.ItemsSource = bl.Product.GetCatalog();
+        }
 
         private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -42,8 +47,23 @@ namespace PL
             ProductsListview.ItemsSource = list;
         }
 
-        private void ProductSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
+                var product = (BO.ProductForList)(sender as ListView).SelectedItem;
+                BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
+                new ProductsWindow(selectedItem).ShowDialog();
+                ProductsListview.ItemsSource = bl.Product.GetCatalog();
+            }
+            catch (DalException ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
+            catch (InvalidData ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
         }
 
         private void ProductsListview_SelectionChanged(object sender, SelectionChangedEventArgs e)

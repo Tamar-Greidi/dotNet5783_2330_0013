@@ -59,19 +59,12 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public OrderItem Get(int orderItemID, Predicate<OrderItem> func)
+    public OrderItem Get(Predicate<OrderItem> func)
     {
-        for (int i = 0; i < _arrOrderItem.Count(); i++)
-            if (_arrOrderItem[i].ID == orderItemID)
-                return _arrOrderItem[i];
-        try
-        {
+        OrderItem orderItem = _arrOrderItem.Find(func);
+        if(orderItem.ID==0)
             throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        return orderItem;
     }
 
     public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func = null)

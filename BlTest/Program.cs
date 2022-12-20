@@ -59,7 +59,7 @@ public class Program
                     ///get products:
                     try
                     {
-                        IEnumerable<ProductForList?> getProducts = IBl.Product.GetProducts();
+                        IEnumerable<ProductForList?> getProducts = IBl.Product.GetCatalog();
                         foreach (ProductForList item in getProducts)
                         {
                             Console.WriteLine(item.ToString());
@@ -75,8 +75,8 @@ public class Program
                     ///get catalog:
                     try
                     {
-                        IEnumerable<ProductItem> GetProductForCatalog = IBl.Product.GetCatalog();
-                        foreach (ProductItem item in GetProductForCatalog)
+                        IEnumerable<ProductForList> GetProductForCatalog = IBl.Product.GetCatalog();
+                        foreach (ProductForList item in GetProductForCatalog)
                         {
                             Console.WriteLine(item.ToString());
                         }

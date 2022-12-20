@@ -33,7 +33,7 @@ public class DalProduct: IProduct
         return product;
     }
 
-    public Product Get(int productID, Predicate<Product>? func)
+    public Product Get(Predicate<Product>? func)
     {
         Product product = _arrProduct.Find(func);
         if (product.ID == 0)

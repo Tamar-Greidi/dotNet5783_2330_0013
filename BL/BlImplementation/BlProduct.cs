@@ -183,16 +183,9 @@ internal class BlProduct : BlApi.IProduct
     /// <exception cref="BO.DalException"></exception>
     public void Add(BO.Product product)
     {
-        try
+        if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)
         {
-            if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)
-            {
-                throw new BO.InvalidData(); //אחד מהנתונים שגוי
-            }
-        }
-        catch (BO.InvalidData ex)
-        {
-            throw ex;
+            throw new BO.InvalidData(); //אחד מהנתונים שגוי
         }
         DO.Product addingProduct = new DO.Product()
         {

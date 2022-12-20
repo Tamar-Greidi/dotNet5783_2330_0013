@@ -42,23 +42,12 @@ public class DalOrder: IOrder
         }
     }
 
-    public Order Get(int orderID, Predicate<Order> func)
+    public Order Get(Predicate<Order> func)
     {
-        for (int i = 0; i < _arrOrder.Count(); i++)
-        {
-            if (_arrOrder[i].ID == orderID)
-            {
-                return _arrOrder[i];
-            }
-        }
-        try
-        {
+        Order order = _arrOrder.Find(func);
+        if (order.ID == 0)
             throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        return order;
     }
 
     public IEnumerable<Order> GetAll(Func<Order, bool>? func = null)

@@ -352,7 +352,7 @@ public class Program
                 givenID = int.Parse(Console.ReadLine());
                 try
                 {
-                    IEnumerable<OrderItem> orderItems = dalList.OrderItem.GetProductsByOrder(givenID);
+                    IEnumerable<OrderItem> orderItems = dalList.OrderItem.GetAll(item => item.ID == givenID);
                     foreach (OrderItem orderItem in orderItems)
                     {
                         Console.WriteLine(orderItem.ToString());
@@ -372,7 +372,7 @@ public class Program
                 int productID = int.Parse(Console.ReadLine());
                 try
                 {
-                    OrderItem orderItem = dalList.OrderItem.GetProductByOrderAndProduct(orderID, productID);
+                    OrderItem orderItem = dalList.OrderItem.Get(item => item.OrderID == orderID && item.ProductID == productID);
                     Console.WriteLine(orderItem.ToString());
                 }
                 catch (Exception ex)
