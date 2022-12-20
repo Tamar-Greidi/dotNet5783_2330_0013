@@ -1,7 +1,8 @@
-﻿using DalApi;
+﻿using Dal;
+using DalApi;
 using DO;
 
-namespace Dal;
+namespace DalTest;
 
 public class Program
 {
@@ -14,7 +15,7 @@ public class Program
             "\n Press 2 to order" +
             "\n Press 3 to orderItem");
         int choose = int.Parse(Console.ReadLine());
-        while (choose!=0)
+        while (choose != 0)
         {
             string choosenOption = choose == 1 ? "product" : choose == 2 ? "order" : "orderItem";
             Console.WriteLine("Press your option" +
@@ -25,7 +26,7 @@ public class Program
                 "\n Press e to delete " + choosenOption + " by ID");
             Console.WriteLine(choosenOption == "orderItem" ? " Press f to present all " + choosenOption + "s in a specific order by order ID" +
                 "\n Press g to present " + choosenOption + " by order ID and product ID" : "");
-                
+
             char choosenMethod = char.Parse(Console.ReadLine());
             switch (choose)
             {
@@ -68,7 +69,7 @@ public class Program
                 Console.WriteLine("enter product catagory");
                 createProduct.Category = (categories)int.Parse(Console.ReadLine());
                 Console.WriteLine("enter product inStock");
-                int recivedInStock= int.Parse(Console.ReadLine());
+                int recivedInStock = int.Parse(Console.ReadLine());
                 while (recivedInStock < 0)
                 {
                     Console.WriteLine("enter a valid inStock - at list 0");
@@ -94,7 +95,7 @@ public class Program
                     Product presentProduct = dalList.Product.Get(givenID);
                     Console.WriteLine(presentProduct.ToString());
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("Exception: " + ex.Message);
                 }
@@ -126,7 +127,7 @@ public class Program
                 {
                     int returnUpdateID = new DalProduct().Update(updateProduct);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("Exception: " + ex.Message);
                 }
@@ -175,7 +176,7 @@ public class Program
                 {
                     dalList.Order.Add(createOrder);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("Exception: " + ex.Message);
                 }
@@ -363,7 +364,7 @@ public class Program
                     Console.WriteLine("Exception: " + ex.Message);
                 }
                 break;
-                
+
             case 'g':
                 //present orderItem by oderID and productID
                 Console.WriteLine("enter order ID:");
