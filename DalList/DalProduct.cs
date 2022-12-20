@@ -21,10 +21,6 @@ public class DalProduct: IProduct
         {
             _arrProduct.Add(product);
         }
-        catch (ObjectAlreadyExists ex)
-        {
-            throw ex;
-        }
         return product.ID;
     }
 
@@ -32,16 +28,8 @@ public class DalProduct: IProduct
     {
         Product product = _arrProduct.Find(product => product.ID == productID);
         if (product.ID == 0)
-        {
-            try
-            {
+            if (product.ID == 0)
                 throw new ObjectNotFound();
-            }
-            catch (ObjectNotFound ex)
-            {
-                throw ex;
-            }
-        }
         return product;
     }
 
@@ -49,27 +37,13 @@ public class DalProduct: IProduct
     {
         Product product = _arrProduct.Find(func);
         if (product.ID == 0)
-        {
-            try
-            {
-                throw new ObjectNotFound();
-            }
-            catch (ObjectNotFound ex)
-            {
-                throw ex;
-            }
-        }
+            throw new ObjectNotFound();
         return product;
     }
 
     public IEnumerable<Product> GetAll(Func<Product, bool> func = null)
     {
-        List<Product> _ProductsShow = new();
-        foreach (Product product in _arrProduct)
-        {
-            _ProductsShow.Add(product);
-        }
-        return func == null ? _ProductsShow : _arrProduct.Where(func);
+        return func == null ?  _arrProduct: _arrProduct.Where(func);
     }
 
     public int Update(Product product)
@@ -83,14 +57,7 @@ public class DalProduct: IProduct
                 return _arrProduct[i].ID;
             }
         }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch(ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 
     public void Delete(int productIndex)
@@ -103,13 +70,6 @@ public class DalProduct: IProduct
                 return;
             }
         }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 }

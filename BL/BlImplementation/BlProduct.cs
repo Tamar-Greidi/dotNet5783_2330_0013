@@ -3,6 +3,8 @@
 //using BO;
 
 using BO;
+using System;
+using System.Linq;
 
 namespace BlImplementation;
 
@@ -63,9 +65,9 @@ internal class BlProduct : BlApi.IProduct
     ///// Requesting a list of products from the data layer (for director screen).
     ///// </summary>
     ///// <returns></returns>
-    //public IEnumerable<BO.Product> GetProducts()
+    //public IEnumerable<BO.Product> GetProducts(Func<DO.Product, bool>? func = null)
     //{
-    //    IEnumerable<DO.Product> products = Dal.Product.GetAll();
+    //    IEnumerable<DO.Product> products = Dal.Product.GetAll(func);
     //    List<BO.Product> productsItems = new List<BO.Product>();
     //    foreach (DO.Product product in products)
     //    {
@@ -86,10 +88,9 @@ internal class BlProduct : BlApi.IProduct
     /// Request a list of products from the data layer (for customer screen).
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.ProductForList> GetCatalog()
+    public IEnumerable<BO.ProductForList> GetCatalog(Func<DO.Product, bool>? func = null)
     {
-
-        IEnumerable<DO.Product> DProducts = Dal.Product.GetAll();
+        IEnumerable<DO.Product> DProducts = Dal.Product.GetAll(func);
         List<BO.ProductForList> BProductList = new List<BO.ProductForList>();
         foreach (DO.Product Product in DProducts) //Building on the database a logical entity type product list
         {
@@ -98,11 +99,21 @@ internal class BlProduct : BlApi.IProduct
                 ID = Product.ID,
                 Name = Product.Name,
                 Price = Product.Price,
-                Category = (BO.categories)Product.Category
+                Category = (BO.categories)Product.Category,
             };
             BProductList.Add(product);
         }
         return BProductList;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="category"></param>
+    /// <returns></returns>
+    public IEnumerable<BO.ProductForList> GetListByCategory(BO.categories category)
+    {
+        return GetCatalog(item => item.Category == (DO.categories)category);
     }
 
     /// <summary>

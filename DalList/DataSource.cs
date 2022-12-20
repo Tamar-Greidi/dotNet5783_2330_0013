@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Dal;
 
 /// <summary>
@@ -53,22 +55,11 @@ internal static class DataSource
     private static void s_Initialize()
     {
         (string, double, DO.categories)[] _arrProducts = {
-            ("A", 100, 0),("B", 100, 0),
-            ("C", 100, 0),("D", 100, 0),
-            ("E", 100, 0),("F", 100, 0),
-            ("G", 100, 0),("H", 100, 0),
-            ("I", 100, 0),("J", 100, 0),
-            ("K", 100, 0),("L", 100, 0)
+            ("A", 100, DO.categories.watchs),("B", 100, DO.categories.watchs),("C", 100, DO.categories.watchs),
+            ("D", 100, DO.categories.cameras),("E", 100, DO.categories.cameras),("F", 100, DO.categories.cameras),
+            ("G", 100, DO.categories.camputers),("H", 100, DO.categories.camputers),("I", 100, DO.categories.camputers),
+            ("J", 100, DO.categories.ipads),("K", 100, DO.categories.ipads),("L", 100, DO.categories.ipads)
         };
-
-        //(int, int)[] _arrOrders = {
-        //    (100, 0),(100, 0),
-        //    (100, 0),(100, 0),
-        //    (100, 0),(100, 0),
-        //    (100, 0),(100, 0),
-        //    (100, 0),(100, 0),
-        //    (100, 0),(100, 0)
-        //};
 
         (string, string, string)[] _arrCustomers = {
             ("a", "100", "0"),("b", "100", "0"),
