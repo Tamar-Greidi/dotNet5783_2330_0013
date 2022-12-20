@@ -1,8 +1,8 @@
 //using BO;
 //using DalApi;
-//using BO;
 
 using BO;
+using DalApi;
 using System;
 using System.Linq;
 
@@ -13,7 +13,7 @@ namespace BlImplementation;
 /// </summary>
 internal class BlProduct : BlApi.IProduct
 {
-    DalApi.IDal Dal = new Dal.DalList();
+    private IDal Dal = DalApi.Factory.Get();
 
     /////<summary>
     ///// Requesting a list of products from the data layer (for director screen).

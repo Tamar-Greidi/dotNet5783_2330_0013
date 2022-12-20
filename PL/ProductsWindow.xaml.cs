@@ -1,4 +1,4 @@
-﻿using BlImplementation;
+﻿using BlApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,8 @@ namespace PL
     /// </summary>
     public partial class ProductsWindow : Window
     {
-        BlApi.IBl bl = new Bl();
+        BlApi.IBl bl = BlApi.Factory.Get();
+        int debily = 0;
         string status; 
         public ProductsWindow()
         {

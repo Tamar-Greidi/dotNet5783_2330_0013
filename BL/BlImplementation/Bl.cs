@@ -4,14 +4,13 @@
 /// Implementing the interface IBl.
 /// </summary>
 
-namespace BlImplementation
+namespace BlImplementation;
+
+sealed public class Bl : IBl
 {
-    sealed public class Bl : IBl
-    {
-        public IOrder Order => new BlOrder();
+    public IOrder Order => new BlOrder();
 
-        public IProduct Product => new BlProduct();
+    public IProduct Product => new BlProduct();
 
-        public ICart Cart => new BlCart();
-    }
+    public ICart Cart => new BlCart();
 }

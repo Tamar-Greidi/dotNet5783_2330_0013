@@ -1,4 +1,4 @@
-///using BO;
+using DalApi;
 
 namespace BlImplementation;
 
@@ -7,7 +7,7 @@ namespace BlImplementation;
 /// </summary>
 internal class BlCart : BlApi.ICart
 {
-    private static DalApi.IDal Dal = new Dal.DalList();
+    private IDal Dal = DalApi.Factory.Get();
     /// <summary>
     /// Add product to cart.
     /// </summary>

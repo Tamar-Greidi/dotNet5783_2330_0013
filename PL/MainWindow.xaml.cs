@@ -1,4 +1,5 @@
-﻿using BlImplementation;
+﻿using BlApi;
+using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +15,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    IBl bl = BlApi.Factory.Get();
 
-    public partial class MainWindow : Window
+    int debily = 0;
+    public MainWindow()
     {
-        BlApi.IBl bl = new BlImplementation.Bl();
-
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow().Show();
+        InitializeComponent();
     }
+
+    private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow().Show();
 }
