@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid>
-        <Button Name="Admin" Content="Admin" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ShowProductsButton_Click" Height="64" Width="172"/>
+        <Button Name="Admin" Content="Admin" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AdminButton_Click" Height="64" Width="172" Margin="182,202,0,0" FontFamily="Comic Sans MS"/>
+        <Button Name="NewOrder" Content="New Order" HorizontalAlignment="Left" Margin="182,304,0,0" VerticalAlignment="Top" Click="NewOrderButton_Click" Height="64" Width="172" RenderTransformOrigin="0.5,0.5" FontFamily="Comic Sans MS"/>
+        <Button Name="Track" Content="Track" HorizontalAlignment="Left" Margin="477,304,0,0" VerticalAlignment="Top" Height="64" Width="172" FontFamily="Comic Sans MS"/>
+        <TextBox HorizontalAlignment="Left" Margin="477,207,0,0" TextWrapping="Wrap" Text="Order ID" VerticalAlignment="Top" Height="64" Width="172" FontFamily="Comic Sans MS"/>
+        <Button Name="Products" Content="Products" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ShowProductsButton_Click" Height="64" Width="172" Margin="182,202,0,0" FontFamily="Comic Sans MS"/>
+        <Button Name="Orders" Content="Orders" HorizontalAlignment="Left" Margin="182,304,0,0" VerticalAlignment="Top" Click="ShowOrdersButton_Click" Height="64" Width="172" RenderTransformOrigin="0.5,0.5" FontFamily="Comic Sans MS"/>
+
     </Grid>
 </Window>

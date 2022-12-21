@@ -20,44 +20,51 @@ internal class BlOrder : BlApi.IOrder
     public IEnumerable<BO.OrderForList> Get()
     {
         int status;
-        IEnumerable<DO.Order> orders = Dal.Order.GetAll();
-        List<BO.OrderForList> newOrders = new List<BO.OrderForList>();
-        //Requesting all order details for this order
-        foreach (var order in orders)
+        try
         {
-            IEnumerable<DO.OrderItem> orderItems = new List<DO.OrderItem>();
-            try
+            IEnumerable<DO.Order> orders = Dal.Order.GetAll();
+            List<BO.OrderForList> newOrders = new List<BO.OrderForList>();
+            //Requesting all order details for this order
+            foreach (var order in orders)
             {
-                orderItems = Dal.OrderItem.GetAll(item => item.OrderID == order.ID);
+                IEnumerable<DO.OrderItem> orderItems = new List<DO.OrderItem>();
+                try
+                {
+                    orderItems = Dal.OrderItem.GetAll(item => item.OrderID == order.ID);
+                }
+                catch (DalApi.ObjectNotFound ex)
+                {
+                    throw new BO.DalException(ex);
+                }
+                double totalPrice = 0;
+                //is calculating total price
+                foreach (var item in orderItems)
+                    totalPrice += (item.Price * item.Amount);
+                //Creating a status according to the dates
+                if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
+                    status = 0;
+                else if (order.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.ShipDate) == 0 || DateTime.Now.CompareTo(order.ShipDate) > 0))
+                    status = 1;
+                else if (order.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.DeliveryDate) == 0 || DateTime.Now.CompareTo(order.DeliveryDate) > 0))
+                    status = 2;
+                else
+                    throw new BO.InvalidData();
+                BO.OrderForList newOrder = new BO.OrderForList
+                {
+                    ID = order.ID,
+                    CustomerName = order.CustomerName,
+                    AmountOfItems = orderItems.Count(),
+                    Status = (BO.OrderStatus)status,
+                    TotalPrice = totalPrice
+                };
+                newOrders.Add(newOrder);
             }
-            catch (DalApi.ObjectNotFound ex)
-            {
-                throw new BO.DalException(ex);
-            }
-            double totalPrice = 0;
-            //is calculating total price
-            foreach (var item in orderItems)
-                totalPrice += (item.Price * item.Amount);
-            //Creating a status according to the dates
-            if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
-                status = 0;
-            else if (order.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.ShipDate) == 0 || DateTime.Now.CompareTo(order.ShipDate) > 0))
-                status = 1;
-            else if (order.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.DeliveryDate) == 0 || DateTime.Now.CompareTo(order.DeliveryDate) > 0))
-                status = 2;
-            else
-                throw new BO.InvalidData();
-            BO.OrderForList newOrder = new BO.OrderForList
-            {
-                ID = order.ID,
-                CustomerName = order.CustomerName,
-                AmountOfItems = orderItems.Count(),
-                Status = (BO.OrderStatus)status,
-                TotalPrice = totalPrice
-            };
-            newOrders.Add(newOrder);
+            return newOrders;
         }
-        return newOrders;
+        catch (DalApi.ObjectNotFound ex)
+        {
+            throw new BO.DalException(ex);
+        } 
     }
     /// <summary>
     /// Order details request.

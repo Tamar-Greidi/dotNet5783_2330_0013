@@ -18,11 +18,11 @@ VerticalAlignment="Stretch" Width="auto">
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <Label Grid.Column="0"/>
-            <ComboBox Name="OrdersSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <!--<Label Grid.Column="0"/>
+            <ComboBox Name="OrdersSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
         </Grid>
-        <ListView Name="OrdersListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrdersListview_SelectionChanged" >
-            <ListView.View>
+            <ListView Name="OrdersListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrdersListview_SelectionChanged" MouseDoubleClick="OrdersListview_MouseDoubleClick">
+                <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>

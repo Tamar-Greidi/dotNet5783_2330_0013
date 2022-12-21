@@ -7,6 +7,42 @@
         mc:Ignorable="d"
         Title="OrdersWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="ID:" HorizontalAlignment="Left" Margin="120,120,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="120,140,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Customer Email:" HorizontalAlignment="Left" Margin="120,162,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Customer Address:" HorizontalAlignment="Left" Margin="120,180,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Order Date:" HorizontalAlignment="Left" Margin="120,200,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Margin="120,220,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Payment Date:" HorizontalAlignment="Left" Margin="120,240,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Ship Date:" HorizontalAlignment="Left" Margin="120,260,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Delivery Date:" HorizontalAlignment="Left" Margin="120,280,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Items:" HorizontalAlignment="Left" Margin="120,300,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="120,320,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <TextBox Name="txtID" HorizontalAlignment="Left" Margin="400,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtCustomerName" HorizontalAlignment="Left" Margin="400,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtCustomerEmail" HorizontalAlignment="Left" Margin="400,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtCustomerAddress" HorizontalAlignment="Left" Margin="400,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtOrderDate" HorizontalAlignment="Left" Margin="400,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtStatus" HorizontalAlignment="Left" Margin="400,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtPaymentDate" HorizontalAlignment="Left" Margin="400,240,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtShipDate" HorizontalAlignment="Left" Margin="400,260,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtDeliveryDate" HorizontalAlignment="Left" Margin="400,280,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <!--<ListView Name="ItemsLitsView" HorizontalAlignment="Left" Margin="400,300,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+        <TextBox Name="txtTotalPrice" HorizontalAlignment="Left" Margin="400,320,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="-743,12,0,0" VerticalAlignment="Top" Click="SaveButton_Click" FontFamily="Comic Sans MS" Width="195"/>
+        <ListView Name="ItemsLitsView" Margin="400,300,0,0" FontFamily="Comic Sans MS" Width="120" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>

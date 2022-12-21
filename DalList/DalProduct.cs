@@ -28,8 +28,7 @@ public class DalProduct: IProduct
     {
         Product product = _arrProduct.Find(product => product.ID == productID);
         if (product.ID == 0)
-            if (product.ID == 0)
-                throw new ObjectNotFound();
+            throw new ObjectNotFound();
         return product;
     }
 

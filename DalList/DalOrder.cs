@@ -52,13 +52,9 @@ public class DalOrder: IOrder
 
     public IEnumerable<Order> GetAll(Func<Order, bool>? func = null)
     {
-        List<Order> _OrdersShow = new();
-        foreach (Order order in _arrOrder)
-        {
-            _OrdersShow.Add(order);
-        }
-        return _OrdersShow;
-        ///return func == null ? _OrdersShow : _arrOrder.Where(func);
+        //return func == null ? _arrOrder : _arrOrder.Where(func);
+        IEnumerable<Order> a = func == null ? _arrOrder : _arrOrder.Where(func);
+        return a;
     }
 
     public int Update(Order order)

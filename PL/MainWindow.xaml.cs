@@ -29,7 +29,26 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        Products.Visibility = Visibility.Hidden;
+        Orders.Visibility = Visibility.Hidden;
+    }
+
+
+    private void AdminButton_Click(object sender, RoutedEventArgs e)
+    {
+        Admin.Visibility = Visibility.Hidden;
+        NewOrder.Visibility = Visibility.Hidden;
+        Track.Visibility = Visibility.Hidden;
+        Products.Visibility = Visibility.Visible;
+        Orders.Visibility = Visibility.Visible;
+    }
+
+    private void NewOrderButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow().Show();
+
+    private void ShowOrdersButton_Click(object sender, RoutedEventArgs e) => new OrdersListWindow().Show();
 }
