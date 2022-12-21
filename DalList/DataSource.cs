@@ -109,6 +109,7 @@ internal static class DataSource
             order.DeliveryDate = (randomItem % 20) % 3 != 0 || (randomItem % 20) % 4 != 0 ? order.ShipDate.Add(time) : DateTime.MinValue;
             addOrder(order);
         }
+
         for (int i = 0; i < 20; i++)
         {
             randomItem = (int)_randomNumber.NextInt64(0, 3);
@@ -117,40 +118,20 @@ internal static class DataSource
                 DO.OrderItem orderItem = new()
                 {
                     ID = Config.OrderItemID++,
-                    ProductID = (int)_randomNumber.NextInt64(1, 20),
+                    ProductID = (int)_randomNumber.NextInt64(1000, Config.ProductID),
                     OrderID = _arrOrder[i].ID,
-                    Amount = (int)_randomNumber.NextInt64(1, 10)
+                    Amount = (int)_randomNumber.NextInt64(1, 10),
                 };
-                //orderItem.Price = orderItem.Amount * new DalProduct().Get(orderItem.ProductID).Price;
                 try
                 {
                     orderItem.Price = new DalProduct().Get(orderItem.ProductID).Price;
                 }
-                catch(ObjectNotFound ex)
+                catch (ObjectNotFound ex)
                 {
                     throw ex;
                 }
                 addOrderItem(orderItem);
             }
         }
-
-        //int counter = 0;
-        //for (int i = 20; i < 40;)//adding items to order not more than 3 items
-        //{
-        //    OrderItem oi2 = new OrderItem();
-        //    index = (int)_randomNumber.Next(1, 4);
-        //    for (int j = 0; j < index; j++)
-        //    {
-        //        oi2.OrderID = _arrOrderItem[counter].ID;
-        //        int iProduct = (int)_randomNumber.Next(10);
-        //        oi2.ID = Config.OrderItemID++;
-        //        oi2.ProductID = _arrProduct[iProduct].ID;
-        //        oi2.Price = _arrProduct[iProduct].Price;
-        //        oi2.Amount = (int)_randomNumber.Next(30);
-        //        addOrderItem(oi2);
-        //    }
-        //    i += index;
-        //    counter++;
-        //}
     }
 }

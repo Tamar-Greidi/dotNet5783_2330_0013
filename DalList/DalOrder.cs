@@ -31,15 +31,8 @@ public class DalOrder: IOrder
             {
                 return _arrOrder[i];
             }
-        }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        }    
+        throw new ObjectNotFound();
     }
 
     public Order Get(Predicate<Order> func)

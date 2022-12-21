@@ -2,6 +2,7 @@ using System;
 using DO;
 using static Dal.DataSource;
 using DalApi;
+using System.Collections.Generic;
 
 namespace Dal;
 
@@ -69,12 +70,20 @@ public class DalOrderItem : IOrderItem
 
     public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func = null)
     {
-        List<OrderItem> _showOrderItems = new();
-        foreach (OrderItem orderItem in _arrOrderItem)
-        {
-            _showOrderItems.Add(orderItem);
-        }
+        //List<OrderItem> _showOrderItems = new();
+        //foreach (OrderItem orderItem in _arrOrderItem)
+        //{
+        //    _showOrderItems.Add(orderItem);
+        //}
+        if (func == null)
+            return _arrOrderItem;
+        IEnumerable<OrderItem> _showOrderItems=_arrOrderItem.Where(func);
+        //OrderItem o = _showOrderItems.First();
+        //int num = _showOrderItems.Count();
+        if (_showOrderItems.Count()==0)
+            throw new ObjectNotFound();
         return _showOrderItems;
+        //return func == null ? _arrOrderItem : _showOrderItems;
     }
 
     public int Update(OrderItem orderItem)
