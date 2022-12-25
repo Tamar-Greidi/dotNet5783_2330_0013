@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,14 @@ namespace PL
         public OrdersListWindow()
         {
             InitializeComponent();
+            try
+            {
             OrdersListview.ItemsSource = bl.Order.Get();
+            }
+            catch(DalException ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException.Message);
+            }
         }
 
         private void OrdersListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -1,6 +1,7 @@
 using DO;
 using static Dal.DataSource;
 using DalApi;
+using System;
 
 namespace Dal;
 
@@ -25,13 +26,9 @@ public class DalOrder: IOrder
 
     public Order Get(int orderID)
     {
-        for (int i = 0; i < _arrOrder.Count(); i++)
-        {
-            if (_arrOrder[i].ID == orderID)
-            {
-                return _arrOrder[i];
-            }
-        }    
+        Order order = _arrOrder.Find(item => item.ID == orderID);
+        if (order.ID == orderID)
+            return order;
         throw new ObjectNotFound();
     }
 
@@ -45,9 +42,7 @@ public class DalOrder: IOrder
 
     public IEnumerable<Order> GetAll(Func<Order, bool>? func = null)
     {
-        //return func == null ? _arrOrder : _arrOrder.Where(func);
-        IEnumerable<Order> a = func == null ? _arrOrder : _arrOrder.Where(func);
-        return a;
+        return func == null ? _arrOrder : _arrOrder.Where(func);
     }
 
     public int Update(Order order)

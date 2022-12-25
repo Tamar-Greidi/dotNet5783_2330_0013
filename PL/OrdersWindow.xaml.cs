@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,9 @@ namespace PL
     /// </summary>
     public partial class OrdersWindow : Window
     {
+        BlApi.IBl bl = BlApi.Factory.Get();
+        //int debily = 0;
+
         public OrdersWindow()
         {
             InitializeComponent();
@@ -49,11 +53,50 @@ namespace PL
             ItemsLitsView.ItemsSource = selectedItem.Items;
             txtTotalPrice.Text = selectedItem.TotalPrice.ToString();
             txtTotalPrice.IsEnabled = false;
+            if (selectedItem.ShipDate == DateTime.MinValue)
+                txtShipDate.Text = "No date";
+            if (selectedItem.DeliveryDate == DateTime.MinValue)
+                txtDeliveryDate.Text = "No date";
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void UpdateShipDate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BO.Order updateOrder = bl.Order.UpdateShipping(Convert.ToInt32(txtID.Text));
+                txtShipDate.Text = updateOrder.ShipDate.ToShortDateString();
+
+            }
+            catch (OrderAlreadyShipped ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
+            catch (DalException ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+            }
+        }
+
+        private void UpdateDeliveryDate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BO.Order updateOrder = bl.Order.UpdateDelivery(Convert.ToInt32(txtID.Text));
+                txtDeliveryDate.Text = updateOrder.DeliveryDate.ToShortDateString();
+            }
+            catch (OrderAlreadyShipped ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
+            catch (DalException ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+            }
         }
     }
 }

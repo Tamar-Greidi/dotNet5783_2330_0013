@@ -2,7 +2,7 @@ namespace BO
 {
     public class DalException : Exception
     {
-        public DalException(Exception ex) : base("exception from dal:", ex) { }
+        public DalException(Exception ex) : base("Exception from dal:", ex) { }
     }
     public class ObjectAlreadyExists : Exception
     {

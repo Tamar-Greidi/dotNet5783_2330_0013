@@ -37,55 +37,32 @@ internal class BlProduct : BlApi.IProduct
     //    return BProductList;
     //}
 
-    ///// <summary>
-    ///// Request a list of products from the data layer (for customer screen).
-    ///// </summary>
-    ///// <returns></returns>
-    //public IEnumerable<BO.ProductItem> GetCatalog()
-    //{
-    //    IEnumerable<DO.Product> products = Dal.Product.GetAll();
-    //    List<BO.ProductItem> productsItems = new List<BO.ProductItem>();
-    //    foreach (DO.Product product in products)
-    //    {
-    //        BO.ProductItem productItem = new BO.ProductItem()
-    //        {
-    //            ID = product.ID,
-    //            Name = product.Name,
-    //            Price = product.Price,
-    //            Category = (BO.categories)product.Category,
-    //            InStock = product.InStock > 0 ? true : false,
-    //            Amount = 0
-    //        };
-    //        productsItems.Add(productItem);
-    //    }
-    //    return productsItems;
-    //}
-
-    /////<summary>
-    ///// Requesting a list of products from the data layer (for director screen).
-    ///// </summary>
-    ///// <returns></returns>
-    //public IEnumerable<BO.Product> GetProducts(Func<DO.Product, bool>? func = null)
-    //{
-    //    IEnumerable<DO.Product> products = Dal.Product.GetAll(func);
-    //    List<BO.Product> productsItems = new List<BO.Product>();
-    //    foreach (DO.Product product in products)
-    //    {
-    //        BO.Product productItem = new BO.Product()
-    //        {
-    //            ID = product.ID,
-    //            Name = product.Name,
-    //            Price = product.Price,
-    //            Category = (BO.categories)product.Category,
-    //            InStock = product.InStock
-    //        };
-    //        productsItems.Add(productItem);
-    //    }
-    //    return productsItems;
-    //}
-
     /// <summary>
     /// Request a list of products from the data layer (for customer screen).
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<BO.ProductItem> GetAll(Func<DO.Product, bool>? func = null)
+    {
+        IEnumerable<DO.Product> products = Dal.Product.GetAll();
+        List<BO.ProductItem> productsItems = new List<BO.ProductItem>();
+        foreach (DO.Product product in products)
+        {
+            BO.ProductItem productItem = new BO.ProductItem()
+            {
+                ID = product.ID,
+                Name = product.Name,
+                Price = product.Price,
+                Category = (BO.categories)product.Category,
+                Amount = 0,
+                InStock = product.InStock > 0 ? true : false
+            };
+            productsItems.Add(productItem);
+        }
+        return productsItems;
+    }
+
+    /// <summary>
+    /// Request a list of products from the data layer ///(for customer screen).
     /// </summary>
     /// <returns></returns>
     public IEnumerable<BO.ProductForList> GetCatalog(Func<DO.Product, bool>? func = null)

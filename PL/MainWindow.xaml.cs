@@ -45,10 +45,10 @@ public partial class MainWindow : Window
 
     private void NewOrderButton_Click(object sender, RoutedEventArgs e)
     {
-
+        new ProductsListWindow("user").Show();
     }
 
-    private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow().Show();
+    private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow("admin").Show();
 
     private void ShowOrdersButton_Click(object sender, RoutedEventArgs e) => new OrdersListWindow().Show();
 }

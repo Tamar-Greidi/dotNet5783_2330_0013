@@ -7,6 +7,8 @@ namespace BlApi;
 public interface IProduct
 {
     //public IEnumerable<Product> GetProducts(Func<Product, bool>? func);
+    public IEnumerable<ProductItem> GetAll(Func<DO.Product, bool>? func = null);
+
     public IEnumerable<ProductForList> GetCatalog(Func<DO.Product, bool>? func = null);
     public IEnumerable<BO.ProductForList> GetListByCategory(BO.categories category);
     public Product GetProductDetails(int productID);

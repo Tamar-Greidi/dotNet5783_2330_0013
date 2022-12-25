@@ -12,11 +12,13 @@
         <Label Content="Name:" HorizontalAlignment="Left" Margin="320,162,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Price:" HorizontalAlignment="Left" Margin="320,180,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="In Stock:" HorizontalAlignment="Left" Margin="320,200,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Amount:" Name="lblAmount" HorizontalAlignment="Left" Margin="320,220,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <TextBox Name="txtID" HorizontalAlignment="Left" Margin="400,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <ComboBox Name="CategoriesSelector" HorizontalAlignment="Left" Margin="400,140,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtName" HorizontalAlignment="Left" Margin="400,165,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtPrice" HorizontalAlignment="Left" Margin="400,185,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtInStock" HorizontalAlignment="Left" Margin="400,205,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="325,230,0,0" VerticalAlignment="Top" Click="SaveButton_Click" FontFamily="Comic Sans MS" Width="195"/>
+        <TextBox Name="txtAmount" HorizontalAlignment="Left" Margin="400,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <Button Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="325,250,0,0" VerticalAlignment="Top" Click="SaveButton_Click" FontFamily="Comic Sans MS" Width="195"/>
     </Grid>
 </Window>

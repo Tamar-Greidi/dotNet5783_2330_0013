@@ -22,7 +22,7 @@ namespace PL
     {
         BlApi.IBl bl = BlApi.Factory.Get();
         int debily = 0;
-        string status; 
+        string status, user;
         public ProductsWindow()
         {
             InitializeComponent();
@@ -33,6 +33,7 @@ namespace PL
         public ProductsWindow(BO.Product selectedItem)
         {
             InitializeComponent();
+            user = "admin";
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             status = "update";
             txtID.Text = selectedItem.ID.ToString();
@@ -40,7 +41,25 @@ namespace PL
             CategoriesSelector.Text = selectedItem.Category.ToString();
             txtPrice.Text = selectedItem.Price.ToString();
             txtInStock.Text = selectedItem.InStock.ToString();
+            txtAmount.Visibility = Visibility.Hidden;
+            lblAmount.Visibility = Visibility.Hidden;
         }
+
+        public ProductsWindow(BO.ProductItem selectedItem)
+        {
+            InitializeComponent();
+            user = "customer";
+            CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
+            txtID.Text = selectedItem.ID.ToString();
+            txtName.Text = selectedItem.Name;
+            CategoriesSelector.Text = selectedItem.Category.ToString();
+            txtPrice.Text = selectedItem.Price.ToString();
+            txtAmount.Text = selectedItem.Amount.ToString();
+            txtInStock.Text = selectedItem.InStock.ToString();
+            btnSave.Visibility = Visibility.Hidden;
+
+        }
+
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {

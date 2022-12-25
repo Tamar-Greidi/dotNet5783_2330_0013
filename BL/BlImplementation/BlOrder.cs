@@ -2,6 +2,7 @@
 
 using BO;
 using DalApi;
+using DO;
 
 namespace BlImplementation;
 
@@ -20,52 +21,51 @@ internal class BlOrder : BlApi.IOrder
     public IEnumerable<BO.OrderForList> Get()
     {
         int status;
-        try
-        {
+        //try
+        //{
             IEnumerable<DO.Order> orders = Dal.Order.GetAll();
             List<BO.OrderForList> newOrders = new List<BO.OrderForList>();
             //Requesting all order details for this order
             foreach (var order in orders)
             {
+                BO.OrderForList newOrder = new BO.OrderForList();
                 IEnumerable<DO.OrderItem> orderItems = new List<DO.OrderItem>();
-                try
-                {
-                    orderItems = Dal.OrderItem.GetAll(item => item.OrderID == order.ID);
-                    double totalPrice = 0;
-                    //is calculating total price
-                    foreach (var item in orderItems)
-                        totalPrice += item.Price * item.Amount;
-                    //Creating a status according to the dates
-                    if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
-                        status = 0;
-                    else if (order.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.ShipDate) == 0 || DateTime.Now.CompareTo(order.ShipDate) > 0))
-                        status = 1;
-                    else if (order.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.DeliveryDate) == 0 || DateTime.Now.CompareTo(order.DeliveryDate) > 0))
-                        status = 2;
-                    else
-                        throw new BO.InvalidData();
-                    BO.OrderForList newOrder = new BO.OrderForList
-                    {
-                        ID = order.ID,
-                        CustomerName = order.CustomerName,
-                        AmountOfItems = orderItems.Count(),
-                        Status = (BO.OrderStatus)status,
-                        TotalPrice = totalPrice
-                    };
-                    newOrders.Add(newOrder);
-                }
-                catch (DalApi.ObjectNotFound ex)
-                {
-                    throw new BO.DalException(ex);
-                }
+            try
+            {
+                orderItems = Dal.OrderItem.GetAll(item => item.OrderID == order.ID);
+                double totalPrice = 0;
+                //is calculating total price
+                foreach (var item in orderItems)
+                    totalPrice += item.Price * item.Amount;
+                //Creating a status according to the dates
+                if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
+                    status = 0;
+                else if (order.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.ShipDate) == 0 || DateTime.Now.CompareTo(order.ShipDate) > 0))
+                    status = 1;
+                else if (order.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.DeliveryDate) == 0 || DateTime.Now.CompareTo(order.DeliveryDate) > 0))
+                    status = 2;
+                else
+                    throw new BO.InvalidData();
+                newOrder.ID = order.ID;
+                newOrder.CustomerName = order.CustomerName;
+                newOrder.AmountOfItems = orderItems.Count();
+                newOrder.Status = (BO.OrderStatus)status;
+                newOrder.TotalPrice = totalPrice;
 
+                newOrders.Add(newOrder);
             }
-            return newOrders;
+            catch (DalApi.ObjectNotFound)
+            {
+                newOrders.Add(newOrder);
+            }
+
         }
-        catch (DalApi.ObjectNotFound ex)
-        {
-            throw new BO.DalException(ex);
-        } 
+            return newOrders;
+        //}
+        //catch (DalApi.ObjectNotFound ex)
+        //{
+        //    throw new BO.DalException(ex);
+        //} 
     }
     /// <summary>
     /// Order details request.
@@ -143,35 +143,35 @@ internal class BlOrder : BlApi.IOrder
     {
         try
         {
-            IEnumerable<DO.OrderItem> orderItem = new List<DO.OrderItem>();
-            DO.Order order = new();
-            BO.Order BoOrder = new();
-            order = Dal.Order.Get(orderID);
+            DO.Order order = Dal.Order.Get(orderID);
             if (order.ShipDate.CompareTo(DateTime.Now) < 0)
                 throw new BO.OrderAlreadyShipped();
-            order.ShipDate = DateTime.Now;
-            orderItem = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
-            BoOrder.ID = orderID;
-            BoOrder.CustomerName = order.CustomerName;
-            BoOrder.CustomerEmail = order.CustomerEmail;
-            BoOrder.CustomerAddress = order.CustomerAddress;
-            BoOrder.OrderDate = order.OrderDate;
-            BoOrder.ShipDate = order.ShipDate;
-            BoOrder.DeliveryDate = order.DeliveryDate;
-            List<BO.OrderItem> tmpOrderItem = new();
-            for (int i = 0; i < orderItem.Count(); i++)
+            //order.ShipDate = DateTime.Now;
+            BO.Order BoOrder = new()
             {
-                BO.OrderItem orderItemTemp = new();
-                orderItemTemp.ID = orderItem.ElementAt(i).ID;
-                orderItemTemp.Name = Dal.Product.Get(orderItem.ElementAt(i).ID).Name;
-                orderItemTemp.ProductID = orderItem.ElementAt(i).ProductID;
-                orderItemTemp.Price = Dal.Product.Get(orderItem.ElementAt(i).ID).Price;
-                orderItemTemp.Amount = orderItem.ElementAt(i).Amount;
-                orderItemTemp.TotalPrice = orderItemTemp.Amount * orderItemTemp.Price;
+                ID = orderID,
+                CustomerName = order.CustomerName,
+                CustomerEmail = order.CustomerEmail,
+                CustomerAddress = order.CustomerAddress,
+                OrderDate = order.OrderDate,
+                ShipDate = DateTime.Now,
+                DeliveryDate = order.DeliveryDate
+            };
+            IEnumerable<DO.OrderItem> orderItems = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
+            List<BO.OrderItem> TempOrderItems = new();
+            BO.OrderItem TempOrderItem = new();
+            foreach (DO.OrderItem item in orderItems)
+            {
+                TempOrderItem.ID = item.ID;
+                TempOrderItem.Name = Dal.Product.Get(item.ProductID).Name;
+                TempOrderItem.ProductID = item.ProductID;
+                TempOrderItem.Price = Dal.Product.Get(item.ProductID).Price;
+                TempOrderItem.Amount = item.Amount;
+                TempOrderItem.TotalPrice = TempOrderItem.Amount * TempOrderItem.Price;
 
-                tmpOrderItem.Add(orderItemTemp);
+                TempOrderItems.Add(TempOrderItem);
             }
-            BoOrder.Items = tmpOrderItem;
+            BoOrder.Items = TempOrderItems;
             Dal.Order.Update(order);
             return BoOrder;
         }
@@ -191,36 +191,38 @@ internal class BlOrder : BlApi.IOrder
     {
         try
         {
-            List<DO.OrderItem> orderItem = new();
-            DO.Order order = new();
-            BO.Order BoOrder = new();
-
-            order = Dal.Order.Get(orderID);
+            // orderItem = new();
+            DO.Order order = Dal.Order.Get(orderID);
+            //BO.Order BoOrder = new();
             if (order.DeliveryDate.CompareTo(DateTime.Now) < 0 && order.DeliveryDate.CompareTo(DateTime.MinValue) != 0)
-            {
                 throw new BO.OrderAlreadyDelivered();
-            }
-            order.DeliveryDate = DateTime.Now;
-            orderItem = (List<DO.OrderItem>)Dal.OrderItem.GetAll(item => item.OrderID == orderID);
-            BoOrder.CustomerName = order.CustomerName;
-            BoOrder.CustomerEmail = order.CustomerEmail;
-            BoOrder.ID = orderID;
-            BoOrder.CustomerAddress = order.CustomerAddress;
-            BoOrder.OrderDate = order.OrderDate;
-            BoOrder.ShipDate = order.ShipDate;
-            BoOrder.DeliveryDate = order.DeliveryDate;
-            List<BO.OrderItem> tmpOrderItem = new();
-            for (int i = 0; i < orderItem.Count; i++)
+            //order.DeliveryDate = 
+            BO.Order BoOrder = new()
             {
-                BO.OrderItem orderItemTemp = new();
-                orderItemTemp.Amount = orderItem[i].Amount;
-                orderItemTemp.Name = Dal.Product.Get(orderItem[i].ID).Name;
-                orderItemTemp.ProductID = orderItem[i].ProductID;
-                orderItemTemp.ID = orderItem[i].ID;
-                orderItemTemp.Price = Dal.Product.Get(orderItem[i].ID).Price;
-                orderItemTemp.TotalPrice = orderItemTemp.Amount * orderItemTemp.Price;
+                ID = orderID,
+                CustomerName = order.CustomerName,
+                CustomerEmail = order.CustomerEmail,
+                CustomerAddress = order.CustomerAddress,
+                OrderDate = order.OrderDate,
+                ShipDate = order.ShipDate,
+                DeliveryDate = DateTime.Now
+        };
+            IEnumerable<DO.OrderItem>  orderItems = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
+            List<BO.OrderItem> TempOrderItems = new();
+            BO.OrderItem TempOrderItem = new();
+            foreach (DO.OrderItem item in orderItems)
+            {
+                TempOrderItem.ID = item.ID;
+                TempOrderItem.Name = Dal.Product.Get(item.ProductID).Name;
+                TempOrderItem.ProductID = item.ProductID;
+                TempOrderItem.Price = Dal.Product.Get(item.ProductID).Price;
+                TempOrderItem.Amount = item.Amount;
+                TempOrderItem.TotalPrice = TempOrderItem.Amount * TempOrderItem.Price;
+
+                TempOrderItems.Add(TempOrderItem);
             }
-            BoOrder.Items = tmpOrderItem;
+
+            BoOrder.Items = TempOrderItems;
             Dal.Order.Update(order);
             return BoOrder;
         }

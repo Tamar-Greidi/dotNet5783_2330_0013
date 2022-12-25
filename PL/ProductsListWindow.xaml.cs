@@ -26,11 +26,19 @@ namespace PL
     {
         BlApi.IBl bl = BlApi.Factory.Get();
         int debily = 0;
-        public ProductsListWindow()
+        string user;
+        public ProductsListWindow(string userType)
         {
             InitializeComponent();
-            ProductsListview.ItemsSource = bl.Product.GetCatalog();
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
+            if (userType != "admin")
+            {
+                ProductsListview.ItemsSource = bl.Product.GetAll();
+                AddNewProduct.Visibility = Visibility.Hidden;
+            }
+            else
+                ProductsListview.ItemsSource = bl.Product.GetCatalog();
+            user = userType;
         }
 
         private void AddNewProduct_Click(object sender, RoutedEventArgs e)
@@ -50,14 +58,24 @@ namespace PL
         {
             try
             {
-                var product = (BO.ProductForList)(sender as ListView).SelectedItem;
-                BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
-                new ProductsWindow(selectedItem).ShowDialog();
+                var product = (sender as ListView).SelectedItem;
+                Cart cart = new Cart();
+                //if (user == "admin")
+                //{
+                //    BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
+                //    new ProductsWindow(selectedItem).ShowDialog();
+                //}
+                //else
+                //{
+                //    BO.ProductItem selectedItem = bl.Product.GetProductDetails(product.ID, cart);
+                //    new ProductsWindow(selectedItem).ShowDialog();
+                //}
                 ProductsListview.ItemsSource = bl.Product.GetCatalog();
             }
+
             catch (DalException ex)
             {
-                MessageBox.Show("Exception: " + ex.Message);
+                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
             }
             catch (InvalidData ex)
             {
