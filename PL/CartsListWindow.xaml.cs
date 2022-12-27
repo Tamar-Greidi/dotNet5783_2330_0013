@@ -21,9 +21,11 @@ namespace PL
     public partial class CartsListWindow : Window
     {
         BlApi.IBl bl = new Bl();
-        public CartsListWindow()
+        public CartsListWindow(BO.Cart cart)
         {
             InitializeComponent();
+            CartsListview.ItemsSource = cart.Items;
+
         }
 
         private void CartsSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

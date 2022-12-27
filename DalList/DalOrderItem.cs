@@ -14,35 +14,29 @@ public class DalOrderItem : IOrderItem
 {
     public int Add(OrderItem orderItem)
     {
-        try
-        {
-            Order curOrder=new Order();
-
-            OrderItem item = _arrOrderItem.Find(item => item.ID == orderItem.ID);
-            if (item.ID > 0)
-                throw new ObjectAlreadyExists();
-        }
-        catch (ObjectAlreadyExists ex)
-        {
-            throw ex;
-        }
-        //Order order = _arrOrder.Find(x => x.ID == orderItem.OrderID);
-        //order.ID > 0 &&
-        Product product = _arrProduct.Find(x => x.ID == orderItem.ProductID);
+        //OrderItem o = _arrOrderItem.Find(item=> item.OrderID==orderItem.OrderID && item.ProductID==orderItem.ProductID);
+        //if (o.ID > 0)
+        //{
+        //    OrderItem or = new OrderItem();
+        //    or = o;
+        //    or.Amount += orderItem.Amount;
+        //    Update(or);
+        //}
+        //else
+        //{
+        //}
+        OrderItem item = _arrOrderItem.Find(item => item.OrderID == orderItem.OrderID && item.ProductID == orderItem.ProductID);
+        if (item.ID > 0)
+            throw new ObjectAlreadyExists();
+        Product product = _arrProduct.Find(item => item.ID == orderItem.ProductID);
         if (product.ID > 0)
         {
+            orderItem.ID = Config.OrderItemID++;
             orderItem.Price = product.Price;
             _arrOrderItem.Add(orderItem);
             return orderItem.ID;
         }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch(Exception ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 
     public OrderItem Get(int orderItemID)
@@ -50,20 +44,13 @@ public class DalOrderItem : IOrderItem
         for (int i = 0; i < _arrOrderItem.Count(); i++)
             if (_arrOrderItem[i].ID == orderItemID)
                 return _arrOrderItem[i];
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 
     public OrderItem Get(Predicate<OrderItem> func)
     {
         OrderItem orderItem = _arrOrderItem.Find(func);
-        if(orderItem.ID==0)
+        if (orderItem.ID == 0)
             throw new ObjectNotFound();
         return orderItem;
     }
@@ -84,34 +71,20 @@ public class DalOrderItem : IOrderItem
                 return _arrOrderItem[i].ID;
             }
         }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 
     public void Delete(int orderItemID)
     {
         foreach (OrderItem item in _arrOrderItem)
         {
-            if(item.ID == orderItemID)
+            if (item.ID == orderItemID)
             {
                 _arrOrderItem.RemoveAll(x => x.ID == orderItemID);
                 return;
             }
         }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch(ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 
     //public IEnumerable<OrderItem> GetProductsByOrder(int orderID)

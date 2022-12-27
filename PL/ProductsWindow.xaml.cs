@@ -23,6 +23,7 @@ namespace PL
         BlApi.IBl bl = BlApi.Factory.Get();
         int debily = 0;
         string status, user;
+        BO.Cart cart;
         public ProductsWindow()
         {
             InitializeComponent();
@@ -43,23 +44,30 @@ namespace PL
             txtInStock.Text = selectedItem.InStock.ToString();
             txtAmount.Visibility = Visibility.Hidden;
             lblAmount.Visibility = Visibility.Hidden;
+            btnAddToCart.Visibility = Visibility.Hidden;
         }
 
-        public ProductsWindow(BO.ProductItem selectedItem)
+        public ProductsWindow(BO.ProductItem selectedItem, BO.Cart cart)
         {
             InitializeComponent();
             user = "customer";
+            this.cart = cart;
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             txtID.Text = selectedItem.ID.ToString();
+            txtID.IsEnabled = false;
             txtName.Text = selectedItem.Name;
-            CategoriesSelector.Text = selectedItem.Category.ToString();
+            txtName.IsEnabled = false;
+            CategoriesSelector.Visibility = Visibility.Hidden;
+            txtCategory.Text = selectedItem.Category.ToString();
+            txtCategory.IsEnabled = false;
             txtPrice.Text = selectedItem.Price.ToString();
+            txtPrice.IsEnabled = false;
             txtAmount.Text = selectedItem.Amount.ToString();
+            txtAmount.IsEnabled = false;
             txtInStock.Text = selectedItem.InStock.ToString();
+            txtInStock.IsEnabled = false;
             btnSave.Visibility = Visibility.Hidden;
-
         }
-
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -84,6 +92,15 @@ namespace PL
         }
 
         private void Add(BO.Product product) => bl.Product.Add(product);
+
+        private void AddToCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            int ID = Convert.ToInt32(txtID.Text);
+            if (cart.Items == null)
+                cart.Items = new List<BO.OrderItem>();
+            bl.Cart.Add(cart, ID);
+            Close();
+        }
 
         private void Update(BO.Product product) => bl.Product.Update(product);
     }

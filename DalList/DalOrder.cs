@@ -47,6 +47,8 @@ public class DalOrder: IOrder
 
     public int Update(Order order)
     {
+        //_arrOrder.Find(item => item.ID == order.ID ? order: );
+
         for (int i = 0; i < _arrOrder.Count; i++)
         {
             if (_arrOrder[i].ID == order.ID)
@@ -55,33 +57,21 @@ public class DalOrder: IOrder
                 return _arrOrder[i].ID;
             }
         }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 
-    public void Delete(int orderIndex)
+    public void Delete(int orderID)
     {
+        //Order Order = _arrOrder.Remove(item => item.ID == orderID);
+
         for (int i = 0; i < _arrOrder.Count(); i++)
         {
-            if (_arrOrder[i].ID == orderIndex)
+            if (_arrOrder[i].ID == orderID)
             {
                 _arrOrder.RemoveAt(i);
                 return;
             }
         }
-        try
-        {
-            throw new ObjectNotFound();
-        }
-        catch (ObjectNotFound ex)
-        {
-            throw ex;
-        }
+        throw new ObjectNotFound();
     }
 }

@@ -43,7 +43,7 @@ internal class BlProduct : BlApi.IProduct
     /// <returns></returns>
     public IEnumerable<BO.ProductItem> GetAll(Func<DO.Product, bool>? func = null)
     {
-        IEnumerable<DO.Product> products = Dal.Product.GetAll();
+        IEnumerable<DO.Product> products = Dal.Product.GetAll(func);
         List<BO.ProductItem> productsItems = new List<BO.ProductItem>();
         foreach (DO.Product product in products)
         {
@@ -73,7 +73,7 @@ internal class BlProduct : BlApi.IProduct
         {
             BO.ProductForList product = new BO.ProductForList()
             {
-                ID = Product.ID,
+                ID = 0,
                 Name = Product.Name,
                 Price = Product.Price,
                 Category = (BO.categories)Product.Category,
@@ -88,11 +88,14 @@ internal class BlProduct : BlApi.IProduct
     /// </summary>
     /// <param name="category"></param>
     /// <returns></returns>
-    public IEnumerable<BO.ProductForList> GetListByCategory(BO.categories category)
+    public IEnumerable<BO.ProductForList> GetListProductForListByCategory(BO.categories category)
     {
         return GetCatalog(item => item.Category == (DO.categories)category);
     }
-
+    public IEnumerable<BO.ProductItem> GetListProductItemByCategory(BO.categories category)
+    {
+        return GetAll(item => item.Category == (DO.categories)category);
+    }
     /// <summary>
     /// Product details request.
     /// </summary>

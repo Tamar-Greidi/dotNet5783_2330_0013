@@ -27,18 +27,20 @@ namespace PL
         BlApi.IBl bl = BlApi.Factory.Get();
         int debily = 0;
         string user;
-        public ProductsListWindow(string userType)
+        BO.Cart cart = new Cart();
+
+        public ProductsListWindow(string user)
         {
             InitializeComponent();
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
-            if (userType != "admin")
+            if (user == "user")
             {
                 ProductsListview.ItemsSource = bl.Product.GetAll();
                 AddNewProduct.Visibility = Visibility.Hidden;
             }
             else
                 ProductsListview.ItemsSource = bl.Product.GetCatalog();
-            user = userType;
+            this.user = user;
         }
 
         private void AddNewProduct_Click(object sender, RoutedEventArgs e)
@@ -50,29 +52,37 @@ namespace PL
         private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.categories category = (BO.categories)CategoriesSelector.SelectedItem;
-            IEnumerable<BO.ProductForList> list = bl.Product.GetListByCategory(category);
-            ProductsListview.ItemsSource = list;
+            if (user == "admin")
+            {
+                IEnumerable<BO.ProductForList> list = bl.Product.GetListProductForListByCategory(category);
+                ProductsListview.ItemsSource = list;
+            }
+            else
+            {
+                IEnumerable<BO.ProductItem> list = bl.Product.GetListProductItemByCategory(category);
+                ProductsListview.ItemsSource = list;
+            }
         }
 
         private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                var product = (sender as ListView).SelectedItem;
-                Cart cart = new Cart();
-                //if (user == "admin")
-                //{
-                //    BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
-                //    new ProductsWindow(selectedItem).ShowDialog();
-                //}
-                //else
-                //{
-                //    BO.ProductItem selectedItem = bl.Product.GetProductDetails(product.ID, cart);
-                //    new ProductsWindow(selectedItem).ShowDialog();
-                //}
-                ProductsListview.ItemsSource = bl.Product.GetCatalog();
+                if (user == "admin")
+                {
+                    ProductForList product = (ProductForList)(sender as ListView).SelectedItem;
+                    BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
+                    new ProductsWindow(selectedItem).ShowDialog();
+                    ProductsListview.ItemsSource = bl.Product.GetCatalog();
+                }
+                else
+                {
+                    ProductItem product = (ProductItem)(sender as ListView).SelectedItem;
+                    BO.ProductItem selectedItem = bl.Product.GetProductDetails(product.ID, cart);
+                    new ProductsWindow(selectedItem, cart).ShowDialog();
+                    ProductsListview.ItemsSource = bl.Product.GetAll();
+                }
             }
-
             catch (DalException ex)
             {
                 MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
@@ -86,6 +96,11 @@ namespace PL
         private void ProductsListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void GoToCart_Click(object sender, RoutedEventArgs e)
+        {
+            new CartsListWindow(cart).Show();
         }
     }
 }

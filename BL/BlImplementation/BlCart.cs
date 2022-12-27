@@ -1,3 +1,4 @@
+using BO;
 using DalApi;
 
 namespace BlImplementation;
@@ -20,14 +21,18 @@ internal class BlCart : BlApi.ICart
         try
         {
             DO.Product AddProduct = Dal.Product.Get(productID);
-            foreach (var item in cart.Items)
+            bool add
+            foreach (OrderItem item in cart.Items)
             {
-                if (AddProduct.InStock >= 1 && item.ProductID == productID)
-                {
-                    item.Amount++;
-                    item.TotalPrice += AddProduct.Price;
-                    cart.TotalPrice += AddProduct.Price;
-                }
+                if (item.ProductID == productID)
+                    if (AddProduct.InStock >= 1)
+                    {
+                        item.Amount++;
+                        item.TotalPrice += AddProduct.Price;
+                        cart.TotalPrice += AddProduct.Price;
+                    }
+                    else
+                        throw new BO.OutOfStock();
             }
             if (AddProduct.InStock >= 1)
             {
@@ -43,14 +48,7 @@ internal class BlCart : BlApi.ICart
                 cart.Items.Add(orderItemToAdd);
             }
             else
-                try
-                {
-                    throw new BO.OutOfStock();
-                }
-                catch (BO.OutOfStock ex)
-                {
-                    throw ex;
-                }
+                throw new BO.OutOfStock();
         }
         catch (DalApi.ObjectNotFound ex) //לא קיים כזה
         {
@@ -58,6 +56,7 @@ internal class BlCart : BlApi.ICart
         }
         return cart;
     }
+
     /// <summary>
     /// Product amount update.
     /// </summary>
@@ -97,6 +96,7 @@ internal class BlCart : BlApi.ICart
         }
         return cart;
     }
+
     /// <summary>
     /// Basket confirmation for order.
     /// </summary>

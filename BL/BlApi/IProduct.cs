@@ -8,9 +8,9 @@ public interface IProduct
 {
     //public IEnumerable<Product> GetProducts(Func<Product, bool>? func);
     public IEnumerable<ProductItem> GetAll(Func<DO.Product, bool>? func = null);
-
     public IEnumerable<ProductForList> GetCatalog(Func<DO.Product, bool>? func = null);
-    public IEnumerable<BO.ProductForList> GetListByCategory(BO.categories category);
+    public IEnumerable<BO.ProductItem> GetListProductItemByCategory(BO.categories category);
+    public IEnumerable<BO.ProductForList> GetListProductForListByCategory(BO.categories category);
     public Product GetProductDetails(int productID);
     public ProductItem GetProductDetails(int productID, Cart cart);
     public void Add(Product product);

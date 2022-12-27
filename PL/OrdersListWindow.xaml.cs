@@ -38,9 +38,9 @@ namespace PL
 
         private void OrdersListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var order = (BO.OrderForList)(sender as ListView).SelectedItem;
+            OrderForList order = (BO.OrderForList)(sender as ListView).SelectedItem;
             BO.Order selectedItem = bl.Order.GetDetails(order.ID);
-            new OrdersWindow(selectedItem).ShowDialog();
+            new OrdersWindow(selectedItem).Show();
         }
 
         private void OrdersListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
