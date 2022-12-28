@@ -43,20 +43,9 @@ namespace PL
 
         private void CartsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //try
-            //{
-            //    OrderItem cartItem = (OrderItem)(sender as ListView).SelectedItem;
-            //    new ProductsWindow(cartItem).ShowDialog();
-            //    CartsListview.ItemsSource = cart.Items();
-            //}
-            //catch (DalException ex)
-            //{
-            //    MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
-            //}
-            //catch (InvalidData ex)
-            //{
-            //    MessageBox.Show("Exception: " + ex.Message);
-            //}
+            OrderItem cartItem = (OrderItem)(sender as ListView).SelectedItem;
+            new CartsWindow(cart, cartItem).ShowDialog();
+            CartsListview.ItemsSource = cart.Items;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,10 @@ namespace PL
             InitializeComponent();
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             status = "add";
+
+            txtID.Visibility = Visibility.Hidden;
+            lblID.Visibility = Visibility.Hidden;
+            txtCategory.Visibility = Visibility.Hidden;
             txtAmount.Visibility = Visibility.Hidden;
             lblAmount.Visibility = Visibility.Hidden;
             btnAddToCart.Visibility = Visibility.Hidden;
@@ -87,13 +92,20 @@ namespace PL
             {
                 BO.Product product = new BO.Product
                 {
-                    //ID = ID,
                     Name = name,
                     Price = price,
                     Category = category,
                     InStock = inStock
                 };
-                Add(product);
+                //Add(product);
+                try
+                {
+                    bl.Product.Add(product);
+                }
+                catch (DalException ex)
+                {
+                    MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+                }
             }
             else
             {
@@ -111,7 +123,9 @@ namespace PL
             Close();
         }
 
-        private void Add(BO.Product product) => bl.Product.Add(product);
+        //private void Add(BO.Product product) => bl.Product.Add(product);
+
+        private void Update(BO.Product product) => bl.Product.Update(product);
 
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
         {
@@ -126,7 +140,5 @@ namespace PL
         {
 
         }
-
-        private void Update(BO.Product product) => bl.Product.Update(product);
     }
 }

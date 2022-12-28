@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ProductsWindow" Height="450" Width="800">
     <Grid>
-        <Label Content="ID:" HorizontalAlignment="Left" Margin="320,120,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="ID:" Name="lblID" HorizontalAlignment="Left" Margin="320,120,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Category:" HorizontalAlignment="Left" Margin="320,140,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="320,162,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Price:" HorizontalAlignment="Left" Margin="320,180,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
@@ -15,7 +15,7 @@
         <Label Content="Amount:" Name="lblAmount" HorizontalAlignment="Left" Margin="320,220,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <TextBox Name="txtID" HorizontalAlignment="Left" Margin="400,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <ComboBox Name="CategoriesSelector" HorizontalAlignment="Left" Margin="400,140,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtCategory" HorizontalAlignment="Left" Margin="536,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120" Height="23" TextChanged="txtCategory_TextChanged"/>
+        <TextBox Name="txtCategory" HorizontalAlignment="Left" Margin="400,141,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120" Height="23" TextChanged="txtCategory_TextChanged"/>
         <TextBox Name="txtName" HorizontalAlignment="Left" Margin="400,165,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtPrice" HorizontalAlignment="Left" Margin="400,185,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtInStock" HorizontalAlignment="Left" Margin="400,205,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
