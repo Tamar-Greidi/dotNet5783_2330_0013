@@ -32,6 +32,7 @@ namespace PL
         public ProductsListWindow(string user)
         {
             InitializeComponent();
+            this.user = user;
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             if (user == "user")
             {
@@ -39,8 +40,10 @@ namespace PL
                 AddNewProduct.Visibility = Visibility.Hidden;
             }
             else
+            {
                 ProductsListview.ItemsSource = bl.Product.GetCatalog();
-            this.user = user;
+                GoToCart.Visibility = Visibility.Hidden;
+            }
         }
 
         private void AddNewProduct_Click(object sender, RoutedEventArgs e)

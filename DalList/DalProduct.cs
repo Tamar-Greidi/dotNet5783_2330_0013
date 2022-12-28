@@ -12,15 +12,11 @@ public class DalProduct: IProduct
 {
     public int Add(Product product)
     {
-        try
-        {
-            if (Get(product.ID).ID == product.ID)
-                throw new ObjectAlreadyExists();
-        }
-        catch (ObjectNotFound)
-        {
-            _arrProduct.Add(product);
-        }
+        Product existingProduct = _arrProduct.Find(item => item.Name == product.Name && item.Category == product.Category);
+        if (existingProduct.ID > 0)
+            throw new ObjectAlreadyExists();
+        product.ID = Config.ProductID++;
+        _arrProduct.Add(product);
         return product.ID;
     }
 

@@ -21,7 +21,7 @@ internal class BlCart : BlApi.ICart
         try
         {
             DO.Product AddProduct = Dal.Product.Get(productID);
-            bool add
+            bool added = false;
             foreach (OrderItem item in cart.Items)
             {
                 if (item.ProductID == productID)
@@ -30,25 +30,27 @@ internal class BlCart : BlApi.ICart
                         item.Amount++;
                         item.TotalPrice += AddProduct.Price;
                         cart.TotalPrice += AddProduct.Price;
+                        added = true;
                     }
                     else
                         throw new BO.OutOfStock();
             }
-            if (AddProduct.InStock >= 1)
-            {
-                BO.OrderItem orderItemToAdd = new BO.OrderItem()
+            if (!added)
+                if (AddProduct.InStock >= 1)
                 {
-                    ProductID = productID,
-                    Price = AddProduct.Price,
-                    TotalPrice = AddProduct.Price,
-                    Name = AddProduct.Name,
-                    Amount = 1
-                };
-                cart.TotalPrice += orderItemToAdd.Price;
-                cart.Items.Add(orderItemToAdd);
-            }
-            else
-                throw new BO.OutOfStock();
+                    BO.OrderItem orderItemToAdd = new BO.OrderItem()
+                    {
+                        ProductID = productID,
+                        Price = AddProduct.Price,
+                        TotalPrice = AddProduct.Price,
+                        Name = AddProduct.Name,
+                        Amount = 1
+                    };
+                    cart.TotalPrice += orderItemToAdd.Price;
+                    cart.Items.Add(orderItemToAdd);
+                }
+                else
+                    throw new BO.OutOfStock();
         }
         catch (DalApi.ObjectNotFound ex) //לא קיים כזה
         {

@@ -29,6 +29,10 @@ namespace PL
             InitializeComponent();
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             status = "add";
+            txtAmount.Visibility = Visibility.Hidden;
+            lblAmount.Visibility = Visibility.Hidden;
+            btnAddToCart.Visibility = Visibility.Hidden;
+            btnSave.Content = "Add";
         }
 
         public ProductsWindow(BO.Product selectedItem)
@@ -38,13 +42,17 @@ namespace PL
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             status = "update";
             txtID.Text = selectedItem.ID.ToString();
+            txtID.IsEnabled = false;
             txtName.Text = selectedItem.Name;
             CategoriesSelector.Text = selectedItem.Category.ToString();
+            txtCategory.Visibility = Visibility.Hidden;
+            //lblCategory.Visibility = Visibility.Hidden;
             txtPrice.Text = selectedItem.Price.ToString();
             txtInStock.Text = selectedItem.InStock.ToString();
             txtAmount.Visibility = Visibility.Hidden;
             lblAmount.Visibility = Visibility.Hidden;
             btnAddToCart.Visibility = Visibility.Hidden;
+            btnSave.Content = "Update";
         }
 
         public ProductsWindow(BO.ProductItem selectedItem, BO.Cart cart)
@@ -71,23 +79,35 @@ namespace PL
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            int ID = Convert.ToInt32(txtID.Text);
             string? name = Convert.ToString(txtName.Text);
             double price = Convert.ToDouble(txtPrice.Text);
             BO.categories category = (BO.categories)CategoriesSelector.SelectedItem;
             int inStock = Convert.ToInt32(txtInStock.Text);
-            BO.Product product = new BO.Product
-            {
-                ID = ID,
-                Name = name,
-                Price = price,
-                Category = category,
-                InStock = inStock
-            };
             if (status == "add")
+            {
+                BO.Product product = new BO.Product
+                {
+                    //ID = ID,
+                    Name = name,
+                    Price = price,
+                    Category = category,
+                    InStock = inStock
+                };
                 Add(product);
+            }
             else
+            {
+                int ID = Convert.ToInt32(txtID.Text);
+                BO.Product product = new BO.Product
+                {
+                    ID = ID,
+                    Name = name,
+                    Price = price,
+                    Category = category,
+                    InStock = inStock
+                };
                 Update(product);
+            }
             Close();
         }
 
@@ -100,6 +120,11 @@ namespace PL
                 cart.Items = new List<BO.OrderItem>();
             bl.Cart.Add(cart, ID);
             Close();
+        }
+
+        private void txtCategory_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
         private void Update(BO.Product product) => bl.Product.Update(product);

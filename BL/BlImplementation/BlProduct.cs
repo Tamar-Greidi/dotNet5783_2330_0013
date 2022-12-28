@@ -73,7 +73,7 @@ internal class BlProduct : BlApi.IProduct
         {
             BO.ProductForList product = new BO.ProductForList()
             {
-                ID = 0,
+                ID = Product.ID,
                 Name = Product.Name,
                 Price = Product.Price,
                 Category = (BO.categories)Product.Category,
@@ -220,7 +220,7 @@ internal class BlProduct : BlApi.IProduct
     /// <exception cref="BO.DalException"></exception>
     public void Update(BO.Product product)
     {
-        if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)
+        if (/*product.ID < 0 || */product.Name == "" || product.Price < 0 || product.InStock < 0)
         {
             throw new BO.InvalidData();
         }
