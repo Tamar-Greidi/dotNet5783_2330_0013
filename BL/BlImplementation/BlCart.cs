@@ -40,11 +40,11 @@ internal class BlCart : BlApi.ICart
                 {
                     BO.OrderItem orderItemToAdd = new BO.OrderItem()
                     {
+                        Name = AddProduct.Name,
                         ProductID = productID,
                         Price = AddProduct.Price,
+                        Amount = 1,
                         TotalPrice = AddProduct.Price,
-                        Name = AddProduct.Name,
-                        Amount = 1
                     };
                     cart.TotalPrice += orderItemToAdd.Price;
                     cart.Items.Add(orderItemToAdd);

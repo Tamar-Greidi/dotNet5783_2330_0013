@@ -12,6 +12,7 @@ namespace BlImplementation;
 internal class BlOrder : BlApi.IOrder
 {
     private IDal Dal = DalApi.Factory.Get();
+    
     /// <summary>
     /// Order list request.
     /// </summary>
@@ -67,6 +68,7 @@ internal class BlOrder : BlApi.IOrder
         //    throw new BO.DalException(ex);
         //} 
     }
+    
     /// <summary>
     /// Order details request.
     /// </summary>
@@ -132,6 +134,7 @@ internal class BlOrder : BlApi.IOrder
         else
             throw new BO.InvalidData();
     }
+    
     /// <summary>
     /// Order shipping update.
     /// </summary>
@@ -180,6 +183,7 @@ internal class BlOrder : BlApi.IOrder
             throw new BO.DalException(ex);
         }
     }
+    
     /// <summary>
     /// Order delivery update.
     /// </summary>
@@ -232,6 +236,7 @@ internal class BlOrder : BlApi.IOrder
             throw new BO.DalException(ex);
         }
 }
+    
     /// <summary>
     /// Order Tracking.
     /// </summary>
