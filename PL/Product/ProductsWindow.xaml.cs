@@ -50,12 +50,11 @@ namespace PL
             txtName.Text = selectedItem.Name;
             CategoriesSelector.Text = selectedItem.Category.ToString();
             txtCategory.Visibility = Visibility.Hidden;
-            //lblCategory.Visibility = Visibility.Hidden;
             txtPrice.Text = selectedItem.Price.ToString();
             txtInStock.Text = selectedItem.InStock.ToString();
-            txtAmount.Visibility = Visibility.Hidden;
-            lblAmount.Visibility = Visibility.Hidden;
-            btnAddToCart.Visibility = Visibility.Hidden;
+            txtAmount.Visibility = Visibility.Collapsed;
+            lblAmount.Visibility = Visibility.Collapsed;
+            btnAddToCart.Visibility = Visibility.Collapsed;
             btnSave.Content = "Update";
         }
 

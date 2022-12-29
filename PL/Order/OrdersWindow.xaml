@@ -33,7 +33,7 @@
         <TextBox Name="txtDeliveryDate" HorizontalAlignment="Left" Margin="242,235,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtTotalPrice" HorizontalAlignment="Left" Margin="242,275,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="-743,12,0,0" VerticalAlignment="Top" Click="SaveButton_Click" FontFamily="Comic Sans MS" Width="195"/>
-        <ListView Name="ItemsLitsView" Margin="453,85,101,127" FontFamily="Comic Sans MS" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView Name="ItemsLitsView" Margin="453,85,0,125" FontFamily="Comic Sans MS" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

@@ -24,15 +24,14 @@ namespace PL;
 public partial class MainWindow : Window
 {
     IBl bl = BlApi.Factory.Get();
-
     int debily = 0;
+
     public MainWindow()
     {
         InitializeComponent();
         Products.Visibility = Visibility.Hidden;
         Orders.Visibility = Visibility.Hidden;
     }
-
 
     private void AdminButton_Click(object sender, RoutedEventArgs e)
     {
@@ -43,10 +42,9 @@ public partial class MainWindow : Window
         Orders.Visibility = Visibility.Visible;
     }
 
-    private void NewOrderButton_Click(object sender, RoutedEventArgs e)
-    {
-        new ProductsListWindow("user").Show();
-    }
+    private void NewOrderButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow("user").Show();
+
+    private void Track_Click(object sender, RoutedEventArgs e) => new OrdersListWindow("tracking").Show();
 
     private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow("admin").Show();
 

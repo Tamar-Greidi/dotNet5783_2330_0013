@@ -48,7 +48,21 @@ namespace PL
 
         private void SaveCart_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                bl.Cart.ConfirmationCart(ProductsListWindow.cart, "name", "email", "address");
+                MessageBox.Show("The order has been confirmed, Thank you");
+                Close();
+                ProductsListWindow.cart = new BO.Cart { CustomerName = "aaa", CustomerEmail = "aaa@gmail.com", CustomerAddress = "aaa", Items = new List<BO.OrderItem?>() };
+            }
+            catch (DalException ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+            }
+            catch (InvalidData ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
         }
     }
 }
