@@ -52,9 +52,9 @@ namespace PL
             txtCategory.Visibility = Visibility.Hidden;
             txtPrice.Text = selectedItem.Price.ToString();
             txtInStock.Text = selectedItem.InStock.ToString();
-            txtAmount.Visibility = Visibility.Collapsed;
-            lblAmount.Visibility = Visibility.Collapsed;
-            btnAddToCart.Visibility = Visibility.Collapsed;
+            txtAmount.Visibility = Visibility.Hidden;
+            lblAmount.Visibility = Visibility.Hidden;
+            btnAddToCart.Visibility = Visibility.Hidden;
             btnSave.Content = "Update";
         }
 
