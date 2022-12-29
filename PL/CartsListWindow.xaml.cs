@@ -21,14 +21,12 @@ namespace PL
     /// </summary>
     public partial class CartsListWindow : Window
     {
-        BlApi.IBl bl = new Bl();
-        BO.Cart cart;
-        public CartsListWindow(BO.Cart cart)
+        BlApi.IBl bl = BlApi.Factory.Get();
+        public CartsListWindow()
         {
             InitializeComponent();
-            CartsListview.ItemsSource = cart.Items;
-            this.cart = cart;
-            cart.Items = cart.Items == null ? new List<OrderItem>() : cart.Items;
+            CartsListview.ItemsSource = ProductsListWindow.cart.Items;
+            ProductsListWindow.cart.Items = ProductsListWindow.cart.Items == null ? new List<OrderItem>() : ProductsListWindow.cart.Items;
         }
 
         private void CartsSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,8 +42,8 @@ namespace PL
         private void CartsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             OrderItem cartItem = (OrderItem)(sender as ListView).SelectedItem;
-            new CartsWindow(cart, cartItem).ShowDialog();
-            CartsListview.ItemsSource = cart.Items;
+            new CartsWindow(cartItem).ShowDialog();
+            CartsListview.ItemsSource = ProductsListWindow.cart.Items;
         }
     }
 }

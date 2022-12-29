@@ -23,12 +23,11 @@ namespace PL
     {
         BlApi.IBl bl = BlApi.Factory.Get();
         int debily = 0;
-        BO.Cart cart;
         BO.OrderItem cartItem;
-        public CartsWindow(Cart cart, OrderItem cartItem)
+        bool AmountChange = false;
+        public CartsWindow(OrderItem cartItem)
         {
             InitializeComponent();
-            this.cart = cart;
             this.cartItem = cartItem;
             txtID.Text = Convert.ToString(cartItem.ID);
             txtID.IsEnabled = false;
@@ -45,25 +44,21 @@ namespace PL
 
         private void Amount_TextChanged(object sender, TextChangedEventArgs e)
         {
-            cartItem.Amount = Convert.ToInt32(txtAmount.Text);
-            bl.Cart.UpdateProductAmount(cart, cartItem.ProductID, cartItem.Amount);
-            Close();
+            if (!AmountChange)
+                AmountChange = true;
+            else
+            {
+                cartItem.Amount = Convert.ToInt32(txtAmount.Text);
+                bl.Cart.UpdateProductAmount(ProductsListWindow.cart, cartItem.ProductID, cartItem.Amount);
+                Close();
+            }
         }
 
-        //protected void TextBox1_TextChanged(object sender, EventArgs e)
-        //{
-        //    Label1.Text = Server.HtmlEncode(TextBox1.Text);
-        //}
-        //private void Amount_TextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    cartItem.Amount = Convert.ToInt32(txtAmount.Text);
-        //    bl.Cart.UpdateProductAmount(cart, cartItem.ProductID, cartItem.Amount);
-        //    Close();
-        //}
-
-        //private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            cartItem.Amount = 0;
+            bl.Cart.UpdateProductAmount(ProductsListWindow.cart, cartItem.ProductID, cartItem.Amount);
+            Close();
+        }
     }
-    }
+}

@@ -27,7 +27,7 @@ namespace PL
         BlApi.IBl bl = BlApi.Factory.Get();
         int debily = 0;
         string user;
-        BO.Cart cart = new Cart();
+        public static BO.Cart cart = new Cart();
 
         public ProductsListWindow(string user)
         {
@@ -82,7 +82,7 @@ namespace PL
                 {
                     ProductItem product = (ProductItem)(sender as ListView).SelectedItem;
                     BO.ProductItem selectedItem = bl.Product.GetProductDetails(product.ID, cart);
-                    new ProductsWindow(selectedItem, cart).ShowDialog();
+                    new ProductsWindow(selectedItem).ShowDialog();
                     ProductsListview.ItemsSource = bl.Product.GetAll();
                 }
             }
@@ -103,7 +103,7 @@ namespace PL
 
         private void GoToCart_Click(object sender, RoutedEventArgs e)
         {
-            new CartsListWindow(cart).Show();
+            new CartsListWindow().Show();
         }
     }
 }

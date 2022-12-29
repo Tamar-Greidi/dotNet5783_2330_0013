@@ -24,13 +24,12 @@ namespace PL
         BlApi.IBl bl = BlApi.Factory.Get();
         int debily = 0;
         string status, user;
-        BO.Cart cart;
+      
         public ProductsWindow()
         {
             InitializeComponent();
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             status = "add";
-
             txtID.Visibility = Visibility.Hidden;
             lblID.Visibility = Visibility.Hidden;
             txtCategory.Visibility = Visibility.Hidden;
@@ -60,11 +59,10 @@ namespace PL
             btnSave.Content = "Update";
         }
 
-        public ProductsWindow(BO.ProductItem selectedItem, BO.Cart cart)
+        public ProductsWindow(BO.ProductItem selectedItem)
         {
             InitializeComponent();
             user = "customer";
-            this.cart = cart;
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             txtID.Text = selectedItem.ID.ToString();
             txtID.IsEnabled = false;
@@ -130,9 +128,9 @@ namespace PL
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
         {
             int ID = Convert.ToInt32(txtID.Text);
-            if (cart.Items == null)
-                cart.Items = new List<BO.OrderItem>();
-            bl.Cart.Add(cart, ID);
+            if (ProductsListWindow.cart.Items == null)
+                ProductsListWindow.cart.Items = new List<BO.OrderItem>();
+            bl.Cart.Add(ProductsListWindow.cart, ID);
             Close();
         }
 

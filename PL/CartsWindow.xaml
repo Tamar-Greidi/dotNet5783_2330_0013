@@ -21,6 +21,6 @@
         <TextBox x:Name="txtAmount" HorizontalAlignment="Left" Margin="400,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="Amount_TextChanged" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox x:Name="txtTotalPrice" HorizontalAlignment="Left" Margin="400,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
 
-        <!--<Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="325,250,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" FontFamily="Comic Sans MS" Width="195"/>-->
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="325,250,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" FontFamily="Comic Sans MS" Width="195"/>
     </Grid>
 </Window>
