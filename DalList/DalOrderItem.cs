@@ -41,10 +41,10 @@ public class DalOrderItem : IOrderItem
 
     public OrderItem Get(int orderItemID)
     {
-        for (int i = 0; i < _arrOrderItem.Count(); i++)
-            if (_arrOrderItem[i].ID == orderItemID)
-                return _arrOrderItem[i];
-        throw new ObjectNotFound();
+        OrderItem item = _arrOrderItem.Find(item => item.ID == orderItemID);
+        if(item.ID == 0)
+            throw new ObjectNotFound();
+        return item;
     }
 
     public OrderItem Get(Predicate<OrderItem> func)
@@ -55,91 +55,20 @@ public class DalOrderItem : IOrderItem
         return orderItem;
     }
 
-    public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func = null)
-    {
-        return func == null ? _arrOrderItem : _arrOrderItem.Where(func);
-    }
+    public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func = null) => func == null ? _arrOrderItem : _arrOrderItem.Where(func);
 
     public int Update(OrderItem orderItem)
     {
-        for (int i = 0; i < _arrOrderItem.Count; i++)
-        {
-            if (_arrOrderItem[i].ID == orderItem.ID && _arrOrderItem[i].ProductID == orderItem.ProductID && _arrOrderItem[i].OrderID == orderItem.OrderID)
-            {
-                orderItem.Price = _arrOrderItem[i].Price;
-                _arrOrderItem[i] = orderItem;
-                return _arrOrderItem[i].ID;
-            }
-        }
-        throw new ObjectNotFound();
+        OrderItem item = _arrOrderItem.Find(item => item.ID == orderItem.ID);
+        int itemIndex = _arrOrderItem.IndexOf(item);
+        _arrOrderItem[itemIndex] = orderItem;
+        return item.ID;
     }
 
     public void Delete(int orderItemID)
     {
-        foreach (OrderItem item in _arrOrderItem)
-        {
-            if (item.ID == orderItemID)
-            {
-                _arrOrderItem.RemoveAll(x => x.ID == orderItemID);
-                return;
-            }
-        }
-        throw new ObjectNotFound();
+        OrderItem item = _arrOrderItem.Find(item => item.ID == orderItemID);
+        _arrOrderItem.Remove(item);
+        return;
     }
-
-    //public IEnumerable<OrderItem> GetProductsByOrder(int orderID)
-    //{
-    //    Order order = _arrOrder.Find(order => order.ID == orderID);
-    //    if (order.ID == 0)
-    //    {
-    //        try
-    //        {
-    //            throw new ObjectNotFound();
-    //        }
-    //        catch (ObjectNotFound ex)
-    //        {
-    //            throw ex;
-    //        }
-    //    }
-    //    List<OrderItem> _productsByOrder = _arrOrderItem.FindAll(x => x.OrderID == orderID);
-    //    return _productsByOrder;
-    //    try
-    //    {
-    //        throw new ObjectNotFound();
-    //    }
-    //    catch (ObjectNotFound ex)
-    //    {
-    //        throw ex;
-    //    }
-    //}
-
-    ///public OrderItem GetProductByOrderAndProduct(int orderID, int productID)
-    //{
-    //    Order order = _arrOrder.Find(order => order.ID == orderID);
-    //    Product product = _arrProduct.Find(product => product.ID == productID);
-    //    if (order.ID == 0 || product.ID == 0)
-    //    {
-    //        try
-    //        {
-    //            throw new ObjectNotFound();
-    //        }
-    //        catch (ObjectNotFound ex)
-    //        {
-    //            throw ex;
-    //        }
-    //    }
-    //    OrderItem productByOrderAndProduct = _arrOrderItem.Find(item => item.OrderID == orderID && item.ProductID == productID);
-    //    if (productByOrderAndProduct.ID == 0)
-    //    {
-    //        try
-    //        {
-    //            throw new ObjectNotFound();
-    //        }
-    //        catch (ObjectNotFound ex)
-    //        {
-    //            throw ex;
-    //        }
-    //    }
-    //    return productByOrderAndProduct;
-    //}
 }

@@ -36,35 +36,20 @@ public class DalProduct: IProduct
         return product;
     }
 
-    public IEnumerable<Product> GetAll(Func<Product, bool> func = null)
-    {
-        return func == null ?  _arrProduct: _arrProduct.Where(func);
-    }
+    public IEnumerable<Product> GetAll(Func<Product, bool> func = null) => func == null ? _arrProduct : _arrProduct.Where(func);
 
     public int Update(Product product)
     {
-
-        for (int i = 0; i < _arrProduct.Count; i++)
-        {
-            if (_arrProduct[i].ID == product.ID)
-            {
-                _arrProduct[i] = product;
-                return _arrProduct[i].ID;
-            }
-        }
-        throw new ObjectNotFound();
+        Product item = _arrProduct.Find(item => item.ID == product.ID);
+        int itemIndex = _arrProduct.IndexOf(item);
+        _arrProduct[itemIndex] = product;
+        return item.ID;
     }
 
     public void Delete(int productIndex)
     {
-        for (int i = 0; i < _arrProduct.Count(); i++)
-        {
-            if (_arrProduct[i].ID == productIndex)
-            {
-                _arrProduct.RemoveAt(i);
-                return;
-            }
-        }
-        throw new ObjectNotFound();
+        Product item = _arrProduct.Find(item => item.ID == productIndex);
+        _arrProduct.Remove(item);
+        return;
     }
 }

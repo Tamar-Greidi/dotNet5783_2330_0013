@@ -47,31 +47,34 @@ public class DalOrder: IOrder
 
     public int Update(Order order)
     {
-        //_arrOrder.Find(item => item.ID == order.ID ? order: );
-
-        for (int i = 0; i < _arrOrder.Count; i++)
-        {
-            if (_arrOrder[i].ID == order.ID)
-            {
-                _arrOrder[i] = order;
-                return _arrOrder[i].ID;
-            }
-        }
-        throw new ObjectNotFound();
+        Order item =_arrOrder.Find(item => item.ID == order.ID);
+        int itemIndex = _arrOrder.IndexOf(item);
+        _arrOrder[itemIndex] = order;
+        return item.ID;
+        //for (int i = 0; i < _arrOrder.Count; i++)
+        //{
+        //    if (_arrOrder[i].ID == order.ID)
+        //    {
+        //        _arrOrder[i] = order;
+        //        return _arrOrder[i].ID;
+        //    }
+        //}
+        //throw new ObjectNotFound();
     }
 
     public void Delete(int orderID)
     {
-        // Order Order = _arrOrder.Remove(item => item.ID == orderID);
-
-        for (int i = 0; i < _arrOrder.Count(); i++)
-        {
-            if (_arrOrder[i].ID == orderID)
-            {
-                _arrOrder.RemoveAt(i);
-                return;
-            }
-        }
-        throw new ObjectNotFound();
+        Order item = _arrOrder.Find(item => item.ID == orderID);
+        _arrOrder.Remove(item);
+        return;
+        //for (int i = 0; i < _arrOrder.Count(); i++)
+        //{
+        //    if (_arrOrder[i].ID == orderID)
+        //    {
+        //        _arrOrder.RemoveAt(i);
+        //        return;
+        //    }
+        //}
+        //throw new ObjectNotFound();
     }
 }
