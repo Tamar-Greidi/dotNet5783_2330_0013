@@ -45,5 +45,10 @@ namespace PL
             new CartsWindow(cartItem).ShowDialog();
             CartsListview.ItemsSource = ProductsListWindow.cart.Items;
         }
+
+        private void SaveCart_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -28,5 +28,6 @@ VerticalAlignment="Stretch" Width="auto">
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Name="SaveCart" Content="Save cart" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="SaveCart_Click" Width="150"/>
     </Grid>
 </Window>

@@ -94,6 +94,7 @@ internal class BlCart : BlApi.ICart
                     cart.Items.Remove(item);
                     cart.TotalPrice -= item.Price * item.Amount;
                 }
+                break;
             }
         }
         return cart;
