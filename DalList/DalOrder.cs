@@ -62,7 +62,7 @@ public class DalOrder: IOrder
 
     public void Delete(int orderID)
     {
-        //Order Order = _arrOrder.Remove(item => item.ID == orderID);
+        // Order Order = _arrOrder.Remove(item => item.ID == orderID);
 
         for (int i = 0; i < _arrOrder.Count(); i++)
         {
