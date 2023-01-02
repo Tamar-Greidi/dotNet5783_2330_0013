@@ -12,4 +12,8 @@ internal sealed class DalList : IDal
     public IOrder Order => new DalOrder();
     public IOrderItem OrderItem => new DalOrderItem();
     public static IDal Instance { get; } = new DalList();
+    DalList()
+    {
+
+    }
 }

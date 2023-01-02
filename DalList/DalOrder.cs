@@ -49,7 +49,7 @@ public class DalOrder: IOrder
     {
         Order item =_arrOrder.Find(item => item.ID == order.ID);
         int itemIndex = _arrOrder.IndexOf(item);
-        _arrOrder[itemIndex] = order;
+        _arrOrder[itemIndex] = order;  
         return item.ID;
         //for (int i = 0; i < _arrOrder.Count; i++)
         //{

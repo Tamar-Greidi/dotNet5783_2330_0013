@@ -12,7 +12,7 @@ namespace BlImplementation;
 internal class BlOrder : BlApi.IOrder
 {
     private IDal Dal = DalApi.Factory.Get();
-    
+
     /// <summary>
     /// Order list request.
     /// </summary>
@@ -24,13 +24,13 @@ internal class BlOrder : BlApi.IOrder
         int status;
         //try
         //{
-            IEnumerable<DO.Order> orders = Dal.Order.GetAll();
-            List<BO.OrderForList> newOrders = new List<BO.OrderForList>();
-            //Requesting all order details for this order
-            foreach (var order in orders)
-            {
-                BO.OrderForList newOrder = new BO.OrderForList();
-                IEnumerable<DO.OrderItem> orderItems = new List<DO.OrderItem>();
+        IEnumerable<DO.Order> orders = Dal.Order.GetAll();
+        List<BO.OrderForList> newOrders = new List<BO.OrderForList>();
+        //Requesting all order details for this order
+        foreach (var order in orders)
+        {
+            BO.OrderForList newOrder = new BO.OrderForList();
+            IEnumerable<DO.OrderItem> orderItems = new List<DO.OrderItem>();
             try
             {
                 orderItems = Dal.OrderItem.GetAll(item => item.OrderID == order.ID);
@@ -61,14 +61,14 @@ internal class BlOrder : BlApi.IOrder
             }
 
         }
-            return newOrders;
+        return newOrders;
         //}
         //catch (DalApi.ObjectNotFound ex)
         //{
         //    throw new BO.DalException(ex);
         //} 
     }
-    
+
     /// <summary>
     /// Order details request.
     /// </summary>
@@ -134,7 +134,7 @@ internal class BlOrder : BlApi.IOrder
         else
             throw new BO.InvalidData();
     }
-    
+
     /// <summary>
     /// Order shipping update.
     /// </summary>
@@ -183,7 +183,7 @@ internal class BlOrder : BlApi.IOrder
             throw new BO.DalException(ex);
         }
     }
-    
+
     /// <summary>
     /// Order delivery update.
     /// </summary>
@@ -210,8 +210,8 @@ internal class BlOrder : BlApi.IOrder
                 OrderDate = order.OrderDate,
                 ShipDate = order.ShipDate,
                 DeliveryDate = DateTime.Now
-        };
-            IEnumerable<DO.OrderItem>  orderItems = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
+            };
+            IEnumerable<DO.OrderItem> orderItems = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
             List<BO.OrderItem> TempOrderItems = new();
             BO.OrderItem TempOrderItem = new();
             foreach (DO.OrderItem item in orderItems)
@@ -230,13 +230,13 @@ internal class BlOrder : BlApi.IOrder
             Dal.Order.Update(order);
             return BoOrder;
         }
-        
+
         catch (Exception ex)
         {
             throw new BO.DalException(ex);
         }
-}
-    
+    }
+
     /// <summary>
     /// Order Tracking.
     /// </summary>
@@ -246,8 +246,8 @@ internal class BlOrder : BlApi.IOrder
     /// <exception cref="BO.ObjectNotFound"></exception>
     public OrderTracking OrderTracking(int orderID)
     {
-        DO.Order order= Dal.Order.Get(orderID);
-        if(order.ID== orderID)
+        DO.Order order = Dal.Order.Get(orderID);
+        if (order.ID == orderID)
         {
             int status;
             if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
