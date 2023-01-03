@@ -25,7 +25,6 @@ namespace PL
     public partial class ProductsListWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        int debily = 0;
         string user;
         public static BO.Cart cart = new Cart();
 

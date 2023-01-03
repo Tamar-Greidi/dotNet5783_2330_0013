@@ -59,14 +59,8 @@ internal class BlOrder : BlApi.IOrder
             {
                 newOrders.Add(newOrder);
             }
-
         }
         return newOrders;
-        //}
-        //catch (DalApi.ObjectNotFound ex)
-        //{
-        //    throw new BO.DalException(ex);
-        //} 
     }
 
     /// <summary>

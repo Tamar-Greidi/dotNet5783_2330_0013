@@ -22,7 +22,6 @@ namespace PL
     public partial class CartsWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        int debily = 0;
         BO.OrderItem cartItem;
         bool AmountChange = false;
         public CartsWindow(OrderItem cartItem)

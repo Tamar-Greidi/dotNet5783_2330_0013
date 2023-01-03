@@ -22,7 +22,6 @@ namespace PL
     public partial class OrdersWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        //int debily = 0;
 
         public OrdersWindow()
         {

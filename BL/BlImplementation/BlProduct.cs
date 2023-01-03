@@ -3,6 +3,7 @@
 
 using BO;
 using DalApi;
+using DO;
 using System;
 using System.Linq;
 
@@ -88,14 +89,14 @@ internal class BlProduct : BlApi.IProduct
     /// </summary>
     /// <param name="category"></param>
     /// <returns></returns>
-    public IEnumerable<BO.ProductForList> GetListProductForListByCategory(BO.categories category)
-    {
-        return GetCatalog(item => item.Category == (DO.categories)category);
-    }
-    public IEnumerable<BO.ProductItem> GetListProductItemByCategory(BO.categories category)
-    {
-        return GetAll(item => item.Category == (DO.categories)category);
-    }
+    public IEnumerable<BO.ProductForList> GetListProductForListByCategory(BO.categories category) => GetCatalog(item => item.Category == (DO.categories)category);
+    //{
+    //    return GetCatalog(item => item.Category == (DO.categories)category);
+    //}
+    public IEnumerable<BO.ProductItem> GetListProductItemByCategory(BO.categories category) => GetAll(item => item.Category == (DO.categories)category);
+    //{
+    //    return GetAll(item => item.Category == (DO.categories)category);
+    //}
     /// <summary>
     /// Product details request.
     /// </summary>
@@ -197,7 +198,7 @@ internal class BlProduct : BlApi.IProduct
     /// <exception cref="BO.DalException"></exception>
     public void Delete(int productID)
     {
-        IEnumerable<DO.OrderItem> ItemsInOrder = Dal.OrderItem.GetAll();
+        List<DO.OrderItem> ItemsInOrder = (List<DO.OrderItem>)Dal.OrderItem.GetAll();
         foreach (DO.OrderItem orderItem in ItemsInOrder)
         {
             if (orderItem.ProductID == productID)

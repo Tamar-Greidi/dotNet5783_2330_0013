@@ -22,19 +22,30 @@ internal class BlCart : BlApi.ICart
         {
             DO.Product AddProduct = Dal.Product.Get(productID);
             bool added = false;
-            foreach (OrderItem item in cart.Items)
-            {
-                if (item.ProductID == productID)
-                    if (AddProduct.InStock >= 1)
-                    {
-                        item.Amount++;
-                        item.TotalPrice += AddProduct.Price;
-                        cart.TotalPrice += AddProduct.Price;
-                        added = true;
-                    }
-                    else
-                        throw new BO.OutOfStock();
-            }
+            OrderItem orderItem = cart.Items.Find(item => item.ProductID == productID);
+            if (orderItem != null)
+                if (AddProduct.InStock >= 1)
+                {
+                    orderItem.Amount++;
+                    orderItem.TotalPrice += AddProduct.Price;
+                    cart.TotalPrice += AddProduct.Price;
+                    added = true;
+                }
+                else
+                    throw new BO.OutOfStock();
+            //foreach (OrderItem item in cart.Items)
+            //{
+            //    if (item.ProductID == productID)
+            //        if (AddProduct.InStock >= 1)
+            //        {
+            //            item.Amount++;
+            //            item.TotalPrice += AddProduct.Price;
+            //            cart.TotalPrice += AddProduct.Price;
+            //            added = true;
+            //        }
+            //        else
+            //            throw new BO.OutOfStock();
+            //}
             if (!added)
                 if (AddProduct.InStock >= 1)
                 {
@@ -69,34 +80,59 @@ internal class BlCart : BlApi.ICart
     /// <exception cref="BO.OutOfStock"></exception>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int productID, int amount)
     {
-        foreach (var item in cart.Items)
+        OrderItem item = cart.Items.Find(item => item.ProductID == productID);
+        if(item != null)
         {
-            if (item.ProductID == productID)
+            DO.Product product = Dal.Product.Get(productID);
+            //add
+            if (item.Amount < amount)
             {
-                DO.Product product = Dal.Product.Get(productID);
-                //add
-                if (item.Amount < amount)
-                {
-                    if (product.InStock < (amount - item.Amount))
-                        throw new BO.OutOfStock();
-                    item.Amount = amount;
-                    item.TotalPrice = item.Price * item.Amount;
-                }
-                //reduce
-                if (item.Amount > amount)
-                {
-                    item.Amount = amount;
-                    item.TotalPrice = item.Price * item.Amount;
-                }
-                //remove
-                if (item.Amount == 0)
-                {
-                    cart.Items.Remove(item);
-                    cart.TotalPrice -= item.Price * item.Amount;
-                }
-                break;
+                if (product.InStock < (amount - item.Amount))
+                    throw new BO.OutOfStock();
+                item.Amount = amount;
+                item.TotalPrice = item.Price * item.Amount;
+            }
+            //reduce
+            if (item.Amount > amount)
+            {
+                item.Amount = amount;
+                item.TotalPrice = item.Price * item.Amount;
+            }
+            //remove
+            if (item.Amount == 0)
+            {
+                cart.Items.Remove(item);
+                cart.TotalPrice -= item.Price * item.Amount;
             }
         }
+        //foreach (var item in cart.Items)
+        //{
+        //    if (item.ProductID == productID)
+        //    {
+        //        DO.Product product = Dal.Product.Get(productID);
+        //        //add
+        //        if (item.Amount < amount)
+        //        {
+        //            if (product.InStock < (amount - item.Amount))
+        //                throw new BO.OutOfStock();
+        //            item.Amount = amount;
+        //            item.TotalPrice = item.Price * item.Amount;
+        //        }
+        //        //reduce
+        //        if (item.Amount > amount)
+        //        {
+        //            item.Amount = amount;
+        //            item.TotalPrice = item.Price * item.Amount;
+        //        }
+        //        //remove
+        //        if (item.Amount == 0)
+        //        {
+        //            cart.Items.Remove(item);
+        //            cart.TotalPrice -= item.Price * item.Amount;
+        //        }
+        //        break;
+        //    }
+        //}
         return cart;
     }
 

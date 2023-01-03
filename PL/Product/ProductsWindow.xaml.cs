@@ -22,7 +22,6 @@ namespace PL
     public partial class ProductsWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        int debily = 0;
         string status, user;
       
         public ProductsWindow()
