@@ -111,7 +111,7 @@ internal static class DataSource
 
         for (int i = 0; i < 20; i++)
         {
-            randomItem = (int)_randomNumber.NextInt64(0, 3);
+            randomItem = (int)_randomNumber.NextInt64(1, 4);
             for (int j = 0; j < randomItem; j++)
             {
                 DO.OrderItem orderItem = new()
