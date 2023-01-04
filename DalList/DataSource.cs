@@ -52,7 +52,6 @@ internal static class DataSource
     private static void addOrderItem(DO.OrderItem orderItem)
     {
         _arrOrderItem.Add(orderItem);
-        //_arrOrderItem[Config.IndexOrderItem++] = orderItem;
     }
 
     private static void s_Initialize()
