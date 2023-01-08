@@ -41,23 +41,30 @@ namespace PL
             txtTotalPrice.IsEnabled = false;
         }
 
-        private void Amount_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!AmountChange)
-                AmountChange = true;
-            else
-            {
-                cartItem.Amount = Convert.ToInt32(txtAmount.Text);
-                bl.Cart.UpdateProductAmount(ProductsListWindow.cart, cartItem.ProductID, cartItem.Amount);
-                Close();
-            }
-        }
-
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             cartItem.Amount = 0;
             bl.Cart.UpdateProductAmount(ProductsListWindow.cart, cartItem.ProductID, cartItem.Amount);
             Close();
+        }
+
+        private void Amount_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            if (!AmountChange)
+                AmountChange = true;
+            else
+            {
+                try
+                {
+                    int amount = Convert.ToInt32(txtAmount.Text);
+                    bl.Cart.UpdateProductAmount(ProductsListWindow.cart, cartItem.ProductID, amount);
+                    Close();
+                }
+                catch (OutOfStock ex)
+                {
+                    MessageBox.Show("Exception: " + ex.Message);
+                }
+            }
         }
     }
 }

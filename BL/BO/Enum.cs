@@ -19,6 +19,6 @@ public enum categories
 public enum OrderStatus
 {
     Confirmed,
-    Sent,
-    Supplied
+    Shipped,
+    Delivery
 };

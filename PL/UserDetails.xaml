@@ -1,0 +1,19 @@
+﻿<Window x:Class="PL.UserDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="UserDetails" Height="450" Width="800">
+    <Grid>
+        <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="266,173,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Customer Email:" HorizontalAlignment="Left" Margin="266,195,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Customer Address:" HorizontalAlignment="Left" Margin="266,213,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <TextBox Name="txtCustomerName" HorizontalAlignment="Left" Margin="400,177,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtCustomerEmail" HorizontalAlignment="Left" Margin="400,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtCustomerAddress" HorizontalAlignment="Left" Margin="400,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <Button Name="OK" Content="OK" HorizontalAlignment="Left" Margin="325,259,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="130" Click="OK_Click"/>
+
+    </Grid>
+</Window>

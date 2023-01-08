@@ -87,7 +87,7 @@ internal class BlCart : BlApi.ICart
             //add
             if (item.Amount < amount)
             {
-                if (product.InStock < (amount - item.Amount))
+                if (product.InStock < amount)
                     throw new BO.OutOfStock();
                 item.Amount = amount;
                 item.TotalPrice = item.Price * item.Amount;
@@ -145,9 +145,9 @@ internal class BlCart : BlApi.ICart
     /// <param name="CustomerAddress"></param>
     /// <exception cref="BO.InvalidData"></exception>
     /// <exception cref="BO.DalException"></exception>
-    public void ConfirmationCart(BO.Cart cart, string CustomerName, string CustomerEmail, string CustomerAddress)
+    public void ConfirmationCart(BO.Cart cart)
     {
-        if (CustomerName == null || CustomerEmail == null || CustomerAddress == null)
+        if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAddress == "")
             throw new BO.InvalidData();
         foreach (var item in cart.Items)
         {
@@ -163,9 +163,9 @@ internal class BlCart : BlApi.ICart
             }
         }
         DO.Order order = new();
-        order.CustomerName = CustomerName;
-        order.CustomerEmail = CustomerEmail;
-        order.CustomerAddress = CustomerAddress;
+        order.CustomerName = cart.CustomerName;
+        order.CustomerEmail = cart.CustomerEmail;
+        order.CustomerAddress = cart.CustomerAddress;
         order.OrderDate = DateTime.Now;
         order.ShipDate = DateTime.MinValue;
         order.DeliveryDate = DateTime.MinValue;

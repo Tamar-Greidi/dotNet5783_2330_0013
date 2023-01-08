@@ -151,6 +151,7 @@ internal class BlOrder : BlApi.IOrder
                 CustomerEmail = order.CustomerEmail,
                 CustomerAddress = order.CustomerAddress,
                 OrderDate = order.OrderDate,
+                Status = BO.OrderStatus.Shipped,
                 ShipDate = DateTime.Now,
                 DeliveryDate = order.DeliveryDate
             };
@@ -261,6 +262,7 @@ internal class BlOrder : BlApi.IOrder
         }
         throw new BO.ObjectNotFound();
     }
+
     /// <summary>
     /// Bonus: Update an order.
     /// </summary>

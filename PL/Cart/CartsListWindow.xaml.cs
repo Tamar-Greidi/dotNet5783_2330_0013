@@ -43,17 +43,18 @@ namespace PL
         {
             OrderItem cartItem = (OrderItem)(sender as ListView).SelectedItem;
             new CartsWindow(cartItem).ShowDialog();
-            CartsListview.ItemsSource = ProductsListWindow.cart.Items;
+            CartsListview.Items.Refresh();
         }
 
         private void SaveCart_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                bl.Cart.ConfirmationCart(ProductsListWindow.cart, "name", "email", "address");
+                new UserDetails().ShowDialog();
+                bl.Cart.ConfirmationCart(ProductsListWindow.cart);
                 MessageBox.Show("The order has been confirmed, Thank you");
                 Close();
-                ProductsListWindow.cart = new BO.Cart { CustomerName = "aaa", CustomerEmail = "aaa@gmail.com", CustomerAddress = "aaa", Items = new List<BO.OrderItem?>() };
+                ProductsListWindow.cart = new BO.Cart { Items = new List<BO.OrderItem?>() };
             }
             catch (DalException ex)
             {
