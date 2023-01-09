@@ -22,8 +22,7 @@ namespace PL
     public partial class ProductsWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        string status, user;
-      
+        string status;
         public ProductsWindow()
         {
             InitializeComponent();
@@ -38,29 +37,9 @@ namespace PL
             btnSave.Content = "Add";
         }
 
-        public ProductsWindow(BO.Product selectedItem)
-        {
-            InitializeComponent();
-            user = "admin";
-            CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
-            status = "update";
-            txtID.Text = selectedItem.ID.ToString();
-            txtID.IsEnabled = false;
-            txtName.Text = selectedItem.Name;
-            CategoriesSelector.Text = selectedItem.Category.ToString();
-            txtCategory.Visibility = Visibility.Hidden;
-            txtPrice.Text = selectedItem.Price.ToString();
-            txtInStock.Text = selectedItem.InStock.ToString();
-            txtAmount.Visibility = Visibility.Hidden;
-            lblAmount.Visibility = Visibility.Hidden;
-            btnAddToCart.Visibility = Visibility.Hidden;
-            btnSave.Content = "Update";
-        }
-
         public ProductsWindow(BO.ProductItem selectedItem)
         {
             InitializeComponent();
-            user = "customer";
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             txtID.Text = selectedItem.ID.ToString();
             txtID.IsEnabled = false;
@@ -77,6 +56,25 @@ namespace PL
             txtInStock.IsEnabled = false;
             btnSave.Visibility = Visibility.Hidden;
         }
+        public ProductsWindow(BO.Product selectedItem)
+        {
+            InitializeComponent();
+            CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
+            status = "update";
+            txtID.Text = selectedItem.ID.ToString();
+            txtID.IsEnabled = false;
+            txtName.Text = selectedItem.Name;
+            CategoriesSelector.Text = selectedItem.Category.ToString();
+            txtCategory.Visibility = Visibility.Hidden;
+            txtPrice.Text = selectedItem.Price.ToString();
+            txtInStock.Text = selectedItem.InStock.ToString();
+            txtAmount.Visibility = Visibility.Hidden;
+            lblAmount.Visibility = Visibility.Hidden;
+            btnAddToCart.Visibility = Visibility.Hidden;
+            btnSave.Content = "Update";
+        }
+
+        
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -100,7 +98,7 @@ namespace PL
                 }
                 catch (DalException ex)
                 {
-                    MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+                    MessageBox.Show(ex.Message + " " + ex.InnerException?.Message);
                 }
             }
             else

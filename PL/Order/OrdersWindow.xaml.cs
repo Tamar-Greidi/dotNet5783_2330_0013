@@ -43,8 +43,6 @@ namespace PL
             txtOrderDate.IsEnabled = false;
             txtStatus.Text = selectedItem.Status.ToString();
             txtStatus.IsEnabled = false;
-            txtPaymentDate.Text = selectedItem.PaymentDate.ToShortDateString();
-            txtPaymentDate.IsEnabled = false;
             txtShipDate.Text = selectedItem.ShipDate.ToShortDateString();
             txtShipDate.IsEnabled = false;
             txtDeliveryDate.Text = selectedItem.DeliveryDate.ToShortDateString();
@@ -73,8 +71,6 @@ namespace PL
             txtOrderDate.IsEnabled = false;
             txtStatus.Text = selectedItem.Status.ToString();
             txtStatus.IsEnabled = false;
-            txtPaymentDate.Text = selectedItem.PaymentDate.ToShortDateString();
-            txtPaymentDate.IsEnabled = false;
             txtShipDate.Text = selectedItem.ShipDate.ToShortDateString();
             txtShipDate.IsEnabled = false;
             txtDeliveryDate.Text = selectedItem.DeliveryDate.ToShortDateString();
@@ -82,10 +78,10 @@ namespace PL
             ItemsLitsView.ItemsSource = selectedItem.Items;
             txtTotalPrice.Text = selectedItem.TotalPrice.ToString();
             txtTotalPrice.IsEnabled = false;
-            if (selectedItem.ShipDate == DateTime.MinValue)
-                txtShipDate.Text = "No date";
-            if (selectedItem.DeliveryDate == DateTime.MinValue)
-                txtDeliveryDate.Text = "No date";
+            //if (selectedItem.ShipDate == DateTime.MinValue)
+            //    txtShipDate.Text = "No date";
+            //if (selectedItem.DeliveryDate == DateTime.MinValue)
+            //    txtDeliveryDate.Text = "No date";
             UpdateShipDate.Visibility = Visibility.Collapsed;
             UpdateDeliveryDate.Visibility = Visibility.Collapsed;
         }
@@ -110,7 +106,7 @@ namespace PL
             }
             catch (DalException ex)
             {
-                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+                MessageBox.Show(ex.Message + " " + ex.InnerException?.Message);
             }
         }
 
@@ -120,6 +116,7 @@ namespace PL
             {
                 BO.Order updateOrder = bl.Order.UpdateDelivery(Convert.ToInt32(txtID.Text));
                 txtDeliveryDate.Text = updateOrder.DeliveryDate.ToShortDateString();
+
             }
             catch (OrderAlreadyShipped ex)
             {
@@ -127,7 +124,7 @@ namespace PL
             }
             catch (DalException ex)
             {
-                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+                MessageBox.Show(ex.Message + " " + ex.InnerException?.Message);
             }
         }
     }

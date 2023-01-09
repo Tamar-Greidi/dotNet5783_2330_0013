@@ -6,7 +6,7 @@ namespace DalTest;
 
 public class Program
 {
-    private static IDal dalList = new DalList();
+    private static IDal? dalList = Factory.Get();
     public static void Main()
     {
         Console.WriteLine("Press your option" +
@@ -14,7 +14,8 @@ public class Program
             "\n Press 1 to product" +
             "\n Press 2 to order" +
             "\n Press 3 to orderItem");
-        int choose = int.Parse(Console.ReadLine());
+        int choose;
+        int.TryParse(Console.ReadLine(),out choose);
         while (choose != 0)
         {
             string choosenOption = choose == 1 ? "product" : choose == 2 ? "order" : "orderItem";
@@ -27,7 +28,8 @@ public class Program
             Console.WriteLine(choosenOption == "orderItem" ? " Press f to present all " + choosenOption + "s in a specific order by order ID" +
                 "\n Press g to present " + choosenOption + " by order ID and product ID" : "");
 
-            char choosenMethod = char.Parse(Console.ReadLine());
+            char choosenMethod;
+            char.TryParse(Console.ReadLine(), out choosenMethod);
             switch (choose)
             {
                 case 1:
@@ -44,41 +46,47 @@ public class Program
                 "\n Press 1 to product" +
                 "\n Press 2 to order" +
                 "\n Press 3 to orderItem");
-            choose = int.Parse(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out choose);
         }
     }
     public static void _product(char choosenMethod)
     {
+        int ID, Price, InStock, Category;
         switch (choosenMethod)
         {
             case 'a':
                 //add product
                 Product createProduct = new Product();
                 Console.WriteLine("enter product ID");
-                int recivedId = int.Parse(Console.ReadLine());
+                int recivedId;
+                int.TryParse(Console.ReadLine(), out recivedId);
                 while (recivedId < 1000 || recivedId > 9999)
                 {
                     Console.WriteLine("enter a valid id - 4 disits");
-                    recivedId = int.Parse(Console.ReadLine());
+                    int.TryParse(Console.ReadLine(), out recivedId);
                 }
                 createProduct.ID = recivedId;
                 Console.WriteLine("enter product name");
                 createProduct.Name = Console.ReadLine();
                 Console.WriteLine("enter product price");
-                createProduct.Price = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out Price);
+                createProduct.Price = Price;
                 Console.WriteLine("enter product catagory");
-                createProduct.Category = (categories)int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out Category);
+                createProduct.Category = (categories)Category; 
                 Console.WriteLine("enter product inStock");
-                int recivedInStock = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out InStock);
+                int recivedInStock = InStock;
+                
                 while (recivedInStock < 0)
                 {
                     Console.WriteLine("enter a valid inStock - at list 0");
-                    recivedInStock = int.Parse(Console.ReadLine());
+                    int.TryParse(Console.ReadLine(), out recivedInStock);
                 }
                 createProduct.InStock = recivedInStock;
                 try
                 {
-                    dalList.Product.Add(createProduct);
+                    dalList?.Product.Add(createProduct);
                 }
                 catch (Exception ex)
                 {
@@ -89,10 +97,11 @@ public class Program
             case 'b':
                 //present product by ID
                 Console.WriteLine("enter product ID");
-                int givenID = int.Parse(Console.ReadLine());
+                int givenID;
+                int.TryParse(Console.ReadLine(), out givenID);
                 try
                 {
-                    Product presentProduct = dalList.Product.Get(givenID);
+                    Product presentProduct = dalList?.Product.Get(givenID) ?? throw new Null();
                     Console.WriteLine(presentProduct.ToString());
                 }
                 catch (Exception ex)
@@ -103,7 +112,7 @@ public class Program
 
             case 'c':
                 //present all products
-                IEnumerable<Product> products = dalList.Product.GetAll();
+                IEnumerable<Product> products = dalList?.Product.GetAll() ?? throw new Null();
                 foreach (Product product in products)
                 {
                     Console.WriteLine(product.ToString());
@@ -114,15 +123,19 @@ public class Program
                 //update product
                 Product updateProduct = new Product();
                 Console.WriteLine("enter product ID");
-                updateProduct.ID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out ID);
+                updateProduct.ID = ID;
                 Console.WriteLine("enter product name");
                 updateProduct.Name = Console.ReadLine();
                 Console.WriteLine("enter product price");
-                updateProduct.Price = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out Price);
+                updateProduct.Price = Price;
                 Console.WriteLine("enter product catagory");
-                updateProduct.Category = (categories)int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out Category);
+                updateProduct.Category = (categories)Category;
                 Console.WriteLine("enter product inStock");
-                updateProduct.InStock = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out InStock);
+                updateProduct.InStock = InStock;
                 try
                 {
                     int returnUpdateID = new DalProduct().Update(updateProduct);
@@ -136,7 +149,7 @@ public class Program
             case 'e':
                 //delete product
                 Console.WriteLine("enter product ID");
-                givenID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out givenID);
                 try
                 {
                     new DalProduct().Delete(givenID);
@@ -153,13 +166,16 @@ public class Program
     }
     public static void _order(char choosenMethod)
     {
+        int ID;
+        DateTime OrderDate, ShipDate, DeliveryDate;
         switch (choosenMethod)
         {
             case 'a':
                 //add order
                 Order createOrder = new Order();
                 Console.WriteLine("enter order ID");
-                createOrder.ID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out ID);
+                createOrder.ID = ID; 
                 Console.WriteLine("enter customer name");
                 createOrder.CustomerName = Console.ReadLine();
                 Console.WriteLine("enter customer address");
@@ -167,14 +183,17 @@ public class Program
                 Console.WriteLine("enter customer email");
                 createOrder.CustomerEmail = Console.ReadLine();
                 Console.WriteLine("enter order date");
-                createOrder.OrderDate = DateTime.Parse(Console.ReadLine());
+                DateTime.TryParse(Console.ReadLine(), out OrderDate);
+                createOrder.OrderDate = OrderDate;
                 Console.WriteLine("enter ship date");
-                createOrder.ShipDate = DateTime.Parse(Console.ReadLine());
+                DateTime.TryParse(Console.ReadLine(), out ShipDate);
+                createOrder.ShipDate = ShipDate;
                 Console.WriteLine("enter delivaery date");
-                createOrder.DeliveryDate = DateTime.Parse(Console.ReadLine());
+                DateTime.TryParse(Console.ReadLine(), out DeliveryDate);
+                createOrder.DeliveryDate = DeliveryDate;
                 try
                 {
-                    dalList.Order.Add(createOrder);
+                    dalList?.Order.Add(createOrder);
                 }
                 catch (Exception ex)
                 {
@@ -185,10 +204,11 @@ public class Program
             case 'b':
                 //present order by ID
                 Console.WriteLine("enter order ID");
-                int givenID = int.Parse(Console.ReadLine());
+                int givenID;
+                int.TryParse(Console.ReadLine(), out givenID);
                 try
                 {
-                    Order presentOrder = dalList.Order.Get(givenID);
+                    Order presentOrder = dalList?.Order.Get(givenID) ?? throw new Null();
                     Console.WriteLine(presentOrder.ToString());
                 }
                 catch (Exception ex)
@@ -199,7 +219,7 @@ public class Program
 
             case 'c':
                 //present all orders
-                IEnumerable<Order> orders = dalList.Order.GetAll();
+                IEnumerable<Order> orders = dalList?.Order.GetAll() ?? throw new Null();
                 foreach (Order order in orders)
                 {
                     Console.WriteLine(order.ToString());
@@ -210,7 +230,8 @@ public class Program
                 //update order
                 Order updateOrder = new Order();
                 Console.WriteLine("enter order ID");
-                updateOrder.ID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out ID);
+                updateOrder.ID = ID;
                 Console.WriteLine("enter customer name");
                 updateOrder.CustomerName = Console.ReadLine();
                 Console.WriteLine("enter customer address");
@@ -218,11 +239,14 @@ public class Program
                 Console.WriteLine("enter customer email");
                 updateOrder.CustomerEmail = Console.ReadLine();
                 Console.WriteLine("enter order date");
-                updateOrder.OrderDate = DateTime.Parse(Console.ReadLine());
+                DateTime.TryParse(Console.ReadLine(), out OrderDate);
+                updateOrder.OrderDate = OrderDate;
                 Console.WriteLine("enter ship date");
-                updateOrder.ShipDate = DateTime.Parse(Console.ReadLine());
+                DateTime.TryParse(Console.ReadLine(), out ShipDate);
+                updateOrder.ShipDate = ShipDate;
                 Console.WriteLine("enter delivaery date");
-                updateOrder.DeliveryDate = DateTime.Parse(Console.ReadLine());
+                DateTime.TryParse(Console.ReadLine(), out DeliveryDate);
+                updateOrder.DeliveryDate = DeliveryDate;
                 try
                 {
                     int returnUpdateID = new DalOrder().Update(updateOrder);
@@ -236,7 +260,7 @@ public class Program
             case 'e':
                 //delete order
                 Console.WriteLine("enter order ID");
-                givenID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out givenID);
                 try
                 {
                     new DalOrder().Delete(givenID);
@@ -253,24 +277,29 @@ public class Program
     }
     public static void _orderItem(char choosenMethod)
     {
+        int ID, OrderID, ProductID, Amount;
         switch (choosenMethod)
         {
             case 'a':
                 //add orderItem
                 OrderItem createOrderItem = new OrderItem();
                 Console.WriteLine("enter orderItem ID");
-                createOrderItem.ID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out ID);
+                createOrderItem.ID = ID;
                 Console.WriteLine("enter order ID");
-                createOrderItem.OrderID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out OrderID);
+                createOrderItem.OrderID = OrderID;
                 Console.WriteLine("enter product ID");
-                createOrderItem.ProductID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out ProductID);
+                createOrderItem.ProductID = ProductID;
                 Console.WriteLine("enter orderItem amount");
-                createOrderItem.Amount = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out Amount);
+                createOrderItem.Amount = Amount;
                 //Console.WriteLine("enter orderItem Price");
                 //createOrderItem.Price = double.Parse(Console.ReadLine());
                 try
                 {
-                    dalList.OrderItem.Add(createOrderItem);
+                    dalList?.OrderItem.Add(createOrderItem);
                 }
                 catch (Exception ex)
                 {
@@ -281,10 +310,11 @@ public class Program
             case 'b':
                 //present orderOrderItem by ID
                 Console.WriteLine("enter orderItem ID");
-                int givenID = int.Parse(Console.ReadLine());
+                int givenID;
+                int.TryParse(Console.ReadLine(), out givenID);
                 try
                 {
-                    OrderItem presentOrderItem = dalList.OrderItem.Get(givenID);
+                    OrderItem presentOrderItem = dalList?.OrderItem.Get(givenID) ?? throw new Null();
                     Console.WriteLine(presentOrderItem.ToString());
                 }
                 catch (Exception ex)
@@ -297,7 +327,7 @@ public class Program
                 //present all orderOrderItems
                 try
                 {
-                    IEnumerable<OrderItem> orderItems = dalList.OrderItem.GetAll();
+                    IEnumerable<OrderItem> orderItems = dalList?.OrderItem.GetAll() ?? throw new Null();
                     foreach (OrderItem orderItem in orderItems)
                     {
                         Console.WriteLine(orderItem.ToString());
@@ -313,15 +343,19 @@ public class Program
                 //update orderOrderItem
                 OrderItem updateOrderItem = new OrderItem();
                 Console.WriteLine("enter orderItem ID");
-                updateOrderItem.ID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out ID);
+                updateOrderItem.ID = ID;
                 Console.WriteLine("enter product ID");
-                updateOrderItem.ProductID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out ProductID);
+                updateOrderItem.ProductID = ProductID;
                 Console.WriteLine("enter order ID");
-                updateOrderItem.OrderID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out OrderID);
+                updateOrderItem.OrderID = OrderID;
                 //Console.WriteLine("enter orderItem price");
                 //updateOrderItem.Price = int.Parse(Console.ReadLine());
                 Console.WriteLine("enter orderItem amount");
-                updateOrderItem.Amount = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out Amount);
+                updateOrderItem.Amount = Amount;
                 //Console.WriteLine("enter orderOrderItem inStock");
                 try
                 {
@@ -336,7 +370,7 @@ public class Program
             case 'e':
                 //delete orderItem
                 Console.WriteLine("enter orderItem ID");
-                givenID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out givenID);
                 try
                 {
                     new DalOrderItem().Delete(givenID);
@@ -350,10 +384,10 @@ public class Program
             case 'f':
                 // present all orderItems in a specific order by orderID
                 Console.WriteLine("enter order ID:");
-                givenID = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out givenID);
                 try
                 {
-                    IEnumerable<OrderItem> orderItems = dalList.OrderItem.GetAll(item => item.ID == givenID);
+                    IEnumerable<OrderItem> orderItems = dalList?.OrderItem.GetAll(item => item.ID == givenID) ?? throw new Null();
                     foreach (OrderItem orderItem in orderItems)
                     {
                         Console.WriteLine(orderItem.ToString());
@@ -368,12 +402,14 @@ public class Program
             case 'g':
                 //present orderItem by oderID and productID
                 Console.WriteLine("enter order ID:");
-                int orderID = int.Parse(Console.ReadLine());
+                int orderID;
+                int.TryParse(Console.ReadLine(), out orderID);
                 Console.WriteLine("enter product ID:");
-                int productID = int.Parse(Console.ReadLine());
+                int productID;
+                int.TryParse(Console.ReadLine(), out productID);
                 try
                 {
-                    OrderItem orderItem = dalList.OrderItem.Get(item => item.OrderID == orderID && item.ProductID == productID);
+                    OrderItem orderItem = dalList?.OrderItem.Get(item => item.OrderID == orderID && item.ProductID == productID) ?? throw new Null();
                     Console.WriteLine(orderItem.ToString());
                 }
                 catch (Exception ex)

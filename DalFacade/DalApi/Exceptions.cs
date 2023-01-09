@@ -14,4 +14,9 @@
     {
         public override string Message => "The array is full";
     }
+    public class Null : Exception
+    {
+        public override string Message => "Null";
+    }
+
 }

@@ -36,4 +36,8 @@ namespace BO
     {
         public override string Message => "Incorrect date";
     }
+    public class Null : Exception
+    {
+        public override string Message => "Null";
+    }
 }

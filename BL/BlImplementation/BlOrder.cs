@@ -11,7 +11,7 @@ namespace BlImplementation;
 /// </summary>
 internal class BlOrder : BlApi.IOrder
 {
-    private IDal Dal = DalApi.Factory.Get();
+    private IDal? Dal = DalApi.Factory.Get();
 
     /// <summary>
     /// Order list request.
@@ -24,7 +24,7 @@ internal class BlOrder : BlApi.IOrder
         int status;
         //try
         //{
-        IEnumerable<DO.Order> orders = Dal.Order.GetAll();
+        IEnumerable<DO.Order> orders = Dal?.Order.GetAll() ?? throw new BO.Null();
         List<BO.OrderForList> newOrders = new List<BO.OrderForList>();
         //Requesting all order details for this order
         foreach (var order in orders)
@@ -39,14 +39,12 @@ internal class BlOrder : BlApi.IOrder
                 foreach (var item in orderItems)
                     totalPrice += item.Price * item.Amount;
                 //Creating a status according to the dates
-                if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
-                    status = 0;
-                else if (order.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.ShipDate) == 0 || DateTime.Now.CompareTo(order.ShipDate) > 0))
-                    status = 1;
-                else if (order.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.DeliveryDate) == 0 || DateTime.Now.CompareTo(order.DeliveryDate) > 0))
+                if (order.DeliveryDate != DateTime.MinValue)
                     status = 2;
+                else if (order.ShipDate != DateTime.MinValue)
+                    status = 1;
                 else
-                    throw new BO.InvalidData();
+                    status = 0;
                 newOrder.ID = order.ID;
                 newOrder.CustomerName = order.CustomerName;
                 newOrder.AmountOfItems = orderItems.Count();
@@ -77,7 +75,7 @@ internal class BlOrder : BlApi.IOrder
         {
             try
             {
-                DO.Order orderByID = Dal.Order.Get(orderID);
+                DO.Order orderByID = Dal?.Order.Get(orderID) ?? throw new BO.Null();
                 IEnumerable<DO.OrderItem> orderItems = Dal.OrderItem.GetAll(item => item.OrderID == orderID);
                 List<BO.OrderItem> returnOrderItems = new List<BO.OrderItem>();
                 double ordertotalPrice = 0;
@@ -96,15 +94,12 @@ internal class BlOrder : BlApi.IOrder
                     });//create BO.orderItem
                 }
                 int status;
-                if (orderByID.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(orderByID.OrderDate) > 0)
-                    status = 0;
-                else if (orderByID.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(orderByID.ShipDate) == 0 || DateTime.Now.CompareTo(orderByID.ShipDate) > 0))
-                    status = 1;
-                else if (orderByID.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(orderByID.DeliveryDate) == 0 || DateTime.Now.CompareTo(orderByID.DeliveryDate) > 0))
+                if (orderByID.DeliveryDate != DateTime.MinValue)
                     status = 2;
+                else if (orderByID.ShipDate != DateTime.MinValue)
+                    status = 1;
                 else
-                    throw new BO.IncorrectDate();
-
+                    status = 0;
                 BO.Order order = new BO.Order
                 {
                     ID = orderByID.ID,
@@ -140,7 +135,7 @@ internal class BlOrder : BlApi.IOrder
     {
         try
         {
-            DO.Order order = Dal.Order.Get(orderID);
+            DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
             if (order.ShipDate.CompareTo(DateTime.Now) < 0)
                 throw new BO.OrderAlreadyShipped();
             //order.ShipDate = DateTime.Now;
@@ -191,7 +186,7 @@ internal class BlOrder : BlApi.IOrder
         try
         {
             // orderItem = new();
-            DO.Order order = Dal.Order.Get(orderID);
+            DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
             //BO.Order BoOrder = new();
             if (order.DeliveryDate.CompareTo(DateTime.Now) < 0 && order.DeliveryDate.CompareTo(DateTime.MinValue) != 0)
                 throw new BO.OrderAlreadyDelivered();
@@ -241,24 +236,22 @@ internal class BlOrder : BlApi.IOrder
     /// <exception cref="BO.ObjectNotFound"></exception>
     public OrderTracking OrderTracking(int orderID)
     {
-        DO.Order order = Dal.Order.Get(orderID);
+        DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
         if (order.ID == orderID)
         {
             int status;
-            if (order.OrderDate.CompareTo(DateTime.Now) == 0 || DateTime.Now.CompareTo(order.OrderDate) > 0)
-                status = 0;
-            else if (order.ShipDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.ShipDate) == 0 || DateTime.Now.CompareTo(order.ShipDate) > 0))
-                status = 1;
-            else if (order.DeliveryDate != DateTime.MinValue && (DateTime.Now.CompareTo(order.DeliveryDate) == 0 || DateTime.Now.CompareTo(order.DeliveryDate) > 0))
+            if (order.DeliveryDate != DateTime.MinValue)
                 status = 2;
+            else if (order.ShipDate != DateTime.MinValue)
+                status = 1;
             else
-                throw new BO.IncorrectDate();
-            BO.OrderTracking eee = new BO.OrderTracking
+                status = 0;
+            BO.OrderTracking orderTracking = new BO.OrderTracking
             {
                 ID = orderID,
                 Status = (BO.OrderStatus)status
             };
-            return eee;
+            return orderTracking;
         }
         throw new BO.ObjectNotFound();
     }

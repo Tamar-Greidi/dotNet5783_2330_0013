@@ -28,7 +28,7 @@ public class DalProduct: IProduct
         return product;
     }
 
-    public Product Get(Predicate<Product>? func)
+    public Product Get(Predicate<Product> func)
     {
         Product product = _arrProduct.Find(func);
         if (product.ID == 0)
@@ -36,7 +36,7 @@ public class DalProduct: IProduct
         return product;
     }
 
-    public IEnumerable<Product> GetAll(Func<Product, bool> func = null) => func == null ? _arrProduct : _arrProduct.Where(func);
+    public IEnumerable<Product> GetAll(Func<Product, bool>? func = null) => func == null ? _arrProduct : _arrProduct.Where(func);
 
     public int Update(Product product)
     {

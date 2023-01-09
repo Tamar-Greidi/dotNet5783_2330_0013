@@ -8,7 +8,7 @@ namespace BlImplementation;
 /// </summary>
 internal class BlCart : BlApi.ICart
 {
-    private IDal Dal = DalApi.Factory.Get();
+    private IDal? Dal = Factory.Get();
     /// <summary>
     /// Add product to cart.
     /// </summary>
@@ -20,9 +20,9 @@ internal class BlCart : BlApi.ICart
     {
         try
         {
-            DO.Product AddProduct = Dal.Product.Get(productID);
+            DO.Product AddProduct = Dal?.Product.Get(productID) ?? throw new BO.Null();
             bool added = false;
-            OrderItem orderItem = cart.Items.Find(item => item.ProductID == productID);
+            OrderItem? orderItem = cart.Items.Find(item => item.ProductID == productID);
             if (orderItem != null)
                 if (AddProduct.InStock >= 1)
                 {
@@ -80,10 +80,10 @@ internal class BlCart : BlApi.ICart
     /// <exception cref="BO.OutOfStock"></exception>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int productID, int amount)
     {
-        OrderItem item = cart.Items.Find(item => item.ProductID == productID);
+        OrderItem? item = cart.Items.Find(item => item.ProductID == productID);
         if(item != null)
         {
-            DO.Product product = Dal.Product.Get(productID);
+            DO.Product product = Dal?.Product.Get(productID) ?? throw new BO.Null();
             //add
             if (item.Amount < amount)
             {
@@ -153,7 +153,7 @@ internal class BlCart : BlApi.ICart
         {
             try
             {
-                DO.Product TempProduct = Dal.Product.Get(item.ProductID);
+                DO.Product TempProduct = Dal?.Product.Get(item.ProductID) ?? throw new BO.Null();
                 if (item.Amount < 0 || item.Amount > TempProduct.InStock)
                     throw new BO.InvalidData();
             }
@@ -171,7 +171,7 @@ internal class BlCart : BlApi.ICart
         order.DeliveryDate = DateTime.MinValue;
         try
         {
-            int orderID = Dal.Order.Add(order);
+            int orderID = Dal?.Order.Add(order) ?? throw new BO.Null();
             foreach (var item in cart.Items)
             {
                 DO.OrderItem orderItem = new();

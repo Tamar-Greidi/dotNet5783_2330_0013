@@ -41,7 +41,7 @@ namespace PL
 
         private void CartsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            OrderItem cartItem = (OrderItem)(sender as ListView).SelectedItem;
+            OrderItem cartItem = (OrderItem)CartsListview.SelectedItem;
             new CartsWindow(cartItem).ShowDialog();
             CartsListview.Items.Refresh();
         }
@@ -54,11 +54,11 @@ namespace PL
                 bl.Cart.ConfirmationCart(ProductsListWindow.cart);
                 MessageBox.Show("The order has been confirmed, Thank you");
                 Close();
-                ProductsListWindow.cart = new BO.Cart { Items = new List<BO.OrderItem?>() };
+                ProductsListWindow.cart = new BO.Cart { Items = new List<BO.OrderItem>() };
             }
             catch (DalException ex)
             {
-                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+                MessageBox.Show(ex.Message + " " + ex.InnerException?.Message);
             }
             catch (InvalidData ex)
             {

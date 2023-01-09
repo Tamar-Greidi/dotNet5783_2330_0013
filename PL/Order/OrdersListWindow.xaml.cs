@@ -33,7 +33,7 @@ namespace PL
             }
             catch (DalException ex)
             {
-                MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException.Message);
+                MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException?.Message);
             }
         }
 
@@ -43,7 +43,7 @@ namespace PL
             use = str;
             try
             {
-                IEnumerable<OrderForList> orders = bl.Order.Get();
+                List<OrderForList> orders = (List<OrderForList>)bl.Order.Get();
                 List<OrderTracking> ordersTracking = new List<OrderTracking>();
                 foreach (var order in orders)
                 {
@@ -58,7 +58,7 @@ namespace PL
             }
             catch (DalException ex)
             {
-                MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException.Message);
+                MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException?.Message);
             }
         }
 
@@ -67,15 +67,15 @@ namespace PL
 
             if (use == "tracking")
             { 
-                OrderTracking order = (BO.OrderTracking)(sender as ListView).SelectedItem;
+                OrderTracking order = (BO.OrderTracking)OrdersListview.SelectedItem;
                 BO.Order selectedItem = bl.Order.GetDetails(order.ID);
                 new OrdersWindow(selectedItem, use).Show();
             }
             else
             { 
-                OrderForList order = (BO.OrderForList)(sender as ListView).SelectedItem;
+                OrderForList order = (BO.OrderForList)OrdersListview.SelectedItem;
                 BO.Order selectedItem = bl.Order.GetDetails(order.ID);
-                new OrdersWindow(selectedItem).Show();
+                new OrdersWindow(selectedItem).ShowDialog();
             }
 
         }

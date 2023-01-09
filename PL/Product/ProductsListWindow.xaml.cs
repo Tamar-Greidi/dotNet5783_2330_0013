@@ -76,14 +76,14 @@ namespace PL
             {
                 if (user == "admin")
                 {
-                    ProductForList product = (ProductForList)(sender as ListView).SelectedItem;
+                    ProductForList product = (ProductForList)ProductsListview.SelectedItem;
                     BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
                     new ProductsWindow(selectedItem).ShowDialog();
                     ProductsListview.ItemsSource = bl.Product.GetCatalog();
                 }
                 else
                 {
-                    ProductItem product = (ProductItem)(sender as ListView).SelectedItem;
+                    ProductItem product = (ProductItem)ProductsListview.SelectedItem;
                     BO.ProductItem selectedItem = bl.Product.GetProductDetails(product.ID, cart);
                     new ProductsWindow(selectedItem).ShowDialog();
                     ProductsListview.ItemsSource = bl.Product.GetAll();
@@ -91,7 +91,7 @@ namespace PL
             }
             catch (DalException ex)
             {
-                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+                MessageBox.Show(ex.Message + " " + ex.InnerException?.Message);
             }
             catch (InvalidData ex)
             {

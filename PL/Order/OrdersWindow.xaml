@@ -17,22 +17,19 @@
         <Label Content="Customer Address:" HorizontalAlignment="Left" Margin="82,131,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Order Date:" HorizontalAlignment="Left" Margin="82,151,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Status:" HorizontalAlignment="Left" Margin="82,171,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Payment Date:" HorizontalAlignment="Left" Margin="82,191,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Ship Date:" HorizontalAlignment="Left" Margin="82,211,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Delivery Date:" HorizontalAlignment="Left" Margin="82,231,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Items:" HorizontalAlignment="Left" Margin="82,251,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="82,271,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Ship Date:" HorizontalAlignment="Left" Margin="82,191,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Delivery Date:" HorizontalAlignment="Left" Margin="82,211,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Items:" HorizontalAlignment="Left" Margin="82,231,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
+        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="82,251,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <TextBox Name="txtID" HorizontalAlignment="Left" Margin="242,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtCustomerName" HorizontalAlignment="Left" Margin="242,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtCustomerEmail" HorizontalAlignment="Left" Margin="242,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtCustomerAddress" HorizontalAlignment="Left" Margin="242,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtOrderDate" HorizontalAlignment="Left" Margin="242,155,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <TextBox Name="txtStatus" HorizontalAlignment="Left" Margin="242,175,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtPaymentDate" HorizontalAlignment="Left" Margin="242,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtShipDate" HorizontalAlignment="Left" Margin="242,215,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtDeliveryDate" HorizontalAlignment="Left" Margin="242,235,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtTotalPrice" HorizontalAlignment="Left" Margin="242,275,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="-743,12,0,0" VerticalAlignment="Top" Click="SaveButton_Click" FontFamily="Comic Sans MS" Width="195"/>
+        <TextBox Name="txtShipDate" HorizontalAlignment="Left" Margin="242,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtDeliveryDate" HorizontalAlignment="Left" Margin="242,215,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Name="txtTotalPrice" HorizontalAlignment="Left" Margin="242,255,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
         <ListView Name="ItemsLitsView" Margin="453,85,0,125" FontFamily="Comic Sans MS" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
