@@ -1,1 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<Orders>
+	<ID></ID>
+	<CustomerName></CustomerName>
+	<CustomerEmail></CustomerEmail>
+	<CustomerAddress></CustomerAddress>
+	<OrderDate></OrderDate>
+	<ShipDate></ShipDate>
+	<DeliveryDate></DeliveryDate>
+</Orders>

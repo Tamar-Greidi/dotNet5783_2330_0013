@@ -1,1 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<Products>
+	<ID></ID>
+	<Name></Name>
+	<Price></Price>
+	<Category></Category>
+	<InStock></InStock>
+</Products>
