@@ -13,15 +13,15 @@
         <Label Content="Price:" HorizontalAlignment="Left" Margin="320,180,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Amount:" HorizontalAlignment="Left" Margin="320,200,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Total Price:" x:Name="lblAmount" HorizontalAlignment="Left" Margin="320,220,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        
-        <TextBox x:Name="txtID" HorizontalAlignment="Left" Margin="400,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="400,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox x:Name="txtProductID" HorizontalAlignment="Left" Margin="400,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Margin="400,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox x:Name="txtAmount" HorizontalAlignment="Left" Margin="400,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120" LostMouseCapture="Amount_LostMouseCapture"/>
-        <!--TextChanged="Amount_TextChanged"-->
-        <TextBox x:Name="txtTotalPrice" HorizontalAlignment="Left" Margin="400,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+
+        <TextBox x:Name="txtID" HorizontalAlignment="Left" Margin="400,120,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="400,140,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox x:Name="txtProductID" HorizontalAlignment="Left" Margin="400,160,0,0" TextWrapping="Wrap" Text="{Binding ProductID}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Margin="400,180,0,0" TextWrapping="Wrap" Text="{Binding Price}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox x:Name="txtAmount" HorizontalAlignment="Left" Margin="400,200,0,0" TextWrapping="Wrap" Text="{Binding Amount}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120" LostMouseCapture="Amount_LostMouseCapture" />
+        <TextBox x:Name="txtTotalPrice" HorizontalAlignment="Left" Margin="400,220,0,0" TextWrapping="Wrap" Text="{Binding TotalPrice}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
 
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="325,250,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" FontFamily="Comic Sans MS" Width="195"/>
+        <TextBox HorizontalAlignment="Left" Margin="610,332,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,75 +15,74 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL;
+
+/// <summary>
+/// Interaction logic for OrdersListWindow.xaml
+/// </summary>
+public partial class OrdersListWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for OrdersListWindow.xaml
-    /// </summary>
-    public partial class OrdersListWindow : Window
+    BlApi.IBl bl = BlApi.Factory.Get();
+    string use = "";
+
+    public OrdersListWindow()
     {
-        BlApi.IBl bl = BlApi.Factory.Get();
-        string use = "";
-
-        public OrdersListWindow()
+        InitializeComponent();
+        try
         {
-            InitializeComponent();
-            try
-            {
-                OrdersListview.ItemsSource = bl.Order.Get();
-            }
-            catch (DalException ex)
-            {
-                MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException?.Message);
-            }
+            OrdersListview.ItemsSource = bl.Order.Get();
         }
-
-        public OrdersListWindow(string str)
+        catch (DalException ex)
         {
-            InitializeComponent();
-            use = str;
-            try
+            MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException?.Message);
+        }
+    }
+
+    public OrdersListWindow(string str)
+    {
+        InitializeComponent();
+        use = str;
+        try
+        {
+            List<OrderForList> orders = (List<OrderForList>)bl.Order.Get();
+            List<OrderTracking> ordersTracking = new List<OrderTracking>();
+            foreach (var order in orders)
             {
-                List<OrderForList> orders = (List<OrderForList>)bl.Order.Get();
-                List<OrderTracking> ordersTracking = new List<OrderTracking>();
-                foreach (var order in orders)
+                OrderTracking orderTracking = new()
                 {
-                    OrderTracking orderTracking = new()
-                    {
-                        ID = order.ID,
-                        Status = order.Status
-                    };
-                    ordersTracking.Add(orderTracking);
-                }
-                OrdersListview.ItemsSource = ordersTracking;
+                    ID = order.ID,
+                    Status = order.Status
+                };
+                ordersTracking.Add(orderTracking);
             }
-            catch (DalException ex)
-            {
-                MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException?.Message);
-            }
+            OrdersListview.ItemsSource = ordersTracking;
         }
-
-        private void OrdersListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        catch (DalException ex)
         {
+            MessageBox.Show("Exception: " + ex.Message + " " + ex.InnerException?.Message);
+        }
+    }
 
-            if (use == "tracking")
-            { 
-                OrderTracking order = (BO.OrderTracking)OrdersListview.SelectedItem;
-                BO.Order selectedItem = bl.Order.GetDetails(order.ID);
-                new OrdersWindow(selectedItem, use).Show();
-            }
-            else
-            { 
-                OrderForList order = (BO.OrderForList)OrdersListview.SelectedItem;
-                BO.Order selectedItem = bl.Order.GetDetails(order.ID);
-                new OrdersWindow(selectedItem).ShowDialog();
-            }
+    private void OrdersListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
 
+        if (use == "tracking")
+        { 
+            OrderTracking order = (BO.OrderTracking)OrdersListview.SelectedItem;
+            BO.Order selectedItem = bl.Order.GetDetails(order.ID);
+            new OrdersWindow(selectedItem, use).Show();
+        }
+        else
+        { 
+            OrderForList order = (BO.OrderForList)OrdersListview.SelectedItem;
+            BO.Order selectedItem = bl.Order.GetDetails(order.ID);
+            new OrdersWindow(selectedItem).ShowDialog();
         }
 
-        private void OrdersListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
+    }
+
+    private void OrdersListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        
     }
 }

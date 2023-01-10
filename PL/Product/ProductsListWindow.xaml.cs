@@ -32,10 +32,6 @@ namespace PL
         {
             InitializeComponent();
             this.user = user;
-            /// Group
-            //var groupDescription = new PropertyGroupDescription();
-            //groupDescription.PropertyName = "Category";
-            //ProductsListview.GroupDescriptions.Add(groupDescription);
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             if (user == "user")
             {

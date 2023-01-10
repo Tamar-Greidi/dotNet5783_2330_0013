@@ -28,17 +28,12 @@ namespace PL
         {
             InitializeComponent();
             this.cartItem = cartItem;
-            txtID.Text = Convert.ToString(cartItem.ID);
             txtID.IsEnabled = false;
-            txtName.Text = cartItem.Name;
             txtName.IsEnabled = false;
-            txtProductID.Text = Convert.ToString(cartItem.ProductID);
             txtProductID.IsEnabled = false;
-            txtPrice.Text = Convert.ToString(cartItem.Price);
             txtPrice.IsEnabled = false;
-            txtAmount.Text = Convert.ToString(cartItem.Amount);
-            txtTotalPrice.Text = Convert.ToString(cartItem.TotalPrice);
             txtTotalPrice.IsEnabled = false;
+            DataContext = cartItem;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

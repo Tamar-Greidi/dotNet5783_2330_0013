@@ -1,3 +1,4 @@
+using BlApi;
 using BO;
 using DalApi;
 
@@ -8,14 +9,16 @@ namespace BlImplementation;
 /// </summary>
 internal class BlCart : BlApi.ICart
 {
-    private IDal? Dal = Factory.Get();
+    private IDal? Dal = DalApi.Factory.Get();
     /// <summary>
     /// Add product to cart.
     /// </summary>
     /// <param name="cart"></param>
     /// <param name="productID"></param>
     /// <returns></returns>
+    /// <exception cref="BO.Null"></exception>
     /// <exception cref="BO.OutOfStock"></exception>
+    /// <exception cref="BO.DalException"></exception>
     public BO.Cart Add(BO.Cart cart, int productID)
     {
         try
@@ -149,7 +152,7 @@ internal class BlCart : BlApi.ICart
     {
         if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAddress == "")
             throw new BO.InvalidData();
-        foreach (var item in cart.Items)
+        cart.Items?.ForEach(item =>
         {
             try
             {
@@ -161,7 +164,7 @@ internal class BlCart : BlApi.ICart
             {
                 throw new BO.DalException(ex);
             }
-        }
+        });
         DO.Order order = new();
         order.CustomerName = cart.CustomerName;
         order.CustomerEmail = cart.CustomerEmail;
@@ -172,7 +175,7 @@ internal class BlCart : BlApi.ICart
         try
         {
             int orderID = Dal?.Order.Add(order) ?? throw new BO.Null();
-            foreach (var item in cart.Items)
+            cart.Items?.ForEach(item =>
             {
                 DO.OrderItem orderItem = new();
                 orderItem.ID = 0;
@@ -192,7 +195,7 @@ internal class BlCart : BlApi.ICart
                 {
                     throw ex;
                 }
-            }
+            });
         }
         catch (BO.ObjectAlreadyExists ex)
         {
