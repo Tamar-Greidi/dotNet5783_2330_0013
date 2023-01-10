@@ -22,7 +22,7 @@ internal class BlCart : BlApi.ICart
         {
             DO.Product AddProduct = Dal?.Product.Get(productID) ?? throw new BO.Null();
             bool added = false;
-            OrderItem? orderItem = cart.Items.Find(item => item.ProductID == productID);
+            OrderItem? orderItem = cart.Items?.Find(item => item.ProductID == productID);
             if (orderItem != null)
                 if (AddProduct.InStock >= 1)
                 {
@@ -58,7 +58,7 @@ internal class BlCart : BlApi.ICart
                         TotalPrice = AddProduct.Price,
                     };
                     cart.TotalPrice += orderItemToAdd.Price;
-                    cart.Items.Add(orderItemToAdd);
+                    cart.Items?.Add(orderItemToAdd);
                 }
                 else
                     throw new BO.OutOfStock();
@@ -80,7 +80,7 @@ internal class BlCart : BlApi.ICart
     /// <exception cref="BO.OutOfStock"></exception>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int productID, int amount)
     {
-        OrderItem? item = cart.Items.Find(item => item.ProductID == productID);
+        OrderItem? item = cart.Items?.Find(item => item.ProductID == productID);
         if(item != null)
         {
             DO.Product product = Dal?.Product.Get(productID) ?? throw new BO.Null();
@@ -101,7 +101,7 @@ internal class BlCart : BlApi.ICart
             //remove
             if (item.Amount == 0)
             {
-                cart.Items.Remove(item);
+                cart.Items?.Remove(item);
                 cart.TotalPrice -= item.Price * item.Amount;
             }
         }
@@ -157,9 +157,9 @@ internal class BlCart : BlApi.ICart
                 if (item.Amount < 0 || item.Amount > TempProduct.InStock)
                     throw new BO.InvalidData();
             }
-            catch (BO.InvalidData ex)
+            catch (DalApi.ObjectNotFound ex)
             {
-                throw ex;
+                throw new BO.DalException(ex);
             }
         }
         DO.Order order = new();

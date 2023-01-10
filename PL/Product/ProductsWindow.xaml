@@ -6,20 +6,29 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ProductsWindow" Height="450" Width="800">
-    <Grid>
-        <Label Content="ID:" Name="lblID" HorizontalAlignment="Left" Margin="320,120,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Category:" HorizontalAlignment="Left" Margin="320,140,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Name:" HorizontalAlignment="Left" Margin="320,162,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Price:" HorizontalAlignment="Left" Margin="320,180,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="In Stock:" HorizontalAlignment="Left" Margin="320,200,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <Label Content="Amount:" Name="lblAmount" HorizontalAlignment="Left" Margin="320,220,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <TextBox Name="txtID" HorizontalAlignment="Left" Margin="400,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <ComboBox Name="CategoriesSelector" HorizontalAlignment="Left" Margin="400,140,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtCategory" HorizontalAlignment="Left" Margin="400,141,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120" Height="23" TextChanged="txtCategory_TextChanged"/>
-        <TextBox Name="txtName" HorizontalAlignment="Left" Margin="400,165,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtPrice" HorizontalAlignment="Left" Margin="400,185,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtInStock" HorizontalAlignment="Left" Margin="400,205,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
-        <TextBox Name="txtAmount" HorizontalAlignment="Left" Margin="400,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+    <Window.Resources>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox" >
+            <Setter Property="FontFamily"              
+                    Value="Comic Sans MS"/>
+        </Style>
+        <Style x:Key="Text1Style" BasedOn="{StaticResource TextBoxStyle}" >
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+        </Style>
+    </Window.Resources>    <Grid>
+        <Label Style="{StaticResource TextStyle}" Content="ID:" Name="lblID" HorizontalAlignment="Left" Margin="320,120,0,0" VerticalAlignment="Top"/>
+        <Label Style="{StaticResource TextStyle}" Content="Category:" HorizontalAlignment="Left" Margin="320,140,0,0" VerticalAlignment="Top" />
+        <Label Style="{StaticResource TextStyle}" Content="Name:" HorizontalAlignment="Left" Margin="320,162,0,0" VerticalAlignment="Top"/>
+        <Label Style="{StaticResource TextStyle}" Content="Price:" HorizontalAlignment="Left" Margin="320,180,0,0" VerticalAlignment="Top"/>
+        <Label Style="{StaticResource TextStyle}" Content="In Stock:" HorizontalAlignment="Left" Margin="320,200,0,0" VerticalAlignment="Top"/>
+        <Label Style="{StaticResource TextStyle}" Content="Amount:" Name="lblAmount" HorizontalAlignment="Left" Margin="320,220,0,0" VerticalAlignment="Top"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtID" Text="{Binding ID, Mode=TwoWay}" HorizontalAlignment="Left" Margin="400,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="CategoriesSelector" Text="{Binding Category ,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="400,140,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="120"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtCategory" Text="{Binding Category, Mode=TwoWay}" HorizontalAlignment="Left" Margin="400,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  Width="120" Height="23" TextChanged="txtCategory_TextChanged"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtName" Text="{Binding Name, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="400,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtPrice" Text="{Binding Price, Mode=TwoWay}" HorizontalAlignment="Left" Margin="400,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtInStock" Text="{Binding InStock, Mode=TwoWay}" HorizontalAlignment="Left" Margin="400,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtAmount" Text="{Binding Amount, Mode=TwoWay}" HorizontalAlignment="Left" Margin="400,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
         <Button Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="325,250,0,0" VerticalAlignment="Top" Click="SaveButton_Click" FontFamily="Comic Sans MS" Width="195"/>
         <Button Name="btnAddToCart" Content="Add To Cart" HorizontalAlignment="Left" Margin="325,250,0,0" VerticalAlignment="Top" Click="AddToCartButton_Click" FontFamily="Comic Sans MS" Width="195"/>

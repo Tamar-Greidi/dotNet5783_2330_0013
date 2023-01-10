@@ -380,7 +380,7 @@ public class Program
                         cart.CustomerEmail = "";
                         cart.CustomerAddress = "";
                         cart.CustomerName = "";
-                        cart.Items.Clear();
+                        cart.Items?.Clear();
                         cart.TotalPrice = 0;
                     }
                     catch (DalException ex)

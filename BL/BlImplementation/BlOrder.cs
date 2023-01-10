@@ -136,7 +136,7 @@ internal class BlOrder : BlApi.IOrder
         try
         {
             DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
-            if (order.ShipDate.CompareTo(DateTime.Now) < 0)
+            if (order.ShipDate.CompareTo(DateTime.Now) < 0 && order.ShipDate.CompareTo(DateTime.MinValue) != 0)
                 throw new BO.OrderAlreadyShipped();
             //order.ShipDate = DateTime.Now;
             BO.Order BoOrder = new()
@@ -185,12 +185,11 @@ internal class BlOrder : BlApi.IOrder
     {
         try
         {
-            // orderItem = new();
             DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
-            //BO.Order BoOrder = new();
+            if (order.ShipDate.CompareTo(DateTime.MinValue) == 0)
+                throw new BO.OrderNotShippedYet();
             if (order.DeliveryDate.CompareTo(DateTime.Now) < 0 && order.DeliveryDate.CompareTo(DateTime.MinValue) != 0)
                 throw new BO.OrderAlreadyDelivered();
-            //order.DeliveryDate = 
             BO.Order BoOrder = new()
             {
                 ID = orderID,

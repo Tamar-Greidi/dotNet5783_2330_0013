@@ -22,7 +22,7 @@ namespace PL
     public partial class ProductsWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        string status;
+        string status = "";
         public ProductsWindow()
         {
             InitializeComponent();
@@ -41,40 +41,31 @@ namespace PL
         {
             InitializeComponent();
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
-            txtID.Text = selectedItem.ID.ToString();
             txtID.IsEnabled = false;
-            txtName.Text = selectedItem.Name;
             txtName.IsEnabled = false;
             CategoriesSelector.Visibility = Visibility.Hidden;
-            txtCategory.Text = selectedItem.Category.ToString();
             txtCategory.IsEnabled = false;
-            txtPrice.Text = selectedItem.Price.ToString();
             txtPrice.IsEnabled = false;
-            txtAmount.Text = selectedItem.Amount.ToString();
             txtAmount.IsEnabled = false;
-            txtInStock.Text = selectedItem.InStock.ToString();
             txtInStock.IsEnabled = false;
             btnSave.Visibility = Visibility.Hidden;
+            DataContext = selectedItem;
         }
         public ProductsWindow(BO.Product selectedItem)
         {
             InitializeComponent();
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
             status = "update";
-            txtID.Text = selectedItem.ID.ToString();
             txtID.IsEnabled = false;
-            txtName.Text = selectedItem.Name;
-            CategoriesSelector.Text = selectedItem.Category.ToString();
             txtCategory.Visibility = Visibility.Hidden;
-            txtPrice.Text = selectedItem.Price.ToString();
-            txtInStock.Text = selectedItem.InStock.ToString();
             txtAmount.Visibility = Visibility.Hidden;
             lblAmount.Visibility = Visibility.Hidden;
             btnAddToCart.Visibility = Visibility.Hidden;
             btnSave.Content = "Update";
+            DataContext = selectedItem;
         }
 
-        
+
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {

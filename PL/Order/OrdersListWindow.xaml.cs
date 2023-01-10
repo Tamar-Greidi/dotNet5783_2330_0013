@@ -22,7 +22,7 @@ namespace PL
     public partial class OrdersListWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-        string use;
+        string use = "";
 
         public OrdersListWindow()
         {

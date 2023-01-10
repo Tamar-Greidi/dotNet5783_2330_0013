@@ -78,14 +78,16 @@ namespace PL
                 {
                     ProductForList product = (ProductForList)ProductsListview.SelectedItem;
                     BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
-                    new ProductsWindow(selectedItem).ShowDialog();
+                    //new ProductsWindow(selectedItem).ShowDialog();
+                    new ProductsWindow(selectedItem).Show();
                     ProductsListview.ItemsSource = bl.Product.GetCatalog();
                 }
                 else
                 {
                     ProductItem product = (ProductItem)ProductsListview.SelectedItem;
                     BO.ProductItem selectedItem = bl.Product.GetProductDetails(product.ID, cart);
-                    new ProductsWindow(selectedItem).ShowDialog();
+                    new ProductsWindow(selectedItem).Show();
+                    //new ProductsWindow(selectedItem).ShowDialog();
                     ProductsListview.ItemsSource = bl.Product.GetAll();
                 }
             }
