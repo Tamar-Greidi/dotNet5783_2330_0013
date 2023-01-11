@@ -234,19 +234,29 @@ internal class BlOrder : BlApi.IOrder
     public OrderTracking OrderTracking(int orderID)
     {
         DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
+        List<(DateTime, string)> tracking = new();
         if (order.ID == orderID)
         {
             int status;
+            tracking.Add((order.OrderDate, "The order has been confirmed"));
             if (order.DeliveryDate != DateTime.MinValue)
+            {
                 status = 2;
+                tracking.Add((order.ShipDate, "The order has been shipped"));
+                tracking.Add((order.DeliveryDate, "The order has been delivered"));
+            }
             else if (order.ShipDate != DateTime.MinValue)
+            {
                 status = 1;
+                tracking.Add((order.ShipDate, "The order has been shipped"));
+            }
             else
                 status = 0;
             BO.OrderTracking orderTracking = new BO.OrderTracking
             {
                 ID = orderID,
-                Status = (BO.OrderStatus)status
+                Status = (BO.OrderStatus)status,
+                Tracking = tracking
             };
             return orderTracking;
         }

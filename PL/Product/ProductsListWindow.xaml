@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ProductsListWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:AddNewProductConverter x:Key="addNewProductConverter" />
+    </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -29,7 +32,7 @@ VerticalAlignment="Stretch" Width="auto">
             </ListView.View>
         </ListView>
 
-        <Button Name="AddNewProduct" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="AddNewProduct_Click" Width="150"/>
-        <Button Name="GoToCart" Content="Go to cart" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="GoToCart_Click" Width="150"/>
+        <Button Name="AddNewProduct" Content="Add new Product" Visibility="{Binding Path=user, Converter={StaticResource addNewProductConverter}}" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="AddNewProduct_Click" Width="150"/>
+        <!--<Button Name="GoToCart" Content="Go to cart" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="GoToCart_Click" Width="150"/>-->
     </Grid>
 </Window>

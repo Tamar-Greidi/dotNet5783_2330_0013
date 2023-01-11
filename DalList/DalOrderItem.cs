@@ -14,17 +14,6 @@ public class DalOrderItem : IOrderItem
 {
     public int Add(OrderItem orderItem)
     {
-        //OrderItem o = _arrOrderItem.Find(item=> item.OrderID==orderItem.OrderID && item.ProductID==orderItem.ProductID);
-        //if (o.ID > 0)
-        //{
-        //    OrderItem or = new OrderItem();
-        //    or = o;
-        //    or.Amount += orderItem.Amount;
-        //    Update(or);
-        //}
-        //else
-        //{
-        //}
         OrderItem item = _arrOrderItem.Find(item => item.OrderID == orderItem.OrderID && item.ProductID == orderItem.ProductID);
         if (item.ID > 0)
             throw new ObjectAlreadyExists();

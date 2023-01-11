@@ -46,15 +46,7 @@ public partial class OrdersListWindow : Window
         {
             List<OrderForList> orders = (List<OrderForList>)bl.Order.Get();
             List<OrderTracking> ordersTracking = new List<OrderTracking>();
-            foreach (var order in orders)
-            {
-                OrderTracking orderTracking = new()
-                {
-                    ID = order.ID,
-                    Status = order.Status
-                };
-                ordersTracking.Add(orderTracking);
-            }
+            orders.ForEach(order => ordersTracking.Add(bl.Order.OrderTracking(order.ID)));
             OrdersListview.ItemsSource = ordersTracking;
         }
         catch (DalException ex)

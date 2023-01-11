@@ -29,12 +29,13 @@ public partial class ProductsWindow : Window
     {
         InitializeComponent();
         CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
-        StatusProperty = "add";
-        txtID.Visibility = Visibility.Hidden;
-        lblID.Visibility = Visibility.Hidden;
-        txtCategory.Visibility = Visibility.Hidden;
-        txtAmount.Visibility = Visibility.Hidden;
-        lblAmount.Visibility = Visibility.Hidden;
+        StatusProperty = "add"; 
+        DataContext = new { status = "add" };
+        //txtID.Visibility = Visibility.Hidden;
+        //lblID.Visibility = Visibility.Hidden;
+        //txtCategory.Visibility = Visibility.Hidden;
+        //txtAmount.Visibility = Visibility.Hidden;
+        //lblAmount.Visibility = Visibility.Hidden;
         btnAddToCart.Visibility = Visibility.Hidden;
         btnSave.Content = "Add";
     }
@@ -133,26 +134,17 @@ public partial class ProductsWindow : Window
 
     }
 }
-public class NotBooleanToVisibilityConverter : IValueConverter
+public class AddProductVisibilityConverter : IValueConverter
 {
-    public object Convert(
-    object value,
-    Type targetType,
-    object parameter,
-    CultureInfo culture)
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        bool boolValue = (bool)value;
-        if (boolValue)
-            return Visibility.Collapsed;
+        //bool boolValue = (bool)value;
+        if ((string)value == "add") 
+            return Visibility.Hidden;
         else
             return Visibility.Visible;
     }
-    public object ConvertBack(
-    object value,
-    Type targetType,
-    object parameter,
-
-    CultureInfo culture)
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
