@@ -30,7 +30,8 @@ public partial class OrdersListWindow : Window
         InitializeComponent();
         try
         {
-            OrdersListview.ItemsSource = bl.Order.Get();
+            List<OrderForList?> ordersList = (List<OrderForList?>)bl.Order.Get();
+            DataContext = ordersList;
         }
         catch (DalException ex)
         {
@@ -47,7 +48,7 @@ public partial class OrdersListWindow : Window
             List<OrderForList> orders = (List<OrderForList>)bl.Order.Get();
             List<OrderTracking> ordersTracking = new List<OrderTracking>();
             orders.ForEach(order => ordersTracking.Add(bl.Order.OrderTracking(order.ID)));
-            OrdersListview.ItemsSource = ordersTracking;
+            DataContext = ordersTracking;
         }
         catch (DalException ex)
         {
@@ -57,7 +58,6 @@ public partial class OrdersListWindow : Window
 
     private void OrdersListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-
         if (use == "tracking")
         { 
             OrderTracking order = (BO.OrderTracking)OrdersListview.SelectedItem;
@@ -75,6 +75,6 @@ public partial class OrdersListWindow : Window
 
     private void OrdersListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        
+
     }
 }

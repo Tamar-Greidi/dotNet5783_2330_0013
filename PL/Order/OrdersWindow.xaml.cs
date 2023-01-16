@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,6 @@ namespace PL
     public partial class OrdersWindow : Window
     {
         BlApi.IBl bl = BlApi.Factory.Get();
-
         public OrdersWindow()
         {
             InitializeComponent();
@@ -31,20 +31,20 @@ namespace PL
         public OrdersWindow(BO.Order selectedItem)
         {
             InitializeComponent();
-            txtID.IsEnabled = false;
-            txtCustomerName.IsEnabled = false;
-            txtCustomerEmail.IsEnabled = false;
-            txtCustomerAddress.IsEnabled = false;
-            txtOrderDate.IsEnabled = false;
-            txtStatus.IsEnabled = false;
-            txtShipDate.IsEnabled = false;
-            txtDeliveryDate.IsEnabled = false;
-            txtTotalPrice.IsEnabled = false;
+            //txtID.IsEnabled = false;
+            //txtCustomerName.IsEnabled = false;
+            //txtCustomerEmail.IsEnabled = false;
+            //txtCustomerAddress.IsEnabled = false;
+            //txtOrderDate.IsEnabled = false;
+            //txtStatus.IsEnabled = false;
+            //txtShipDate.IsEnabled = false;
+            //txtDeliveryDate.IsEnabled = false;
+            //txtTotalPrice.IsEnabled = false;
             if (selectedItem.ShipDate == DateTime.MinValue)
                 txtShipDate.Text = "No date";
             if (selectedItem.DeliveryDate == DateTime.MinValue)
                 txtDeliveryDate.Text = "No date";
-            DataContext=selectedItem;
+            DataContext = new { isEnabled = false, selectedItem = selectedItem };
         }
 
         public OrdersWindow(BO.Order selectedItem, string use)
@@ -110,4 +110,17 @@ namespace PL
             }
         }
     }
+    public class IsEnabledConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool isEnabled = (bool)value;
+            if (isEnabled)
+                return true;
+            else
+                return false;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    }
 }
+

@@ -138,7 +138,6 @@ public class AddProductVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        //bool boolValue = (bool)value;
         if ((string)value == "add") 
             return Visibility.Hidden;
         else

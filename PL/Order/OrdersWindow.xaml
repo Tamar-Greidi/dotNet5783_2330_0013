@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="OrdersWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:IsEnabledConverter x:Key="isEnabledConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="800*"/>
@@ -21,25 +24,25 @@
         <Label Content="Delivery Date:" HorizontalAlignment="Left" Margin="82,211,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Items:" HorizontalAlignment="Left" Margin="82,231,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
         <Label Content="Total Price:" HorizontalAlignment="Left" Margin="82,251,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS"/>
-        <TextBox Name="txtID" HorizontalAlignment="Left" Margin="242,75,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtCustomerName" HorizontalAlignment="Left" Margin="242,95,0,0" TextWrapping="Wrap" Text="{Binding CustomerName}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtCustomerEmail" HorizontalAlignment="Left" Margin="242,115,0,0" TextWrapping="Wrap" Text="{Binding CustomerEmail}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtCustomerAddress" HorizontalAlignment="Left" Margin="242,135,0,0" TextWrapping="Wrap" Text="{Binding CustomerAddress}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtOrderDate" HorizontalAlignment="Left" Margin="242,155,0,0" TextWrapping="Wrap" Text="{Binding OrderDate}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtStatus" HorizontalAlignment="Left" Margin="242,175,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtShipDate" HorizontalAlignment="Left" Margin="242,195,0,0" TextWrapping="Wrap" Text="{Binding ShipDate}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtDeliveryDate" HorizontalAlignment="Left" Margin="242,215,0,0" TextWrapping="Wrap" Text="{Binding DeliveryDate}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <TextBox Name="txtTotalPrice" HorizontalAlignment="Left" Margin="242,255,0,0" TextWrapping="Wrap" Text="{Binding TotalPrice}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
-        <ListView Name="ItemsLitsView" Margin="453,85,0,125" FontFamily="Comic Sans MS" ItemsSource="{Binding Items}">
+        <TextBox Name="txtID" HorizontalAlignment="Left" Margin="242,75,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.ID}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtCustomerName" HorizontalAlignment="Left" Margin="242,95,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.CustomerName}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtCustomerEmail" HorizontalAlignment="Left" Margin="242,115,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.CustomerEmail}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtCustomerAddress" HorizontalAlignment="Left" Margin="242,135,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.CustomerAddress}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtOrderDate" HorizontalAlignment="Left" Margin="242,155,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.OrderDate}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtStatus" HorizontalAlignment="Left" Margin="242,175,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.Status}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtShipDate" HorizontalAlignment="Left" Margin="242,195,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.ShipDate}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtDeliveryDate" HorizontalAlignment="Left" Margin="242,215,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.DeliveryDate}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <TextBox Name="txtTotalPrice" HorizontalAlignment="Left" Margin="242,255,0,0" TextWrapping="Wrap" Text="{Binding selectedItem.TotalPrice}" IsEnabled="{Binding Path=isEnabled, Converter={StaticResource isEnabledConverter}}" VerticalAlignment="Top" FontFamily="Comic Sans MS" Width="150"/>
+        <ListView Name="ItemsLitsView" Margin="453,85,0,125" FontFamily="Comic Sans MS" ItemsSource="{Binding selectedItem.Items}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
 
-                    <!--<GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"/>
-                    <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}"/>
-                    <GridViewColumn Header="InStock" DisplayMemberBinding="{Binding InStock}"/>-->
+                    <!--<GridViewColumn Header="ID" DisplayMemberBinding="{Binding selectedItem.ID}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding selectedItem.Name}"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding selectedItem.Price}"/>
+                    <GridViewColumn Header="Category" DisplayMemberBinding="{Binding selectedItem.Category}"/>
+                    <GridViewColumn Header="InStock" DisplayMemberBinding="{Binding selectedItem.InStock}"/>-->
                 </GridView>
             </ListView.View>
         </ListView>
