@@ -34,17 +34,24 @@ public partial class ProductsListWindow : Window
         InitializeComponent();
         this.user = user;
         CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
+
+        
         DataContext = new { user = user };
         if (user == "user")
         {
             ProductsListview.ItemsSource = bl.Product.GetAll();
             //AddNewProduct.Visibility = Visibility.Hidden;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductsListview.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category");
+            view.GroupDescriptions.Add(groupDescription);
+
         }
         else
         {
             ProductsListview.ItemsSource = bl.Product.GetCatalog();
             //GoToCart.Visibility = Visibility.Hidden;
         }
+
     }
 
     private void AddNewProduct_Click(object sender, RoutedEventArgs e)

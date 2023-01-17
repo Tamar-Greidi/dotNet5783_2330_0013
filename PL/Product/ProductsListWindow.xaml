@@ -24,15 +24,36 @@ VerticalAlignment="Stretch" Width="auto">
             <Label Content="Category:" Grid.Column="0" FontFamily="Segoe Print" FontSize="20" FontWeight="Bold" Margin="35,0,0,0"/>
             <ComboBox Name="CategoriesSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategoriesSelector_SelectionChanged"/>
         </Grid>
-        <ListView Name="ProductsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick">
+        <!--<ListView Name="ProductsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+        </ListView>-->
+
+        <ListView Name="ProductsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Name" Width="50" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Price" Width="50" DisplayMemberBinding="{Binding Price}" />
+                    <GridViewColumn Header="InStock" Width="50" DisplayMemberBinding="{Binding InStock}" />
+                </GridView>
+            </ListView.View>
+
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
         </ListView>
 
         <Button Name="AddNewProduct" Content="Add new Product" Visibility="{Binding Path=user, Converter={StaticResource addNewProductConverter}}" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="AddNewProduct_Click" Width="150"/>
-        <!--<Button Name="GoToCart" Content="Go to cart" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="GoToCart_Click" Width="150"/>-->
+        <Button Name="GoToCart" Content="Go to cart" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5" Click="GoToCart_Click" Width="150"/>
     </Grid>
 </Window>
