@@ -51,15 +51,6 @@ public class DalOrder: IOrder
         int itemIndex = _arrOrder.IndexOf(item);
         _arrOrder[itemIndex] = order;  
         return item.ID;
-        //for (int i = 0; i < _arrOrder.Count; i++)
-        //{
-        //    if (_arrOrder[i].ID == order.ID)
-        //    {
-        //        _arrOrder[i] = order;
-        //        return _arrOrder[i].ID;
-        //    }
-        //}
-        //throw new ObjectNotFound();
     }
 
     public void Delete(int orderID)
@@ -67,14 +58,5 @@ public class DalOrder: IOrder
         Order item = _arrOrder.Find(item => item.ID == orderID);
         _arrOrder.Remove(item);
         return;
-        //for (int i = 0; i < _arrOrder.Count(); i++)
-        //{
-        //    if (_arrOrder[i].ID == orderID)
-        //    {
-        //        _arrOrder.RemoveAt(i);
-        //        return;
-        //    }
-        //}
-        //throw new ObjectNotFound();
     }
 }

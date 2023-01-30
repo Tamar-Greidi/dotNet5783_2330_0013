@@ -14,6 +14,8 @@ internal class Order : IOrder
     {
         XDocument doc = XDocument.Load(@"..\xml\Order.xml");
         XElement root = new XElement("Order");
+
+        //להוסיף config למספר סידורי לoreder id
         root.Add(new XElement("ID", 111));
         root.Add(new XElement("CustomerName", order.CustomerName));
         root.Add(new XElement("CustomerEmail", order.CustomerEmail));
@@ -33,7 +35,7 @@ internal class Order : IOrder
         XElement? xOrder = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == orderID);
         if (Convert.ToInt32(xOrder?.Element("ID")?.Value) == 0)
             throw new ObjectNotFound();
-        DO.Order order = new DO.Order()
+        DO.Order order = new DO.Order()  
         {
             ID = Convert.ToInt32(xOrder?.Element("ID")?.Value),
             CustomerName = xOrder?.Element("CustomerName")?.Value,
