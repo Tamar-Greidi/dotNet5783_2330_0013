@@ -50,22 +50,25 @@ internal class Order : IOrder
 
     public DO.Order Get(Predicate<DO.Order> func)
     {
-        XDocument doc = XDocument.Load(@"..\xml\Order.xml");
-        var xmlOrders = doc.Descendants("Order");
-        XElement? xOrder = xmlOrders.ToList()?.Find(func);
-        if (Convert.ToInt32(xOrder?.Element("ID")?.Value) == 0)
-            throw new ObjectNotFound();
-        DO.Order order = new DO.Order()
-        {
-            ID = Convert.ToInt32(xOrder?.Element("ID")?.Value),
-            CustomerName = xOrder?.Element("CustomerName")?.Value,
-            CustomerEmail = xOrder?.Element("CustomerEmail")?.Value,
-            CustomerAddress = xOrder?.Element("CustomerAddress")?.Value,
-            OrderDate = Convert.ToDateTime(xOrder?.Element("OrderDate")?.Value),
-            ShipDate = Convert.ToDateTime(xOrder?.Element("ShipDate")?.Value),
-            DeliveryDate = Convert.ToDateTime(xOrder?.Element("DeliveryDate")?.Value),
-        };
-        return order;
+        //XDocument doc = XDocument.Load(@"..\xml\Order.xml");
+        //var xmlOrders = doc.Descendants("Order");
+        //XElement? xOrder = xmlOrders.ToList()?.Find(func);
+        //if (Convert.ToInt32(xOrder?.Element("ID")?.Value) == 0)
+        //    throw new ObjectNotFound();
+        //DO.Order order = new DO.Order()
+        //{
+        //    ID = Convert.ToInt32(xOrder?.Element("ID")?.Value),
+        //    CustomerName = xOrder?.Element("CustomerName")?.Value,
+        //    CustomerEmail = xOrder?.Element("CustomerEmail")?.Value,
+        //    CustomerAddress = xOrder?.Element("CustomerAddress")?.Value,
+        //    OrderDate = Convert.ToDateTime(xOrder?.Element("OrderDate")?.Value),
+        //    ShipDate = Convert.ToDateTime(xOrder?.Element("ShipDate")?.Value),
+        //    DeliveryDate = Convert.ToDateTime(xOrder?.Element("DeliveryDate")?.Value),
+        //};
+        //return order;
+
+        IEnumerable<DO.Order> orders = GetAll();
+        return orders .ToList().Find(func);
     }
 
     public IEnumerable<DO.Order> GetAll(Func<DO.Order, bool>? func = null)
@@ -113,18 +116,20 @@ internal class Order : IOrder
 
     public int Update(DO.Order order)
     {
-        XDocument doc = XDocument.Load(@"..\xml\Order.xml");
-        var xmlOrders = doc.Descendants("Order");
-        XElement? xElement = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == order.ID);
-        xElement?.SetValue(order);
-        return Convert.ToInt32(xElement?.Element("ID")?.Value);
+        //XDocument doc = XDocument.Load(@"..\xml\Order.xml");
+        //var xmlOrders = doc.Descendants("Order");
+        //XElement? xElement = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == order.ID);
+        //xElement?.SetValue(order);
+        //return Convert.ToInt32(xElement?.Element("ID")?.Value);
+        Delete(order.ID);
+        return Add(order);
     }
 
     public void Delete(int orderID)
     {
-        XDocument doc = XDocument.Load(@"..\xml\Order.xml");
+        XDocument doc = XDocument.Load(@"../xml/Order.xml");
         var xmlOrders = doc.Descendants("Order");
         xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == orderID)?.Remove();
-        return;
+        doc.Save(@"..\xml\Order.xml");
     }
 }

@@ -23,12 +23,14 @@ internal class BlCart : BlApi.ICart
     {
         try
         {
+            
             DO.Product AddProduct = Dal?.Product.Get(productID) ?? throw new BO.Null();
             bool added = false;
             OrderItem? orderItem = cart.Items?.Find(item => item.ProductID == productID);
             if (orderItem != null)
                 if (AddProduct.InStock >= 1)
                 {
+                    AddProduct.InStock--;
                     orderItem.Amount++;
                     orderItem.TotalPrice += AddProduct.Price;
                     cart.TotalPrice += AddProduct.Price;
@@ -36,22 +38,10 @@ internal class BlCart : BlApi.ICart
                 }
                 else
                     throw new BO.OutOfStock();
-            //foreach (OrderItem item in cart.Items)
-            //{
-            //    if (item.ProductID == productID)
-            //        if (AddProduct.InStock >= 1)
-            //        {
-            //            item.Amount++;
-            //            item.TotalPrice += AddProduct.Price;
-            //            cart.TotalPrice += AddProduct.Price;
-            //            added = true;
-            //        }
-            //        else
-            //            throw new BO.OutOfStock();
-            //}
             if (!added)
                 if (AddProduct.InStock >= 1)
                 {
+                    AddProduct.InStock--;
                     BO.OrderItem orderItemToAdd = new BO.OrderItem()
                     {
                         Name = AddProduct.Name,

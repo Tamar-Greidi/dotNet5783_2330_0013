@@ -1,8 +1,1 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Products>
-	<ID></ID>
-	<Name></Name>
-	<Price></Price>
-	<Category></Category>
-	<InStock></InStock>
-</Products>
+<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>0</ID><Price>0</Price><Category>watchs</Category><InStock>0</InStock></Product><Product><ID>9001</ID><Name>cvbfgh</Name><Price>123</Price><Category>watchs</Category><InStock>0</InStock></Product></ArrayOfProduct>

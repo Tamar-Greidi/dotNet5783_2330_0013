@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config>
+	<Product>1000</Product>
+	<Order>2000</Order>
+	<OrderItem>3000</OrderItem>
+</Config>

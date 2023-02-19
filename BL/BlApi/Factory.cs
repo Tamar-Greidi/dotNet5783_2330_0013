@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlApi
+namespace BlApi;
+
+public static class Factory
 {
-    public static class Factory
+    public static IBl Get()
     {
-        public static IBl Get()
-        {
-            return new BlImplementation.Bl();
-        }
+        return new BlImplementation.Bl();
     }
 }
 

@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <OrderItems>
-	<ID></ID>
-	<ProductID></ProductID>
-	<OderID></OderID>
-	<Price></Price>
-	<Amount></Amount>
+	<OrderItem>
+		<ID></ID>
+		<ProductID></ProductID>
+		<OderID></OderID>
+		<Price></Price>
+		<Amount></Amount>
+	</OrderItem>
 </OrderItems>
