@@ -1,19 +1,10 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL;
 
@@ -29,7 +20,7 @@ public partial class ProductsWindow : Window
     {
         InitializeComponent();
         CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.categories));
-        StatusProperty = "add"; 
+        StatusProperty = "add";
         DataContext = new { status = "add" };
         //txtID.Visibility = Visibility.Hidden;
         //lblID.Visibility = Visibility.Hidden;
@@ -138,7 +129,7 @@ public class AddProductVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if ((string)value == "add") 
+        if ((string)value == "add")
             return Visibility.Hidden;
         else
             return Visibility.Visible;

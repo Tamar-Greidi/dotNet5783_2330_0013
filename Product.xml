@@ -1,1 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>0</ID><Price>0</Price><Category>watchs</Category><InStock>0</InStock></Product><Product><ID>9001</ID><Name>cvbfgh</Name><Price>123</Price><Category>watchs</Category><InStock>0</InStock></Product></ArrayOfProduct>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Product>
+    <ID>0</ID>
+    <Price>0</Price>
+    <Category>watchs</Category>
+    <InStock>0</InStock>
+  </Product>
+  <Product>
+    <ID>1001</ID>
+    <Name>jgh</Name>
+    <Price>79</Price>
+    <Category>cameras</Category>
+    <InStock>7</InStock>
+  </Product>
+</ArrayOfProduct>

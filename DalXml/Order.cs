@@ -9,14 +9,15 @@ namespace Dal;
 
 internal class Order : IOrder
 {
-
     public int Add(DO.Order order)
     {
         XDocument doc = XDocument.Load(@"..\xml\Order.xml");
         XElement root = new XElement("Order");
-
-        //להוסיף config למספר סידורי לoreder id
-        root.Add(new XElement("ID", 111));
+        XDocument config = XDocument.Load(@"..\xml\Config.xml");
+        int ID = Convert.ToInt32(config.Element("Order")?.Value) + 1;
+        config.Element("Order").Value = ID.ToString();
+        config?.Save(@"..\xml\Config.xml");
+        root.Add(new XElement("ID", ID));
         root.Add(new XElement("CustomerName", order.CustomerName));
         root.Add(new XElement("CustomerEmail", order.CustomerEmail));
         root.Add(new XElement("CustomerAddress", order.CustomerAddress));
@@ -116,13 +117,12 @@ internal class Order : IOrder
 
     public int Update(DO.Order order)
     {
-        //XDocument doc = XDocument.Load(@"..\xml\Order.xml");
-        //var xmlOrders = doc.Descendants("Order");
-        //XElement? xElement = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == order.ID);
-        //xElement?.SetValue(order);
-        //return Convert.ToInt32(xElement?.Element("ID")?.Value);
-        Delete(order.ID);
-        return Add(order);
+        XDocument doc = XDocument.Load(@"..\xml\Order.xml");
+        var xmlOrders = doc.Descendants("Order");
+        XElement? xElement = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == order.ID);
+        xElement?.SetValue(order);
+        doc.Save(@"..\xml\Order.xml");
+        return Convert.ToInt32(xElement?.Element("ID")?.Value);
     }
 
     public void Delete(int orderID)
