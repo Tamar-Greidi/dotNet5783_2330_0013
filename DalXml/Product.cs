@@ -21,7 +21,7 @@ internal class Product:IProduct
         else
         {
             XElement? config = XDocument.Load(@"../Config.xml").Root;
-            int ID = Convert.ToInt32(config.Element("Product")?.Value) + 1;
+            int ID = Convert.ToInt32(config?.Element("Product")?.Value) + 1;
             config.Element("Product").Value = ID.ToString();
             config?.Save(@"../Config.xml");
             product.ID = ID;

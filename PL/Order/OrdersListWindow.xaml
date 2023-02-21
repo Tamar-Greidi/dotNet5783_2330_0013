@@ -28,10 +28,16 @@
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
                     <GridViewColumn Header="Amount Of Items" DisplayMemberBinding="{Binding AmountOfItems}" Width="50"/>
                     <GridViewColumn Header="Total Price" DisplayMemberBinding="{Binding TotalPrice}" Width="100"/>
+
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                    <GridViewColumn Header="Confirmed" DisplayMemberBinding="{Binding Tracking[0]}" Width="290"/>
+                    <GridViewColumn Header="Shipped" DisplayMemberBinding="{Binding Tracking[1]}" Width="290"/>
+                    <GridViewColumn Header="Delivered" DisplayMemberBinding="{Binding Tracking[2]}" Width="290"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView Name="TrackingListview" Grid.Row="1" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrdersListview_SelectionChanged" MouseDoubleClick="OrdersListview_MouseDoubleClick">
+        <!--<ListView Name="TrackingListview" Grid.Row="1" ItemsSource="{Binding}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrdersListview_SelectionChanged" MouseDoubleClick="OrdersListview_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
@@ -41,6 +47,6 @@
                     <GridViewColumn Header="Delivered" DisplayMemberBinding="{Binding Tracking[2]}" Width="290"/>
                 </GridView>
             </ListView.View>
-        </ListView>
+        </ListView>-->
     </Grid>
 </Window>

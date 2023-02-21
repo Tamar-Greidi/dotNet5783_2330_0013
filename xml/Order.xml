@@ -10,12 +10,11 @@
     <DeliveryDate>0001-01-01T00:00:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>2001</ID>
-    <CustomerName>noa</CustomerName>
-    <CustomerEmail>noa@</CustomerEmail>
-    <CustomerAddress>dfs</CustomerAddress>
-    <OrderDate>2023-02-21T17:39:30.0806474+02:00</OrderDate>
-    <ShipDate>0001-01-01T00:00:00</ShipDate>
-    <DeliveryDate>0001-01-01T00:00:00</DeliveryDate>
-  </Order>
+    Order ID=2001: noa,
+    CustomerEmail: noa@,
+    CustomerAddress: dfs 
+    Order Date: 21/02/2023 17:39:30
+    Ship Date: 01/01/0001 00:00:00
+    Delivery Date: 01/01/0001 00:00:00        	
+    </Order>
 </Orders>
