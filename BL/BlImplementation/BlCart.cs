@@ -1,6 +1,7 @@
 using BlApi;
 using BO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
 
@@ -19,6 +20,7 @@ internal class BlCart : BlApi.ICart
     /// <exception cref="BO.Null"></exception>
     /// <exception cref="BO.OutOfStock"></exception>
     /// <exception cref="BO.DalException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Cart Add(BO.Cart cart, int productID)
     {
         try
@@ -71,6 +73,7 @@ internal class BlCart : BlApi.ICart
     /// <param name="amount"></param>
     /// <returns></returns>
     /// <exception cref="BO.OutOfStock"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Cart UpdateProductAmount(BO.Cart cart, int productID, int amount)
     {
         OrderItem? item = cart.Items?.Find(item => item.ProductID == productID);
@@ -138,6 +141,7 @@ internal class BlCart : BlApi.ICart
     /// <param name="CustomerAddress"></param>
     /// <exception cref="BO.InvalidData"></exception>
     /// <exception cref="BO.DalException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void ConfirmationCart(BO.Cart cart)
     {
         if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAddress == "")

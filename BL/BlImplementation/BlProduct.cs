@@ -5,8 +5,9 @@ using BO;
 using DalApi;
 using DO;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-
+using System.Runtime.CompilerServices;
 namespace BlImplementation;
 
 /// <summary>
@@ -42,6 +43,7 @@ internal class BlProduct : BlApi.IProduct
     /// Request a list of products from the data layer (for customer screen).
     /// </summary>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.ProductItem> GetAll(Func<DO.Product, bool>? func = null)
     {
         IEnumerable<DO.Product> products = Dal?.Product.GetAll(func) ?? throw new BO.Null();
@@ -66,6 +68,7 @@ internal class BlProduct : BlApi.IProduct
     /// Request a list of products from the data layer ///(for customer screen).
     /// </summary>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.ProductForList> GetCatalog(Func<DO.Product, bool>? func = null)
     {
         IEnumerable<DO.Product> DProducts = Dal?.Product.GetAll(func) ?? throw new BO.Null();
@@ -85,18 +88,27 @@ internal class BlProduct : BlApi.IProduct
     }
 
     /// <summary>
-    /// 
+    /// Request a list of ProductForList By Category.
     /// </summary>
     /// <param name="category"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.ProductForList> GetListProductForListByCategory(BO.categories category) => GetCatalog(item => item.Category == (DO.categories)category);
     //{
     //    return GetCatalog(item => item.Category == (DO.categories)category);
     //}
+
+    /// <summary>
+    /// Request a list of ProductItem By Category.
+    /// </summary>
+    /// <param name="category"></param>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.ProductItem> GetListProductItemByCategory(BO.categories category) => GetAll(item => item.Category == (DO.categories)category);
     //{
     //    return GetAll(item => item.Category == (DO.categories)category);
     //}
+
     /// <summary>
     /// Product details request.
     /// </summary>
@@ -104,6 +116,7 @@ internal class BlProduct : BlApi.IProduct
     /// <returns></returns>
     /// <exception cref="BO.DalException"></exception>
     /// <exception cref="BO.InvalidData"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Product GetProductDetails(int productID)
     {
         try
@@ -134,6 +147,7 @@ internal class BlProduct : BlApi.IProduct
     /// <returns></returns>
     /// <exception cref="BO.DalException"></exception>
     /// <exception cref="BO.InvalidData"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.ProductItem GetProductDetails(int productID, Cart cart)
     {
         try
@@ -162,6 +176,7 @@ internal class BlProduct : BlApi.IProduct
     /// </summary>
     /// <param name="product"></param>
     /// <exception cref="BO.DalException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Add(BO.Product product)
     {
         if (product.ID < 0 || product.Name == "" || product.Price < 0 || product.InStock < 0)
@@ -196,6 +211,7 @@ internal class BlProduct : BlApi.IProduct
     /// <param name="productID"></param>
     /// <exception cref="BO.ObjectNotFound"></exception>
     /// <exception cref="BO.DalException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int productID)
     {
         List<DO.OrderItem> ItemsInOrder = (List<DO.OrderItem>?)Dal?.OrderItem.GetAll() ?? throw new BO.Null();
@@ -219,6 +235,7 @@ internal class BlProduct : BlApi.IProduct
     /// <param name="product"></param>
     /// <exception cref="BO.InvalidData"></exception>
     /// <exception cref="BO.DalException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(BO.Product product)
     {
         if (/*product.ID < 0 || */product.Name == "" || product.Price < 0 || product.InStock < 0)

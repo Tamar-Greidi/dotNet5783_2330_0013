@@ -3,6 +3,7 @@ using DO;
 using static Dal.DataSource;
 using DalApi;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
@@ -12,6 +13,7 @@ namespace Dal;
 
 public class DalOrderItem : IOrderItem
 {
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(OrderItem orderItem)
     {
         OrderItem item = _arrOrderItem.Find(item => item.OrderID == orderItem.OrderID && item.ProductID == orderItem.ProductID);
@@ -28,6 +30,7 @@ public class DalOrderItem : IOrderItem
         throw new ObjectNotFound();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem Get(int orderItemID)
     {
         OrderItem item = _arrOrderItem.Find(item => item.ID == orderItemID);
@@ -36,6 +39,7 @@ public class DalOrderItem : IOrderItem
         return item;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem Get(Predicate<OrderItem> func)
     {
         OrderItem orderItem = _arrOrderItem.Find(func);
@@ -44,8 +48,10 @@ public class DalOrderItem : IOrderItem
         return orderItem;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func = null) => func == null ? _arrOrderItem : _arrOrderItem.Where(func);
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Update(OrderItem orderItem)
     {
         OrderItem item = _arrOrderItem.Find(item => item.ID == orderItem.ID);
@@ -54,6 +60,7 @@ public class DalOrderItem : IOrderItem
         return item.ID;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int orderItemID)
     {
         OrderItem item = _arrOrderItem.Find(item => item.ID == orderItemID);

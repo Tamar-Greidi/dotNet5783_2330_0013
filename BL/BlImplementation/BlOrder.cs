@@ -1,6 +1,8 @@
 using BO;
 using DalApi;
 using DO;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
 
@@ -17,6 +19,7 @@ internal class BlOrder : BlApi.IOrder
     /// <returns></returns>
     /// <exception cref="BO.DalException"></exception>
     /// <exception cref="BO.InvalidData"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList> Get()
     {
         int status;
@@ -67,6 +70,7 @@ internal class BlOrder : BlApi.IOrder
     /// <exception cref="BO.IncorrectDate"></exception>
     /// <exception cref="BO.DalException"></exception>
     /// <exception cref="BO.InvalidData"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order GetDetails(int orderID)
     {
         if (orderID > 0)
@@ -129,6 +133,7 @@ internal class BlOrder : BlApi.IOrder
     /// <returns></returns>
     /// <exception cref="BO.OrderAlreadyShipped"></exception>
     /// <exception cref="BO.DalException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateShipping(int orderID)
     {
         try
@@ -179,6 +184,7 @@ internal class BlOrder : BlApi.IOrder
     /// <returns></returns>
     /// <exception cref="BO.OrderAlreadyDelivered"></exception>
     /// <exception cref="BO.DalException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateDelivery(int orderID)
     {
         try
@@ -231,6 +237,7 @@ internal class BlOrder : BlApi.IOrder
     /// <returns></returns>
     /// <exception cref="BO.IncorrectDate"></exception>
     /// <exception cref="BO.ObjectNotFound"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderTracking OrderTracking(int orderID)
     {
         DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
@@ -267,8 +274,29 @@ internal class BlOrder : BlApi.IOrder
     /// Bonus: Update an order.
     /// </summary>
     /// <param name="orderID"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(int orderID)
     {
         //???למה שמנהל יוכל לשנות כמות מוצר בהזמנה
     }
+
+    /// <summary>
+    /// Selecting the next order to handle.
+    /// </summary>
+    /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    public int OrderSelection()
+    {
+        IEnumerable<BO.OrderForList> orders = Get();
+        int orderId;
+        DateTime minDate= DateTime.MaxValue;
+        orders.ToList().ForEach(item => {
+            if (item.Status == (BO.OrderStatus)2)
+                return;///לטפל
+            else if (item.Status == (BO.OrderStatus)1)
+        });
+            
+        return 0;
+    }
+
 }

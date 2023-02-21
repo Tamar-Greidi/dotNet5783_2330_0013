@@ -2,6 +2,7 @@ using DO;
 using static Dal.DataSource;
 using DalApi;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
@@ -11,6 +12,7 @@ namespace Dal;
 
 public class DalOrder: IOrder
 {
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order order)
     {
         
@@ -24,6 +26,7 @@ public class DalOrder: IOrder
         return order.ID;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order Get(int orderID)
     {
         Order order = _arrOrder.Find(item => item.ID == orderID);
@@ -32,6 +35,7 @@ public class DalOrder: IOrder
         throw new ObjectNotFound();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order Get(Predicate<Order> func)
     {
         Order order = _arrOrder.Find(func);
@@ -40,11 +44,13 @@ public class DalOrder: IOrder
         return order;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order> GetAll(Func<Order, bool>? func = null)
     {
         return func == null ? _arrOrder : _arrOrder.Where(func);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Update(Order order)
     {
         Order item =_arrOrder.Find(item => item.ID == order.ID);
@@ -53,6 +59,7 @@ public class DalOrder: IOrder
         return item.ID;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int orderID)
     {
         Order item = _arrOrder.Find(item => item.ID == orderID);
