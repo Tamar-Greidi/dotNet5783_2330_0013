@@ -34,4 +34,9 @@ public partial class MainWindow : Window
     private void ShowProductsButton_Click(object sender, RoutedEventArgs e) => new ProductsListWindow("admin").Show();
 
     private void ShowOrdersButton_Click(object sender, RoutedEventArgs e) => new OrdersListWindow().Show();
+
+    private void Simulator_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

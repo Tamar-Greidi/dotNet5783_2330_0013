@@ -15,9 +15,6 @@ internal class Order : IOrder
         XElement root = new XElement("Order");
         XElement? config = XDocument.Load(@"../Config.xml").Root;
         int ID = Convert.ToInt32(config.Element("Order")?.Value) + 1;
-        //XElement? www = config.Element("Order");
-        //string aaa = www.Value.ToString();
-        //aaa = ;
         config?.Save(@"../Config.xml");
         root.Add(new XElement("ID", ID.ToString()));
         root.Add(new XElement("CustomerName", order.CustomerName));

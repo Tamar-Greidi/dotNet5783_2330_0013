@@ -15,5 +15,5 @@ public interface IOrder
     public OrderTracking OrderTracking(int orderID);
     //берес
     public void Update(int orderID);
-    public int OrderSelection();
+    public int? OrderSelection();
 }

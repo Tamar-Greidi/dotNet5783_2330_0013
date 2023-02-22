@@ -285,18 +285,10 @@ internal class BlOrder : BlApi.IOrder
     /// </summary>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public int OrderSelection()
+    public int? OrderSelection()
     {
-        IEnumerable<BO.OrderForList> orders = Get();
-        int orderId;
-        DateTime minDate= DateTime.MaxValue;
-        orders.ToList().ForEach(item => {
-            if (item.Status == (BO.OrderStatus)2)
-                return;///לטפל
-            else if (item.Status == (BO.OrderStatus)1)
-        });
-            
-        return 0;
+        IEnumerable<DO.Order>? orders = Dal?.Order.GetAll().Where(item => item.OrderDate != DateTime.MinValue)
+            .OrderBy(item => item.ShipDate != DateTime.MinValue ? item.ShipDate : item.DeliveryDate);
+        return orders?.First().ID;
     }
-
 }
