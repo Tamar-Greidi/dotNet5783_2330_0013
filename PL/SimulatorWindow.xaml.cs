@@ -19,12 +19,12 @@ namespace PL
     /// <summary>
     /// Interaction logic for Simulator.xaml
     /// </summary>
-    public partial class Simulator : Window
+    public partial class SimulatorWindow : Window
     {
         private Stopwatch stopWatc;
         private bool isTimerRun;
         private Thread timerThread;
-        public Simulator()
+        public SimulatorWindow()
         {
             InitializeComponent();
             stopWatc = new Stopwatch();
