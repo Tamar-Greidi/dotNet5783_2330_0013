@@ -9,6 +9,7 @@
     <Window.Resources>
         <local:AddNewProductConverter x:Key="addNewProductConverter" />
     </Window.Resources>
+
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -24,21 +25,14 @@ VerticalAlignment="Stretch" Width="auto">
             <Label Content="Category:" Grid.Column="0" FontFamily="Segoe Print" FontSize="20" FontWeight="Bold" Margin="35,0,0,0"/>
             <ComboBox Name="CategoriesSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategoriesSelector_SelectionChanged"/>
         </Grid>
-        <!--<ListView Name="ProductsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
 
-        <ListView Name="ProductsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick">
+        <ListView Name="ProductsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick" FontFamily="Comic Sans MS">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}" />
                     <GridViewColumn Header="Name" Width="50" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Price" Width="50" DisplayMemberBinding="{Binding Price}" />
-                    <GridViewColumn Header="InStock" Width="50" DisplayMemberBinding="{Binding InStock}" />
+                    <GridViewColumn Header="InStock" x:Name="InStock" Width="60" DisplayMemberBinding="{Binding InStock}"/>
                 </GridView>
             </ListView.View>
 
@@ -46,7 +40,7 @@ VerticalAlignment="Stretch" Width="auto">
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}" FontFamily="Comic Sans MS" FontWeight="Bold" FontSize="14"  />
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>

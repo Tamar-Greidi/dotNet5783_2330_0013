@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -49,6 +50,7 @@ public partial class ProductsListWindow : Window
     {
         new ProductsWindow().ShowDialog();
         ProductsListview.ItemsSource = bl.Product.GetCatalog();
+        Grouping();
     }
 
     private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -58,11 +60,13 @@ public partial class ProductsListWindow : Window
         {
             IEnumerable<BO.ProductForList> list = bl.Product.GetListProductForListByCategory(category);
             ProductsListview.ItemsSource = list;
+            Grouping();
         }
         else
         {
             IEnumerable<BO.ProductItem> list = bl.Product.GetListProductItemByCategory(category);
             ProductsListview.ItemsSource = list;
+            Grouping();
         }
     }
 
@@ -76,6 +80,7 @@ public partial class ProductsListWindow : Window
                 BO.Product selectedItem = bl.Product.GetProductDetails(product.ID);
                 new ProductsWindow(selectedItem).ShowDialog();
                 ProductsListview.ItemsSource = bl.Product.GetCatalog();
+                Grouping();
             }
             else
             {
@@ -83,6 +88,7 @@ public partial class ProductsListWindow : Window
                 BO.ProductItem selectedItem = bl.Product.GetProductDetails(product.ID, cart);
                 new ProductsWindow(selectedItem).ShowDialog();
                 ProductsListview.ItemsSource = bl.Product.GetAll();
+                Grouping();
             }
         }
         catch (DalException ex)

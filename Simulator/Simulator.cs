@@ -16,7 +16,7 @@ public static class Simulator
     public static void Start()
     {
         IsAlive = true;
-        Thread? thread = new Thread(()=>Run());
+        Thread? thread = new Thread(() => Run());
         stopRequest = false;
         thread.Start();
     }
@@ -45,15 +45,13 @@ public static class Simulator
             BO.Order UpdateOrder = new BO.Order();
             if (order.Status == BO.OrderStatus.Confirmed)
             {
-                //bl.Order.UpdateShipping(orderID.Value);
                 UpdateOrder = bl.Order.UpdateShipping(orderID.Value);
-                status = "Shipped";
+                status = "Delivery";
             }
             else
             {
-                //bl.Order.UpdateDelivery(Convert.ToInt32(orderID));
                 UpdateOrder = bl.Order.UpdateDelivery(Convert.ToInt32(orderID));
-                status = "Delivery";
+                status = "Shipped";
             }
             DateTime end = DateTime.Now;
             statusChanged?.Invoke(UpdateOrder, status, start, end, time / 1000);

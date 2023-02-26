@@ -23,8 +23,6 @@ internal class BlOrder : BlApi.IOrder
     public IEnumerable<BO.OrderForList> Get()
     {
         int status;
-        //try
-        //{
         IEnumerable<DO.Order> orders = Dal?.Order.GetAll() ?? throw new BO.Null();
         List<BO.OrderForList> newOrders = new List<BO.OrderForList>();
         //Requesting all order details for this order
@@ -59,7 +57,7 @@ internal class BlOrder : BlApi.IOrder
                 newOrders.Add(newOrder);
             }
         }
-        return newOrders;
+        return newOrders.OrderBy(item => item.ID);
     }
 
     /// <summary>

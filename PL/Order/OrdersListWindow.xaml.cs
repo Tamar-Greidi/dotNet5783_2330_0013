@@ -1,5 +1,6 @@
 ﻿using BO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,7 +20,7 @@ public partial class OrdersListWindow : Window
         InitializeComponent();
         try
         {
-            List<OrderForList?> ordersList = (List<OrderForList?>)bl.Order.Get();
+            List<OrderForList?> ordersList = bl.Order.Get().ToList();
             DataContext = ordersList;
         }
         catch (DalException ex)
@@ -34,7 +35,7 @@ public partial class OrdersListWindow : Window
         use = str;
         try
         {
-            List<OrderForList> orders = (List<OrderForList>)bl.Order.Get();
+            List<OrderForList> orders = bl.Order.Get().ToList();
             List<OrderTracking> ordersTracking = new List<OrderTracking>();
             orders.ForEach(order => ordersTracking.Add(bl.Order.OrderTracking(order.ID)));
             DataContext = ordersTracking;

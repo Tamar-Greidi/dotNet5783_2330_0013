@@ -21,7 +21,7 @@ VerticalAlignment="Stretch" Width="auto">
             <Label Grid.Column="0"/>
             <ComboBox Name="CartsSelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CartsSelector_SelectionChanged"/>
         </Grid>
-        <ListView Name="CartsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="CartsListview_SelectionChanged" MouseDoubleClick="CartsListview_MouseDoubleClick">
+        <ListView Name="CartsListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="CartsListview_SelectionChanged" MouseDoubleClick="CartsListview_MouseDoubleClick" FontFamily="Comic Sans MS">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

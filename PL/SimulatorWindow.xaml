@@ -7,20 +7,33 @@
         mc:Ignorable="d"
         Closing="CloseWindow"
         Title="SimulatorWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label" >
+            <Setter Property="FontFamily"              
+                    Value="Comic Sans MS"/>
+            <Setter Property="FontWeight"              
+                    Value="Bold"/>
+            <Setter Property="FontSize"              
+                    Value="13"/>
+        </Style>
+    </Window.Resources>
+
+
     <Grid>
-        <Label Content="Order" HorizontalAlignment="Left" Margin="86,133,0,0" VerticalAlignment="Top" Height="36" Width="52"/>
-        <TextBox Name="txtOrder" HorizontalAlignment="Left" Margin="184,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25"/>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="86,160,0,0" VerticalAlignment="Top" Height="36" Width="54"/>
-        <TextBox Name="txtStatus" HorizontalAlignment="Left" Margin="184,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25"/>
-        <Label Content="New Status" HorizontalAlignment="Left" Margin="86,188,0,0" VerticalAlignment="Top" Height="36" Width="88"/>
-        <TextBox Name="txtNewStatus" HorizontalAlignment="Left" Margin="184,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25"/>
-        <Label Content="time" HorizontalAlignment="Left" Margin="86,215,0,0" VerticalAlignment="Top" Height="36" Width="43"/>
-        <TextBox Name="txtTime" HorizontalAlignment="Left" Margin="184,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25"/>
-        <Label Content="Start" HorizontalAlignment="Left" Margin="86,243,0,0" VerticalAlignment="Top" Height="36" Width="44"/>
-        <TextBox Name="txtStart" HorizontalAlignment="Left" Margin="184,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25"/>
-        <Label Content="End" HorizontalAlignment="Left" Margin="86,270,0,0" VerticalAlignment="Top" Height="36" Width="38"/>
-        <TextBox Name="txtEnd" HorizontalAlignment="Left" Margin="184,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25"/>
-        <TextBlock Name="txtTimer" Text="00:00:00" FontSize="30" TextAlignment="Center" Margin="553,156,52,184"/>
-        <Button Content="Stop" HorizontalAlignment="Left" Margin="592,261,0,0" VerticalAlignment="Top" Height="37" Width="117" Click="stopTimerButton_Click"/>
+        <Label Content="Order" HorizontalAlignment="Left" Margin="149,130,0,0" VerticalAlignment="Top" Height="36" Width="52" Style="{StaticResource LabelStyle}"/>
+        <TextBox Name="txtOrder" HorizontalAlignment="Left" Margin="247,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25" FontFamily="Comic Sans MS"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="149,157,0,0" VerticalAlignment="Top" Height="36" Width="54" Style="{StaticResource LabelStyle}"/>
+        <TextBox Name="txtStatus" HorizontalAlignment="Left" Margin="247,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25" FontFamily="Comic Sans MS"/>
+        <Label Content="New Status" HorizontalAlignment="Left" Margin="149,185,0,0" VerticalAlignment="Top" Height="36" Width="88" Style="{StaticResource LabelStyle}"/>
+        <TextBox Name="txtNewStatus" HorizontalAlignment="Left" Margin="247,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25" FontFamily="Comic Sans MS"/>
+        <Label Content="time" HorizontalAlignment="Left" Margin="149,212,0,0" VerticalAlignment="Top" Height="36" Width="43" Style="{StaticResource LabelStyle}"/>
+        <TextBox Name="txtTime" HorizontalAlignment="Left" Margin="247,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25" FontFamily="Comic Sans MS"/>
+        <Label Content="Start" HorizontalAlignment="Left" Margin="149,240,0,0" VerticalAlignment="Top" Height="36" Width="44" Style="{StaticResource LabelStyle}"/>
+        <TextBox Name="txtStart" HorizontalAlignment="Left" Margin="247,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25" FontFamily="Comic Sans MS"/>
+        <Label Content="End" HorizontalAlignment="Left" Margin="149,267,0,0" VerticalAlignment="Top" Height="36" Width="38" Style="{StaticResource LabelStyle}"/>
+        <TextBox Name="txtEnd" HorizontalAlignment="Left" Margin="247,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25" FontFamily="Comic Sans MS"/>
+        <TextBlock Name="txtTimer" Text="00:00:00" FontSize="30" TextAlignment="Center" Margin="553,156,52,184" FontFamily="Comic Sans MS"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="592,261,0,0" VerticalAlignment="Top" Height="37" Width="117" Click="stopTimerButton_Click" FontFamily="Comic Sans MS"/>
     </Grid>
 </Window>

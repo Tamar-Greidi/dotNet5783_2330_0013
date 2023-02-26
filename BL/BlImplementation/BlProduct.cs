@@ -61,7 +61,7 @@ internal class BlProduct : BlApi.IProduct
             };
             productsItems.Add(productItem);
         }
-        return productsItems;
+        return productsItems.OrderBy(item => item.ID);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ internal class BlProduct : BlApi.IProduct
             };
             BProductList.Add(product);
         }
-        return BProductList;
+        return BProductList.OrderBy(item => item.ID);
     }
 
     /// <summary>
@@ -94,9 +94,6 @@ internal class BlProduct : BlApi.IProduct
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.ProductForList> GetListProductForListByCategory(BO.categories category) => GetCatalog(item => item.Category == (DO.categories)category);
-    //{
-    //    return GetCatalog(item => item.Category == (DO.categories)category);
-    //}
 
     /// <summary>
     /// Request a list of ProductItem By Category.
@@ -105,9 +102,6 @@ internal class BlProduct : BlApi.IProduct
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.ProductItem> GetListProductItemByCategory(BO.categories category) => GetAll(item => item.Category == (DO.categories)category);
-    //{
-    //    return GetAll(item => item.Category == (DO.categories)category);
-    //}
 
     /// <summary>
     /// Product details request.
