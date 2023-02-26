@@ -141,7 +141,7 @@ internal class BlOrder : BlApi.IOrder
             DO.Order order = Dal?.Order.Get(orderID) ?? throw new BO.Null();
             if (order.ShipDate.CompareTo(DateTime.Now) < 0 && order.ShipDate.CompareTo(DateTime.MinValue) != 0)
                 throw new BO.OrderAlreadyShipped();
-            //order.ShipDate = DateTime.Now;
+            order.ShipDate = DateTime.Now;
             BO.Order BoOrder = new()
             {
                 ID = orderID,
@@ -194,6 +194,7 @@ internal class BlOrder : BlApi.IOrder
                 throw new BO.OrderNotShippedYet();
             if (order.DeliveryDate.CompareTo(DateTime.Now) < 0 && order.DeliveryDate.CompareTo(DateTime.MinValue) != 0)
                 throw new BO.OrderAlreadyDelivered();
+            order.DeliveryDate = DateTime.Now;
             BO.Order BoOrder = new()
             {
                 ID = orderID,
@@ -287,8 +288,23 @@ internal class BlOrder : BlApi.IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int? OrderSelection()
     {
-        IEnumerable<DO.Order>? orders = Dal?.Order.GetAll().Where(item => item.OrderDate != DateTime.MinValue)
-            .OrderBy(item => item.ShipDate != DateTime.MinValue ? item.ShipDate : item.DeliveryDate);
-        return orders?.First().ID;
+        //IEnumerable<DO.Order>? orders = Dal?.Order.GetAll().Where(item => item.OrderDate != DateTime.MinValue)
+        //    .OrderBy(item => item.DeliveryDate == DateTime.MinValue ? item.ShipDate : item.DeliveryDate);
+        //return orders?.First().ID;
+        IEnumerable<DO.Order>? orders = Dal?.Order.GetAll().Where(item => item.DeliveryDate == DateTime.MinValue)
+          .OrderBy(item => item.ShipDate != DateTime.MinValue ? item.ShipDate : item.OrderDate);
+        try
+        {
+            return orders?.First().ID;
+        }
+
+        catch (Exception ex)
+        {
+            return null;
+        };
     }
+
+
+    
+
 }

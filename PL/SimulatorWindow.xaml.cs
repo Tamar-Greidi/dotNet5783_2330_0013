@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -17,59 +19,95 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Simulator.xaml
+    /// Interaction logic for SimulatorWindow.xaml
     /// </summary>
     public partial class SimulatorWindow : Window
     {
-        private Stopwatch stopWatc;
+        IBl bl = Factory.Get();
+        BackgroundWorker worker;
+        BackgroundWorker timerWorker;
+        private Stopwatch stopWatch;
         private bool isTimerRun;
-        private Thread timerThread;
+        bool isRunning = true;
         public SimulatorWindow()
         {
             InitializeComponent();
-            stopWatc = new Stopwatch();
-        }
-
-        private void startTimerButton_Click(object sender, RoutedEventArgs e)
-        {
+            stopWatch = new Stopwatch();
+            timerWorker = new BackgroundWorker();
+            timerWorker.DoWork += TimerWorker_DoWork;
+            timerWorker.ProgressChanged += TimerWorker_TimerProgressChanged;
+            timerWorker.WorkerReportsProgress = true;
+            worker = new BackgroundWorker();
+            worker.DoWork += worker_DoWork;
+            worker.WorkerReportsProgress = true;
+            worker.RunWorkerAsync();
             if (!isTimerRun)
             {
-                stopWatc.Restart();
+                stopWatch.Restart();
                 isTimerRun = true;
-
-                timerThread = new Thread(runTimer);
-                timerThread.Start();
+                timerWorker.RunWorkerAsync();
             }
         }
+
         private void stopTimerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (isTimerRun)
-            {
-                stopWatc.Stop();
-                isTimerRun = false;
-            }
+            Simulator.Simulator.Stop();
+            isRunning = false;
         }
 
-        void setTexInvok(string text)
+        private void worker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            if (!CheckAccess())
-            {
-                Action<string> d = setTexInvok;
-                Dispatcher.BeginInvoke(d, new object[] { text });
-            }
-            else
-                this.timerTextBlock.Text = text;
+            Simulator.Simulator.Start();
+            Simulator.Simulator.statusChanged += StartWork;
+            Simulator.Simulator.stopSimulator += FinishWork;
+            if (!Dispatcher.Thread.IsAlive)
+                e.Cancel = false;
         }
-        private void runTimer()
+
+        private void TimerWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
             while (isTimerRun)
             {
-                string timerText = stopWatc.Elapsed.ToString();
-                timerText = timerText.Substring(0, 8);
-
-                setTexInvok(timerText);
+                timerWorker.ReportProgress(1);
                 Thread.Sleep(1000);
             }
+        }
+
+        private void TimerWorker_TimerProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            string timer = stopWatch.Elapsed.ToString();
+            timer = timer.Substring(0, 8);
+            this.txtTimer.Text = timer;
+        }
+
+        public void StartWork(BO.Order order, string status, DateTime start, DateTime end, int time)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                txtOrder.Text = Convert.ToString(order.ID);
+                txtStatus.Text = Convert.ToString(order.Status);
+                txtNewStatus.Text = status;
+                txtTime.Text = Convert.ToString(time) + " sec";
+                txtStart.Text = Convert.ToString(start);
+                txtEnd.Text = Convert.ToString(end);
+            });
+        }
+        public void FinishWork(DateTime end, string reason = "")
+        {
+            Dispatcher.Invoke(() =>
+            {
+                isTimerRun = false;
+                if (reason != "")
+                {
+                    MessageBox.Show("stop process because: " + end.ToString() + " " + reason);
+                    isRunning = false;
+                }
+
+            });
+        }
+        private void CloseWindow(object sender, CancelEventArgs e)
+        {
+            e.Cancel = isRunning;
         }
     }
 }

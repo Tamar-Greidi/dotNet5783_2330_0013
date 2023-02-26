@@ -13,10 +13,16 @@ internal class Order : IOrder
     {
         XDocument doc = XDocument.Load(@"../Order.xml");
         XElement root = new XElement("Order");
-        XElement? config = XDocument.Load(@"../Config.xml").Root;
-        int ID = Convert.ToInt32(config.Element("Order")?.Value) + 1;
-        config?.Save(@"../Config.xml");
-        root.Add(new XElement("ID", ID.ToString()));
+        if (order.ID == 0)
+        {
+            XElement? config = XDocument.Load(@"../Config.xml").Root;
+            int ID = Convert.ToInt32(config?.Element("Order")?.Value) + 1;
+            config.Element("Order").Value = ID.ToString();
+            config?.Save(@"../Config.xml");
+            root.Add(new XElement("ID", ID.ToString()));
+        }
+        else 
+            root.Add(new XElement("ID", order.ID));
         root.Add(new XElement("CustomerName", order.CustomerName));
         root.Add(new XElement("CustomerEmail", order.CustomerEmail));
         root.Add(new XElement("CustomerAddress", order.CustomerAddress));
@@ -116,12 +122,16 @@ internal class Order : IOrder
 
     public int Update(DO.Order order)
     {
-        XDocument doc = XDocument.Load(@"../Order.xml");
-        var xmlOrders = doc.Descendants("Order");
-        XElement? xElement = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == order.ID);
-        xElement?.SetValue(order);
-        doc.Save(@"..\xml\Order.xml");
-        return Convert.ToInt32(xElement?.Element("ID")?.Value);
+        Delete(order.ID);
+        return Add(order);
+
+
+        //XDocument doc = XDocument.Load(@"../Order.xml");
+        //var xmlOrders = doc.Descendants("Order");
+        //XElement? xElement = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == order.ID);
+        //xElement?.SetValue(order);
+        //doc.Save(@"..\xml\Order.xml");
+        //return Convert.ToInt32(xElement?.Element("ID")?.Value);
     }
 
     public void Delete(int orderID)
@@ -129,6 +139,7 @@ internal class Order : IOrder
         XDocument doc = XDocument.Load(@"../Order.xml");
         var xmlOrders = doc.Descendants("Order");
         xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == orderID)?.Remove();
-        doc.Save(@"..\xml\Order.xml");
+        //doc.Element("Orders")?.ReplaceAll(xmlOrders);
+        doc.Save(@"../Order.xml");
     }
 }
