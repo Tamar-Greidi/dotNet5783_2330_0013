@@ -50,7 +50,7 @@ public static class Simulator
             }
             else
             {
-                UpdateOrder = bl.Order.UpdateDelivery(Convert.ToInt32(orderID));
+                UpdateOrder = bl.Order.UpdateDelivery(orderID.Value);
                 status = "Shipped";
             }
             DateTime end = DateTime.Now;

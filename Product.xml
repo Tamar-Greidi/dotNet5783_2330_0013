@@ -1,1 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>1002</ID><Name>pop</Name><Price>55</Price><Category>camputers</Category><InStock>60</InStock></Product><Product><ID>1001</ID><Name>nnom</Name><Price>34</Price><Category>cameras</Category><InStock>145</InStock></Product></ArrayOfProduct>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Product>
+    <ID>1002</ID>
+    <Name>pop</Name>
+    <Price>55</Price>
+    <Category>camputers</Category>
+    <InStock>60</InStock>
+  </Product>
+  <Product>
+    <ID>1001</ID>
+    <Name>nnom</Name>
+    <Price>34</Price>
+    <Category>cameras</Category>
+    <InStock>145</InStock>
+  </Product>
+  <Product>
+    <ID>1003</ID>
+    <Name>c2</Name>
+    <Price>3200</Price>
+    <Category>camputers</Category>
+    <InStock>40</InStock>
+  </Product>
+  <Product>
+    <ID>1004</ID>
+    <Name>w1</Name>
+    <Price>300</Price>
+    <Category>watchs</Category>
+    <InStock>70</InStock>
+  </Product>
+  <Product>
+    <ID>1005</ID>
+    <Name>I45</Name>
+    <Price>790</Price>
+    <Category>ipads</Category>
+    <InStock>45</InStock>
+  </Product>
+</ArrayOfProduct>

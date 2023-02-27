@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulator", "Simulator\Simulator.csproj", "{F2EC58ED-A124-40D0-A37A-9C4417F12475}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{58FFC90C-F9B8-425F-972B-E8A882936E53}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{58FFC90C-F9B8-425F-972B-E8A882936E53}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Desktop\background.PNG = ..\..\..\Desktop\background.PNG
 	EndProjectSection

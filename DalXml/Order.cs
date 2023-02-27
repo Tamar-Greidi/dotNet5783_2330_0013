@@ -1,7 +1,6 @@
 ﻿using DalApi;
 using DO;
 using System;
-//using DO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -56,23 +55,6 @@ internal class Order : IOrder
 
     public DO.Order Get(Predicate<DO.Order> func)
     {
-        //XDocument doc = XDocument.Load(@"..\xml\Order.xml");
-        //var xmlOrders = doc.Descendants("Order");
-        //XElement? xOrder = xmlOrders.ToList()?.Find(func);
-        //if (Convert.ToInt32(xOrder?.Element("ID")?.Value) == 0)
-        //    throw new ObjectNotFound();
-        //DO.Order order = new DO.Order()
-        //{
-        //    ID = Convert.ToInt32(xOrder?.Element("ID")?.Value),
-        //    CustomerName = xOrder?.Element("CustomerName")?.Value,
-        //    CustomerEmail = xOrder?.Element("CustomerEmail")?.Value,
-        //    CustomerAddress = xOrder?.Element("CustomerAddress")?.Value,
-        //    OrderDate = Convert.ToDateTime(xOrder?.Element("OrderDate")?.Value),
-        //    ShipDate = Convert.ToDateTime(xOrder?.Element("ShipDate")?.Value),
-        //    DeliveryDate = Convert.ToDateTime(xOrder?.Element("DeliveryDate")?.Value),
-        //};
-        //return order;
-
         IEnumerable<DO.Order> orders = GetAll();
         return orders .ToList().Find(func);
     }
@@ -95,43 +77,12 @@ internal class Order : IOrder
             orders.Add(order);
         });
         return func == null ? orders : orders.Where(func);
-
-        //XDocument doc = XDocument.Load(@"..\xml\Order.xml");
-        //var xmlOrders = doc.Descendants("Order");
-        //List<DO.Order> orders = new List<DO.Order>();
-        //DO.Order order = new DO.Order();
-        //int ID;
-        //DateTime OrderDate, ShipDate, DeliveryDate;
-        //xmlOrders.ToList().ForEach(item =>
-        //{
-        //    int.TryParse(item.Element("ID")?.Value, out int ID);
-        //    order.ID = ID;
-        //    order.CustomerName = item.Element("CustomerName")?.Value;
-        //    order.CustomerEmail = item.Element("CustomerEmail")?.Value;
-        //    order.CustomerAddress = item.Element("CustomerAddress")?.Value;
-        //    DateTime.TryParse(item?.Element("OrderDate")?.Value, out DateTime OrderDate);
-        //    order.OrderDate = OrderDate;
-        //    DateTime.TryParse(item?.Element("ShipDate")?.Value, out DateTime ShipDate);
-        //    order.ShipDate = ShipDate;
-        //    DateTime.TryParse(item?.Element("DeliveryDate")?.Value, out DateTime DeliveryDate);
-        //    order.DeliveryDate = DeliveryDate;
-        //    orders.Add(order);
-        //});
-        //return func == null ? orders : orders.Where(func);
     }
 
     public int Update(DO.Order order)
     {
         Delete(order.ID);
         return Add(order);
-
-
-        //XDocument doc = XDocument.Load(@"../Order.xml");
-        //var xmlOrders = doc.Descendants("Order");
-        //XElement? xElement = xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == order.ID);
-        //xElement?.SetValue(order);
-        //doc.Save(@"..\xml\Order.xml");
-        //return Convert.ToInt32(xElement?.Element("ID")?.Value);
     }
 
     public void Delete(int orderID)
@@ -139,7 +90,6 @@ internal class Order : IOrder
         XDocument doc = XDocument.Load(@"../Order.xml");
         var xmlOrders = doc.Descendants("Order");
         xmlOrders.ToList().Find(item => Convert.ToInt32(item.Element("ID")?.Value) == orderID)?.Remove();
-        //doc.Element("Orders")?.ReplaceAll(xmlOrders);
         doc.Save(@"../Order.xml");
     }
 }

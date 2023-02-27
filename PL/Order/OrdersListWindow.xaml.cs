@@ -59,6 +59,8 @@ public partial class OrdersListWindow : Window
             OrderForList order = (BO.OrderForList)OrdersListview.SelectedItem;
             BO.Order selectedItem = bl.Order.GetDetails(order.ID);
             new OrdersWindow(selectedItem).ShowDialog();
+            List<OrderForList?> ordersList = bl.Order.Get().ToList();
+            DataContext = ordersList; 
         }
 
     }

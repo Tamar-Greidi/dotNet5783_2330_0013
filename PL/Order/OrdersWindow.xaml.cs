@@ -20,15 +20,6 @@ namespace PL
         public OrdersWindow(BO.Order selectedItem)
         {
             InitializeComponent();
-            //txtID.IsEnabled = false;
-            //txtCustomerName.IsEnabled = false;
-            //txtCustomerEmail.IsEnabled = false;
-            //txtCustomerAddress.IsEnabled = false;
-            //txtOrderDate.IsEnabled = false;
-            //txtStatus.IsEnabled = false;
-            //txtShipDate.IsEnabled = false;
-            //txtDeliveryDate.IsEnabled = false;
-            //txtTotalPrice.IsEnabled = false;
             if (selectedItem.ShipDate == DateTime.MinValue)
                 txtShipDate.Text = "No date";
             if (selectedItem.DeliveryDate == DateTime.MinValue)
@@ -48,10 +39,6 @@ namespace PL
             txtShipDate.IsEnabled = false;
             txtDeliveryDate.IsEnabled = false;
             txtTotalPrice.IsEnabled = false;
-            //if (selectedItem.ShipDate == DateTime.MinValue)
-            //    txtShipDate.Text = "No date";
-            //if (selectedItem.DeliveryDate == DateTime.MinValue)
-            //    txtDeliveryDate.Text = "No date";
             UpdateShipDate.Visibility = Visibility.Collapsed;
             UpdateDeliveryDate.Visibility = Visibility.Collapsed;
             DataContext = selectedItem;
@@ -69,7 +56,6 @@ namespace PL
             {
                 BO.Order updateOrder = bl.Order.UpdateShipping(Convert.ToInt32(txtID.Text));
                 txtShipDate.Text = updateOrder.ShipDate.ToShortDateString();
-
             }
             catch (OrderAlreadyShipped ex)
             {
@@ -87,7 +73,6 @@ namespace PL
             {
                 BO.Order updateOrder = bl.Order.UpdateDelivery(Convert.ToInt32(txtID.Text));
                 txtDeliveryDate.Text = updateOrder.DeliveryDate.ToShortDateString();
-
             }
             catch (OrderAlreadyShipped ex)
             {
